@@ -1,3 +1,5 @@
-import { Num } from './Num'
+import { DomSVG } from './clientSVG'
 
-export { Num }
+export { DomSVG }
+
+
