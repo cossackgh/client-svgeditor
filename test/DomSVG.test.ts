@@ -5,6 +5,6 @@ import { DomSVG } from '../src/index'
 }) */
 
 test('start', () => {
-  expect(new DomSVG().start()).toBe(true)
+  expect(new DomSVG('#svgmap',{}).start()).toBe(true)
 })
 
