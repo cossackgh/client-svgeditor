@@ -45,7 +45,7 @@ export  class DomSVG extends Base {
 
 
 start(){
-  console.log('Start Dom');
+  console.log('Start Dom push');
   console.log('Start Dom NODE' , this.node);
   console.log('Start Dom attributes = ' , this.attrs);
   return true;
