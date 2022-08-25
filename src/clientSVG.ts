@@ -48,6 +48,7 @@ start(){
   console.log('Start Dom');
   console.log('Start Dom NODE' , this.node);
   console.log('Start Dom attributes = ' , this.attrs);
+  return true;
 }
 
 
