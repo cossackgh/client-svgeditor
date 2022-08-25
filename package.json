@@ -7,7 +7,7 @@
   "umd:main": "dist/umd/index.js",
   "types": "dist/types/index.d.js",
   "scripts": {
-    "_postinstall": "husky install",
+    "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
     "postversion": "git push --follow-tags",
