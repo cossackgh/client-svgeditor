@@ -1,5 +1,5 @@
 {
-  "name": "@svgeditor/simple-client",
+  "name": "svgeditor-simple-client",
   "version": "0.0.2",
   "description": "",
   "main": "dist/cjs/index.js",
