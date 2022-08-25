@@ -1,6 +1,6 @@
 {
-  "name": "example-typescript-package",
-  "version": "0.2.2",
+  "name": "@svgeditor/simple-client",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -40,15 +40,15 @@
     "esm",
     "umd"
   ],
-  "author": "Tom Chen <tomchen.org@gmail.com>",
+  "author": "Dmitro Yagupov <cossack_box@yahoo.com>",
   "license": "MIT",
-  "homepage": "https://github.com/tomchen/example-typescript-package",
+  "homepage": "https://github.com/cossackgh/client-svgeditor",
   "repository": {
     "type": "git",
-    "url": "git@github.com:tomchen/example-typescript-package.git"
+    "url": "git@github.com:cossackgh/client-svgeditor.git"
   },
   "bugs": {
-    "url": "https://github.com/tomchen/example-typescript-package/issues"
+    "url": "https://github.com/cossackgh/client-svgeditor/issues"
   },
   "dependencies": {},
   "devDependencies": {
