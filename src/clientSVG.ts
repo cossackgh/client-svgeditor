@@ -25,17 +25,20 @@ export  class DomSVG2 extends Base {
     }
   }
 }
-export  class DomSVG extends Base {
+export  class ClientSVGEditor extends Base {
   node: any;
-  type: any;
   attrs: any;
 
   constructor (node:any, attrs:any) {
     super()
     this.node = node
-    this.type = node.nodeName
     this.attrs = attrs
     attrs.colorBG = attrs.colorBG
+    if (attrs.colorBG !== undefined) {
+      attrs.colorBG = attrs.colorBG;
+    }else{
+      attrs.colorBG = "#ffeeff"
+    }
     if (attrs.title !== undefined) {
       attrs.title = attrs.title;
     }else{

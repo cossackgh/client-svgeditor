@@ -1,5 +1,5 @@
-import { DomSVG } from './clientSVG'
+import { ClientSVGEditor } from './clientSVG'
 
-export { DomSVG }
+export { ClientSVGEditor }
 
 
