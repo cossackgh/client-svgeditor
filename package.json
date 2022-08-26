@@ -51,6 +51,7 @@
     "type": "git",
     "url": "git@github.com:cossackgh/client-svgeditor.git"
   },
+
   "bugs": {
     "url": "https://github.com/cossackgh/client-svgeditor/issues"
   },

@@ -56,7 +56,7 @@ export  class ClientSVGEditor extends Base {
 
   constructor (node:any,dataItems: DataInteractive[], options:DataOptions) {
     super()
-    this.node = document.querySelector(node)
+    this.node = node
     this.dataItems = dataItems
     console.log(this.options);
     console.log(options);
@@ -111,7 +111,10 @@ export  class ClientSVGEditor extends Base {
 
 
   }
-
+test(){
+  console.log('test');
+  return true;
+}
 
    start()  {
   console.log('Start Dom push version 0.0.2');

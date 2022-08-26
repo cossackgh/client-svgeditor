@@ -10,8 +10,9 @@ module.exports = {
       './config/fileTransformer.js',
   },
   globals: {
+    window: {},
     'ts-jest': {
-      tsconfig: 'tsconfig.json'
-    }
-  }
+      tsconfig: 'tsconfig.json',
+    },
+  },
 }

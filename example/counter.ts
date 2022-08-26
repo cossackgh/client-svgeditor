@@ -14,6 +14,7 @@ export function setupCounter(element: HTMLButtonElement) {
 }
 export function testmylib() {
   console.log('testmylib');
+  const nodeMap = document.getElementById('map')
   const dataShops: DataInteractive[] = [
     { id: '1', idmap:'item-0', title: 'Shop 1', slug: 'shop-1', description: 'Shop 1', image: 'https://via.placeholder.com/150', },
     { id: '2', idmap:'item-1', title: 'Shop 2', slug: 'shop-2', description: 'Shop 2', image: 'https://via.placeholder.com/150', },
@@ -21,8 +22,9 @@ export function testmylib() {
     { id: '4', idmap:'item-3', title: 'Shop 4', slug: 'shop-4', description: 'Shop 4', image: 'https://via.placeholder.com/150', },
     { id: '5', idmap:'item-4', title: 'Shop 5', slug: 'shop-5', description: 'Shop 5', image: 'https://via.placeholder.com/150', },
   ]
-  const dom = new ClientSVGEditor('#map', dataShops, {title:'Пример карты',colorBG:'#ffffff',urlmap:'./public/floor-1_1.svg'});
-  dom.start();
+  const dom = new ClientSVGEditor(nodeMap, dataShops, {title:'Пример карты',colorBG:'#ffffff',urlmap:'./public/floor-1_1.svg'});
+  const startMap =dom.start();
+  console.log(startMap);
  // dom.insertSVG('./public/floor-1_1.svg');
   console.log('New Client = ',dom);
 }
