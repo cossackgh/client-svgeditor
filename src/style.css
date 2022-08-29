@@ -1,10 +1,13 @@
 .baloon{
+  padding: 10px;
   min-width: 10vw;
-  min-height: 100px;
+  max-width: 20vw;
+  min-height: 80px;
 }
-.baloon-text{
+.baloon-title{
   font-size: 1.2em;
   line-height: 1.2;
+font-weight: 600;
   margin-bottom: 1em;
 }
 .baloon-content{

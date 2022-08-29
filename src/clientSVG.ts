@@ -10,9 +10,9 @@ import Base from './base';
 
 export  class ClientSVGEditor extends Base {
   node: any;
-  
+
   dataItems: DataInteractive[] = [];
- 
+
   options: DataOptions = {
     title:'Sample Map',
     urlmap:'',
@@ -25,7 +25,7 @@ export  class ClientSVGEditor extends Base {
                 colorSelectItem: '#0000ff',
                 opacityItem: 0.4,
                 opacityHoverItem: 1,
-                opacitySelectItem: 1,                
+                opacitySelectItem: 1,
                 colorBorderItem: '#000000',
                 colorBorderHoverItem: '#ffffff',
                 colorBorderSelectItem: '#ffffff',
@@ -36,10 +36,10 @@ export  class ClientSVGEditor extends Base {
                 widthBorderHoverItem: 2,
                 widthBorderSelectItem: 2,
     },
-       
+
 
   };
-  
+
     baloonTheme: BaloonTheme = {
       colorBG: '#ffffff',
       colorTitle: '#ff0000',
@@ -47,7 +47,7 @@ export  class ClientSVGEditor extends Base {
       isPositionFixed: true,
       top: 10,
       left: 20
-  
+
   };
 
   nodeBallon: Baloon | null;
@@ -135,7 +135,7 @@ test(){
     console.log('Start Dom urlmap = ' , this.options.urlmap);
     console.log('Start Dom urlmap = ' , this.node);
     this.insertSVG(this.options.urlmap!);
-    
+
   }
   return true;
 }
@@ -145,7 +145,7 @@ async insertSVG(itemSVG:string){
   console.log('insertSVG Dom NODE' , this.node);
   console.log('itemSVG' , itemSVG);
   const getSVGData = await loadSVGFile(itemSVG);
-  
+
   this.node.innerHTML =  getSVGData;
   if(this.options.isRemoveUnuseItem){
   this.syncDataItemsVsInteractiveLayer();
@@ -156,7 +156,7 @@ this.clearInteractiveLayer();
 
 //create object optionsBaloon type BaloonOptions
 const optionsBaloon: BaloonOptions = {
-  title: '',  
+  title: '',
   description: '',
   image: '',
   baloonTheme: this.baloonTheme
@@ -170,12 +170,12 @@ console.log('getBaloon',this.nodeBallon);
 
 syncDataItemsVsInteractiveLayer(){
   const getInteractiveItems =[... this.node.querySelector(`${this.options.interactiveLayer}`).children];
-  
+
   getInteractiveItems.forEach(item => {
 //console.log('syncDataItemsVsInteractiveLayer item = ' , item.idmap);
     const isItemUse = this.dataItems.find((itemObjects) =>itemObjects.idmap === item.id)
     //const isItemUse = getInteractiveItems.find((itemObjects) =>itemObjects.id === item.idmap)
-    
+
     console.log('syncDataItemsVsInteractiveLayer isItemUse = ' , isItemUse);
     if(isItemUse === undefined){
       console.log('syncDataItemsVsInteractiveLayer item = ' , item.id);
@@ -201,6 +201,12 @@ initInteractiveLayer(){
 interactiveLayer.addEventListener('mouseover', (e:any) => {
   console.log('mouseover', e.target.tagName);
 this.onHover(e.target);
+} );
+interactiveLayer.addEventListener('mousemove', (e:any) => {
+//  console.log('mousemove', e.target);
+ // handleMousemove(e,this.nodeBallon);
+  throttle(handleMousemove(e,this.nodeBallon), 1200)
+
 } );
 interactiveLayer.addEventListener('mouseout', (e:any) => {
  // console.log('mouseout', e.target);
@@ -244,15 +250,15 @@ clearInteractiveLayer(){
   const interactiveLayer = [...this.node.querySelector(this.options.interactiveLayer).children];
   console.log('clearInteractiveLayer = ', interactiveLayer);
   interactiveLayer.forEach((element: { style: {
-    opacity: number | undefined; fill: string | undefined; stroke: string | undefined; strokeWidth: number | undefined; 
+    opacity: number | undefined; fill: string | undefined; stroke: string | undefined; strokeWidth: number | undefined;
 }; }) => {
     element.style.fill = this.options.mapTheme!.colorItem;
     element.style.stroke = this.options.mapTheme!.colorBorderItem;
     element.style.strokeWidth = this.options.mapTheme!.widthBorderItem;
     element.style.opacity = this.options.mapTheme!.opacityItem;
   } );
-    
-  
+
+
 }
 
   // Add given element at a position
@@ -313,7 +319,7 @@ export  class Baloon extends Base {
   }
 
   delete(){
-   
+
     this.baloonDom?.remove()
   }
 
@@ -323,7 +329,7 @@ hide(){
 }
 
   render () {
-    
+
     this.baloonDom!.innerHTML =`
       <div class="baloon" style="background-color: ${this.themeBaloonOptions.colorBG}">
         <div class="baloon-title" style="color:${this.themeBaloonOptions.colorTitle}">${this.options.title}</div>
@@ -338,13 +344,13 @@ hide(){
 
 const createBaloon = (options:BaloonOptions) => {
   console.log('createBaloon options = ',options);
-  
+
 
   let baloon = new Baloon(options);
   console.log('createBaloon document IF baloon.baloonDom = ', baloon.baloonDom);
 if(baloon.baloonDom !== null){
 
-  
+
   baloon.delete();
   baloon.render();
 }
@@ -354,7 +360,7 @@ else{
   baloonDom.id = 'BaloonItem';
   baloonDom.style.position = 'fixed';
   baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.top+'px': '0px';
-  baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.left+'px': '0px';  
+  baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.left+'px': '0px';
   baloonDom.style.display = 'block';
 
 
@@ -366,3 +372,25 @@ else{
 console.log('createBaloon document = ', baloon.baloonDom);
   return baloon;
 }
+
+let handleMousemove = (event: { x: any; y: any; }, baloon: any) => {
+  console.log(`cursor ev =`, event);
+  console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);
+  console.log(`cursor : X=`, baloon,` \n`);
+  baloon.baloonDom!.style.transform = `translate(${event.x-100}px, ${event.y-150}px)`;
+
+};
+
+const throttle = (func: any, wait: number) => {
+  let timeout: any;
+  return function executedFunction(this: any, ...args: any) {
+    const context = this;
+    const later = () => {
+      timeout = null;
+      func.apply(context, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
