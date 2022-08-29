@@ -1,0 +1,14 @@
+.baloon{
+  min-width: 10vw;
+  min-height: 100px;
+}
+.baloon-text{
+  font-size: 1.2em;
+  line-height: 1.2;
+  margin-bottom: 1em;
+}
+.baloon-content{
+  font-size: 1.0em;
+  line-height: 1.1;
+  margin-bottom: 1em;
+}
