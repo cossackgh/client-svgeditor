@@ -5,6 +5,6 @@ import { ClientSVGEditor } from '../src/index'
 }) */
 
 test('start', () => {
-  expect(new ClientSVGEditor('#svgmap',[],{}).test()).toBe(true)
+  expect(new ClientSVGEditor('#svgmap',[],{},{}).test()).toBe(true)
 })
 
