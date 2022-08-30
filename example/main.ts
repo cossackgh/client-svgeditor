@@ -1,5 +1,5 @@
 import './style.css'
-import { setupCounter,testmylib } from './counter'
+import { setupCounter,testmylib } from './clientsvg'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>

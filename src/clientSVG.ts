@@ -137,6 +137,7 @@ test(){
     this.insertSVG(this.options.urlmap!);
 
   }
+  this.node.style.backgroundColor = this.options.mapTheme!.colorBG;
   return true;
 }
 async insertSVG(itemSVG:string){
@@ -201,8 +202,8 @@ initInteractiveLayer(){
   console.log('initInteractiveLayer = ', [...interactiveLayer.children]);
   interactiveLayer.addEventListener('mousemove', (e:any) => {
     //  console.log('mousemove', e.target);
-     // handleMousemove(e,this.nodeBallon);
-      throttle(handleMousemove(e,this.nodeBallon), 1200)
+      handleMousemove(e,this.nodeBallon);
+    //  throttle(handleMousemove(e,this.nodeBallon), 11200)
 
     } );
 
@@ -435,42 +436,28 @@ if(baloon.baloonDom !== null){
 }
 else{
   if(baloon.themeBaloonOptions.isPositionFixed){
-
     const baloonDom = document.createElement('div');
   baloonDom.style.position = 'fixed';
-
   baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.top+'px': '0px';
   baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.left+'px': '0px';
 
    baloonDom.id = 'BaloonItem';
-
   baloonDom.style.display = 'block';
-
-
   document.body.appendChild(baloonDom);
   }
   else{
     const baloonDom = document.createElement('div');
   baloonDom.style.position = 'fixed';
-
   baloonDom.style.top = '0px';
   baloonDom.style.left =  '0px';
-
    baloonDom.id = 'BaloonItem';
-
   baloonDom.style.display = 'block';
-
-
   document.body.appendChild(baloonDom);
   }
 
-
   baloon.baloonDom = document.querySelector('#BaloonItem');
   baloon.render();
-
-
-
-
+  baloon.hide();
 }
 console.log('createBaloon document = ', baloon.baloonDom);
   return baloon;
@@ -487,6 +474,7 @@ let handleMousemove = (event: { x: any; y: any; }, baloon: any) => {
 };
 
 const throttle = (func: any, wait: number) => {
+//  console.log(`wait =`, wait);
   let timeout: any;
   return function executedFunction(this: any, ...args: any) {
     const context = this;
