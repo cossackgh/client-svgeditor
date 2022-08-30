@@ -4,8 +4,13 @@
 
 /**
  * @description
- * Класс для отображения карты на клиенте
- * 
+ * Interface for simple model Items  @DataInteractive
+ * @id {string} ID of the item
+ * @idmap {string} Id item on the map
+ * @title {string} Title of the item
+ * @slug {string;} Slug of the item
+ * @description {string} Description of the item
+ * @image {string}  Image url of the item
  */
 export interface DataInteractive {
   id?: string;
@@ -18,7 +23,8 @@ export interface DataInteractive {
 }
 
 /**
- * @description DataOptions Интерфейс для отображения карты на клиенте
+ * @description 
+ * This is the description of the interface @DataOptions 
  * @title {string} Заголовок 
  * @colorBG {string} Цвет фона карты
  * @urlmap {string} Путь к файлу карты
@@ -42,6 +48,7 @@ export interface DataOptions {
 
 
 /**
+ * @description
  * This is the description of the interface @BaloonOptions 
  * @title {string} title - This is the title of the interface
  * @description {string} description - This is the description of the interface
@@ -57,6 +64,7 @@ export interface BaloonOptions {
 
 
 /**
+ * @description
  * This is the description of the interface @BaloonTheme 
  * @colorBG {string} colorBG - This is the colorBG of the Baloon
  * @colorTitle {string} colorTitle - This is the colorTitle of the Baloon
@@ -74,6 +82,28 @@ export interface BaloonTheme {
   left?:number;
 
 }
+
+/**
+ * @description
+ * This is the description of the interface @MapTheme
+ * @colorBG {string} colorBG - This is the colorBG of the Map
+ * @colorItem {string} colorItem - This is the colorItem of the Map
+ * @colorHoverItem {string} colorHoverItem - This is the colorHoverItem of the Map
+ * @colorSelectItem {string} colorSelectItem - This is the colorSelectItem of the Map
+ * @opacityItem {number} opacityItem - This is the opacityItem of the Map
+ * @opacityHoverItem {number} opacityHoverItem - This is the opacityHoverItem of the Map
+ * @opacitySelectItem {number} opacitySelectItem - This is the opacitySelectItem of the Map
+ * @colorBorderItem {string} colorBorderItem - This is the colorBorderItem of the Map
+ * @colorBorderHoverItem {string} colorBorderHoverItem - This is the colorBorderHoverItem of the Map
+ * @colorBorderSelectItem {string} colorBorderSelectItem - This is the colorBorderSelectItem of the Map
+ * @isBorderItem {boolean} isBorderItem - This is the use of the borderItem of the Map
+ * @isBorderHoverItem {boolean} isBorderHoverItem - This is the use of the borderHoverItem of the Map
+ * @isBorderSelectItem {boolean} isBorderSelectItem - This is the use of the borderSelectItem of the Map
+ * @widthBorderItem {number} widthBorderItem - This is the widthBorderItem of the Map
+ * @widthBorderHoverItem {number} widthBorderHoverItem - This is the widthBorderHoverItem of the Map
+ * @widthBorderSelectItem {number} widthBorderSelectItem - This is the widthBorderSelectItem of the Map
+ * 
+ */
 export interface MapTheme {
   colorBG?: string,
   colorItem?: string,

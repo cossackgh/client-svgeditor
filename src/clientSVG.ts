@@ -19,7 +19,7 @@ export  class ClientSVGEditor extends Base {
     interactiveLayer:'#interactive',
     isRemoveUnuseItem:false,
     mapTheme:{
-      colorBG: '#ffffff',
+                colorBG: '#ffffff',
                 colorItem: '#ff0000',
                 colorHoverItem: '#34f05a',
                 colorSelectItem: '#0000ff',
@@ -198,49 +198,123 @@ deleteItem(id:string){
 initInteractiveLayer(){
   const interactiveLayer = this.node.querySelector(this.options.interactiveLayer);
   console.log('initInteractiveLayer = ', interactiveLayer);
-interactiveLayer.addEventListener('mouseover', (e:any) => {
-  console.log('mouseover', e.target.tagName);
-this.onHover(e.target);
-} );
-interactiveLayer.addEventListener('mousemove', (e:any) => {
-//  console.log('mousemove', e.target);
- // handleMousemove(e,this.nodeBallon);
-  throttle(handleMousemove(e,this.nodeBallon), 1200)
+  console.log('initInteractiveLayer = ', [...interactiveLayer.children]);
+  interactiveLayer.addEventListener('mousemove', (e:any) => {
+    //  console.log('mousemove', e.target);
+     // handleMousemove(e,this.nodeBallon);
+      throttle(handleMousemove(e,this.nodeBallon), 1200)
 
-} );
-interactiveLayer.addEventListener('mouseout', (e:any) => {
- // console.log('mouseout', e.target);
- if(e.target.tagName !== 'g'){
-  e.target.style.fill = this.options.mapTheme!.colorItem;
-  e.target.style.stroke = this.options.mapTheme!.colorBorderItem;
-  e.target.style.strokeWidth = this.options.mapTheme!.widthBorderItem;
-  e.target.style.opacity = this.options.mapTheme!.opacityItem;}
-  this.nodeBallon!.hide();
-} );
-interactiveLayer.addEventListener('click', (e:any) => {
-  console.log('click', e.target.id);
-  if(e.target.tagName !== 'g'){
-  e.target.style.fill = this.options.mapTheme!.colorSelectItem;
-  e.target.style.stroke = this.options.mapTheme!.colorBorderSelectItem;
-  e.target.style.strokeWidth = this.options.mapTheme!.widthBorderSelectItem;
-  e.target.style.opacity = this.options.mapTheme!.opacitySelectItem;
+    } );
+
+
+[...interactiveLayer.children].forEach((item: {
+  tagName: string; addEventListener: (arg0: string, arg1: { (event: any): void; (event: { target: { tagName: string; }; }): void; (event: any): void; }) => void;
+})  => {
+
+     if(item.tagName !== 'g'){
+  item.addEventListener('mouseover', (event) => {
+      this.onHover(event.target);
+  } );
+
+
+  item.addEventListener('mouseout', (event: { target: { tagName: string; }; }) => {
+    if(event.target.tagName !== 'g'){
+        this.clearInteractiveLayer();      }
+        this.nodeBallon!.hide();
+  } );
+
+  item.addEventListener('click', (event: any) => {
+    console.log('click', event.target.id);
+    if(event.target.tagName !== 'g'){
+    event.target.style.fill = this.options.mapTheme!.colorSelectItem;
+    event.target.style.stroke = this.options.mapTheme!.colorBorderSelectItem;
+    event.target.style.strokeWidth = this.options.mapTheme!.widthBorderSelectItem;
+    event.target.style.opacity = this.options.mapTheme!.opacitySelectItem;
+    }
   }
+  );
+}
+
+else{
+
+  item.addEventListener('mouseover', (event) => {
+
+    console.log(item)
+    this.onHoverGroup(item);
 } );
+
+
+item.addEventListener('mouseout', (event: { target: { tagName: string; }; }) => {
+  if(event.target.tagName !== 'g'){
+      this.clearInteractiveLayer();      }
+      this.nodeBallon!.hide();
+} );
+}
+}
+);
+
+
+
+
 }
 
 onHover(ev:any){
   console.log('onhover event', ev);
   console.log('mouseover ID', ev.id);
+  console.log('mouseover tagName', ev.tagName);
   const getDataItem = this.dataItems.find(item => item.idmap === ev.id);
   console.log('getDataItem', getDataItem);
-  if(ev.tagName !== 'g'){
+
   ev.style.fill = this.options.mapTheme!.colorHoverItem;
-  ev.style.stroke = this.options.mapTheme!.colorBorderHoverItem;
-  ev.style.strokeWidth = this.options.mapTheme!.widthBorderHoverItem;
+  if(this.options.mapTheme!.isBorderItem){
+    ev.style.stroke = this.options.mapTheme!.colorBorderItem;
+    ev.style.strokeWidth = this.options.mapTheme!.widthBorderItem;
+
+  }
+
   ev.style.opacity = this.options.mapTheme!.opacityHoverItem;
-}
+
+
+console.log('this.nodeBallon!.options.title', this.nodeBallon!.options.title);
+  if(getDataItem !== undefined){
 this.nodeBallon!.options.title = getDataItem?.title;
+if(getDataItem?.description !== undefined ){
 this.nodeBallon!.options.description = getDataItem?.description;
+}
+
+  }
+  else{
+    this.nodeBallon!.options.title = 'Info not found';
+    this.nodeBallon!.options.description = 'Info not found';
+  }
+
+
+
+this.nodeBallon!.render();
+
+}
+onHoverGroup(ev:any){
+  console.log('onhover event', ev);
+  console.log('mouseover ID', ev.id);
+  console.log('mouseover tagName', ev.tagName);
+  console.log('mouseover this.dataItems', this.dataItems);
+  const getDataItem = this.dataItems.find(item => item.idmap === ev.id);
+  console.log('getDataItem', getDataItem);
+
+console.log('this.nodeBallon!.options.title', this.nodeBallon!.options.title);
+  if(getDataItem !== undefined){
+    this.nodeBallon!.options.title = getDataItem?.title;
+  if(getDataItem?.description !== undefined ){
+    this.nodeBallon!.options.description = getDataItem?.description;
+}
+
+  }
+  else{
+    this.nodeBallon!.options.title = 'Info not found';
+    this.nodeBallon!.options.description = 'Info not found';
+  }
+
+
 
 this.nodeBallon!.render();
 
@@ -249,13 +323,18 @@ this.nodeBallon!.render();
 clearInteractiveLayer(){
   const interactiveLayer = [...this.node.querySelector(this.options.interactiveLayer).children];
   console.log('clearInteractiveLayer = ', interactiveLayer);
-  interactiveLayer.forEach((element: { style: {
+  interactiveLayer.forEach((element: {
+    tagName: string; style: {
     opacity: number | undefined; fill: string | undefined; stroke: string | undefined; strokeWidth: number | undefined;
 }; }) => {
     element.style.fill = this.options.mapTheme!.colorItem;
-    element.style.stroke = this.options.mapTheme!.colorBorderItem;
-    element.style.strokeWidth = this.options.mapTheme!.widthBorderItem;
+    if(this.options.mapTheme!.isBorderItem){
+      element.style.stroke = this.options.mapTheme!.colorBorderItem;
+      element.style.strokeWidth = this.options.mapTheme!.widthBorderItem;
+    }
+    if(element.tagName !== 'g'){
     element.style.opacity = this.options.mapTheme!.opacityItem;
+    }
   } );
 
 
@@ -312,7 +391,7 @@ export  class Baloon extends Base {
     this.baloonDom = document.querySelector('#BaloonItem')
     //this.themeOptions.colorBG = options.colorBG
     if (options.title !== undefined) {
-      options.title = options.title;
+      options.title = 'Informations is not available';
     }else{
       options.title = "TITLE"
     }
@@ -333,7 +412,7 @@ hide(){
     this.baloonDom!.innerHTML =`
       <div class="baloon" style="background-color: ${this.themeBaloonOptions.colorBG}">
         <div class="baloon-title" style="color:${this.themeBaloonOptions.colorTitle}">${this.options.title}</div>
-        <div class="baloon-content" style="color:${this.themeBaloonOptions.colorDescription}">${this.options.description}</div>
+        <div class="baloon-content" style="color:${this.themeBaloonOptions.colorDescription}; display: ${this.options.description!==''?'block':'none'}">${this.options.description}</div>
       </div>
     `;
     this.baloonDom!.style.display = 'block';
@@ -355,18 +434,42 @@ if(baloon.baloonDom !== null){
   baloon.render();
 }
 else{
+  if(baloon.themeBaloonOptions.isPositionFixed){
 
-  const baloonDom = document.createElement('div');
-  baloonDom.id = 'BaloonItem';
+    const baloonDom = document.createElement('div');
   baloonDom.style.position = 'fixed';
+
   baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.top+'px': '0px';
   baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed? baloon.themeBaloonOptions.left+'px': '0px';
+
+   baloonDom.id = 'BaloonItem';
+
   baloonDom.style.display = 'block';
 
 
   document.body.appendChild(baloonDom);
+  }
+  else{
+    const baloonDom = document.createElement('div');
+  baloonDom.style.position = 'fixed';
+
+  baloonDom.style.top = '0px';
+  baloonDom.style.left =  '0px';
+
+   baloonDom.id = 'BaloonItem';
+
+  baloonDom.style.display = 'block';
+
+
+  document.body.appendChild(baloonDom);
+  }
+
+
   baloon.baloonDom = document.querySelector('#BaloonItem');
   baloon.render();
+
+
+
 
 }
 console.log('createBaloon document = ', baloon.baloonDom);
@@ -374,10 +477,12 @@ console.log('createBaloon document = ', baloon.baloonDom);
 }
 
 let handleMousemove = (event: { x: any; y: any; }, baloon: any) => {
-  console.log(`cursor ev =`, event);
+/*   console.log(`cursor ev =`, event);
   console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);
-  console.log(`cursor : X=`, baloon,` \n`);
-  baloon.baloonDom!.style.transform = `translate(${event.x-100}px, ${event.y-150}px)`;
+  console.log(`cursor : X=`, baloon,` \n`); */
+  if(!baloon.themeBaloonOptions.isPositionFixed){
+  baloon.baloonDom!.style.transform = `translate(${event.x-100}px, ${event.y-120}px)`;
+  }
 
 };
 
