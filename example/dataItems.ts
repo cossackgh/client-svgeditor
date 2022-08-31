@@ -396,77 +396,268 @@ const dataShops2: DataInteractive[] = [
 ]
 const dataShops: DataInteractive[] = [
   {
-    id: '1',
-    idmap: 'item-0',
-    title: 'Shop 1',
-    slug: 'shop-1',
-    description: 'Description Shop 1',
-    image: 'https://via.placeholder.com/150',
+      "id": "0",
+      "idmap": "item-0",
+      "title": "Cronin, Bayer and Halvorson",
+      "slug": "http://brief-function.tech",
+      "description": "Optimized 3rd generation paradigm",
+      "image": "https://loremflickr.com/128/128/abstract?48284"
   },
   {
-    id: '2',
-    idmap: 'item-1',
-    title: 'Shop 2',
-    slug: 'shop-2',
-    description: 'Description Shop 2',
-    image: 'https://via.placeholder.com/150',
+      "id": "1",
+      "idmap": "item-1",
+      "title": "Bauch, Gutmann and Beahan",
+      "slug": "http://odd-tomography.net",
+      "description": "Team-oriented neutral groupware",
+      "image": "https://loremflickr.com/128/128/abstract?28712"
   },
   {
-    id: '3',
-    idmap: 'item-2',
-    title: 'Shop 3',
-    slug: 'shop-3',
-    description: 'Description Shop 3',
-    image: 'https://via.placeholder.com/150',
+      "id": "2",
+      "idmap": "item-2",
+      "title": "Friesen, Barton and Thompson",
+      "slug": "https://sweltering-iris.москва",
+      "description": "Monitored grid-enabled budgetary management",
+      "image": "https://loremflickr.com/128/128/abstract?91223"
   },
   {
-    id: '4',
-    idmap: 'item-3',
-    title: 'Shop 4',
-    slug: 'shop-4',
-    description: 'Description Shop 4',
-    image: 'https://via.placeholder.com/150',
+      "id": "3",
+      "idmap": "item-3",
+      "title": "Swaniawski - Yundt",
+      "slug": "http://whimsical-boogeyman.tech",
+      "description": "Polarised 4th generation circuit",
+      "image": "https://loremflickr.com/128/128/abstract?16676"
   },
   {
-    id: '5',
-    idmap: 'item-4',
-    title: 'Shop 5',
-    slug: 'shop-5',
-    description:
-      'Example description about Shop . This shop is shoes stoe top level brends',
-    image: 'https://via.placeholder.com/150',
+      "id": "4",
+      "idmap": "item-4",
+      "title": "Daniel Пром",
+      "slug": "http://urban-warfare.online",
+      "description": "Ergonomic motivating circuit",
+      "image": "https://loremflickr.com/128/128/abstract?76011"
   },
   {
-    id: '6',
-    idmap: 'item-532',
-    title: 'Shop 532',
-    slug: 'shop-532',
-    description: 'Description Shop 532',
-    image: 'https://via.placeholder.com/150',
+      "id": "5",
+      "idmap": "item-5",
+      "title": "Jacobi, Barrows and Macejkovic",
+      "slug": "http://constant-warlock.biz",
+      "description": "Seamless composite pricing structure",
+      "image": "https://loremflickr.com/128/128/abstract?30033"
   },
   {
-    id: '7',
-    idmap: 'item-6',
-    title: 'Shop 6',
-    slug: 'shop-6',
-    description: 'Description Shop 6',
-    image: 'https://via.placeholder.com/150',
+      "id": "6",
+      "idmap": "item-6",
+      "title": "Gleason - Kuhic",
+      "slug": "http://female-kimono.biz",
+      "description": "Integrated context-sensitive core",
+      "image": "https://loremflickr.com/128/128/abstract?60450"
   },
   {
-    id: '8',
-    idmap: 'item-7',
-    title: 'Shop 7',
-    slug: 'shop-7',
-    description: 'Description Shop 7',
-    image: 'https://via.placeholder.com/150',
+      "id": "7",
+      "idmap": "item-7",
+      "title": "Pollich Системс",
+      "slug": "https://irresponsible-bratwurst.ru",
+      "description": "Monitored mission-critical intranet",
+      "image": "https://loremflickr.com/128/128/abstract?94379"
   },
   {
-    id: '9',
-    idmap: 'item-8',
-    title: 'Shop 8',
-    slug: 'shop-8',
-    description: '',
-    image: 'https://via.placeholder.com/150',
+      "id": "8",
+      "idmap": "item-8",
+      "title": "Mayer, Dooley and Bayer",
+      "slug": "https://chilly-formicarium.net",
+      "description": "Robust upward-trending workforce",
+      "image": "https://loremflickr.com/128/128/abstract?73910"
   },
+  {
+      "id": "9",
+      "idmap": "item-9",
+      "title": "Kuphal - Olson",
+      "slug": "https://tall-mask.org",
+      "description": "Integrated well-modulated forecast",
+      "image": "https://loremflickr.com/128/128/abstract?68843"
+  },
+  {
+      "id": "10",
+      "idmap": "item-10",
+      "title": "Gaylord, Ebert and Maggio",
+      "slug": "http://half-speed.info",
+      "description": "Adaptive directional encoding",
+      "image": "https://loremflickr.com/128/128/abstract?60497"
+  },
+  {
+      "id": "11",
+      "idmap": "item-11",
+      "title": "Ondricka, Kertzmann and Flatley",
+      "slug": "http://physical-ranch.online",
+      "description": "Future-proofed incremental Graphical User Interface",
+      "image": "https://loremflickr.com/128/128/abstract?26781"
+  },
+  {
+      "id": "12",
+      "idmap": "item-12",
+      "title": "Parker Рус",
+      "slug": "http://crafty-pick.ru",
+      "description": "Secured zero tolerance software",
+      "image": "https://loremflickr.com/128/128/abstract?60272"
+  },
+  {
+      "id": "13",
+      "idmap": "item-13",
+      "title": "Auer - Douglas",
+      "slug": "http://agreeable-tortoise.host",
+      "description": "Mandatory solution-oriented capacity",
+      "image": "https://loremflickr.com/128/128/abstract?28911"
+  },
+  {
+      "id": "14",
+      "idmap": "item-14",
+      "title": "Price, Hackett and Funk",
+      "slug": "http://hasty-psychiatrist.space",
+      "description": "Adaptive high-level hub",
+      "image": "https://loremflickr.com/128/128/abstract?26373"
+  },
+  {
+      "id": "15",
+      "idmap": "item-15",
+      "title": "Rau, Barrows and Balistreri",
+      "slug": "http://ruddy-pursuit.pro",
+      "description": "Synergized asynchronous interface",
+      "image": "https://loremflickr.com/128/128/abstract?39357"
+  },
+  {
+      "id": "16",
+      "idmap": "item-16",
+      "title": "Eva - студия красоты",
+      "slug": "https://well-documented-bun.info",
+      "description": "Balanced responsive model",
+      "image": "https://loremflickr.com/128/128/abstract?10279"
+  },
+  {
+      "id": "17",
+      "idmap": "item-17",
+      "title": "Тамани - ресторан",
+      "slug": "https://elderly-appearance.edo",
+      "description": "Persistent tertiary artificial intelligence",
+      "image": "https://loremflickr.com/128/128/abstract?52977"
+  },
+  {
+      "id": "18",
+      "idmap": "item-18",
+      "title": "Greenholt - Kunde",
+      "slug": "https://noteworthy-deficit.space",
+      "description": "Optional disintermediate data-warehouse",
+      "image": "https://loremflickr.com/128/128/abstract?47765"
+  },
+  {
+      "id": "19",
+      "idmap": "item-19",
+      "title": "Stracke - Bartell",
+      "slug": "https://kaleidoscopic-tournament.store",
+      "description": "Profit-focused modular database",
+      "image": "https://loremflickr.com/128/128/abstract?45877"
+  },
+  {
+      "id": "20",
+      "idmap": "item-20",
+      "title": "Dare - Senger",
+      "slug": "http://overlooked-citrus.rus",
+      "description": "Function-based interactive time-frame",
+      "image": "https://loremflickr.com/128/128/abstract?84056"
+  },
+  {
+      "id": "21",
+      "idmap": "item-21",
+      "title": "Rolls-Royce",
+      "slug": "http://sarcastic-buffalo.press",
+      "description": "Focused mission-critical circuit",
+      "image": "https://loremflickr.com/128/128/abstract?71820"
+  },
+  {
+      "id": "22",
+      "idmap": "item-22",
+      "title": "Nader, Bernier and Veum",
+      "slug": "http://fresh-ethics.host",
+      "description": "Quality-focused encompassing pricing structure",
+      "image": "https://loremflickr.com/128/128/abstract?68716"
+  },
+  {
+      "id": "23",
+      "idmap": "item-23",
+      "title": "Pfeffer - Botsford",
+      "slug": "https://expensive-gigantism.su",
+      "description": "Programmable dynamic support",
+      "image": "https://loremflickr.com/128/128/abstract?91104"
+  },
+  {
+      "id": "24",
+      "idmap": "item-24",
+      "title": "Christiansen, Greenholt and Lebsack",
+      "slug": "http://powerful-patina.host",
+      "description": "Horizontal multi-state utilisation",
+      "image": "https://loremflickr.com/128/128/abstract?99182"
+  },
+  {
+      "id": "25",
+      "idmap": "item-25",
+      "title": "Hagenes Групп",
+      "slug": "https://gullible-suggestion.rus",
+      "description": "Grass-roots even-keeled complexity",
+      "image": "https://loremflickr.com/128/128/abstract?14906"
+  },
+  {
+      "id": "26",
+      "idmap": "item-26",
+      "title": "Schowalter Торг",
+      "slug": "http://disfigured-okra.su",
+      "description": "Universal motivating portal",
+      "image": "https://loremflickr.com/128/128/abstract?83047"
+  },
+  {
+      "id": "27",
+      "idmap": "item-27",
+      "title": "Goyette - Jacobi",
+      "slug": "https://graceful-placode.club",
+      "description": "Up-sized homogeneous projection",
+      "image": "https://loremflickr.com/128/128/abstract?87495"
+  },
+  {
+      "id": "28",
+      "idmap": "item-28",
+      "title": "Prohaska Рус",
+      "slug": "http://assured-messy.rus",
+      "description": "Innovative real-time parallelism",
+      "image": "https://loremflickr.com/128/128/abstract?57826"
+  },
+  {
+      "id": "29",
+      "idmap": "item-29",
+      "title": "Royal Wellness club",
+      "slug": "http://warlike-cassava.ru",
+      "description": "Automated regional solution",
+      "image": "https://loremflickr.com/128/128/abstract?78670"
+  },
+  {
+      "id": "30",
+      "idmap": "item-30",
+      "title": "Tatler Club",
+      "slug": "https://delicious-tan.edo",
+      "description": "Quality-focused disintermediate hierarchy",
+      "image": "https://loremflickr.com/128/128/abstract?2612"
+  },
+  {
+      "id": "31",
+      "idmap": "item-31",
+      "title": "Диорама",
+      "slug": "https://gracious-spotlight.store",
+      "description": "Assimilated background capacity",
+      "image": "https://loremflickr.com/128/128/abstract?25853"
+  },
+  {
+      "id": "32",
+      "idmap": "item-32",
+      "title": "Considine, McClure and Pagac",
+      "slug": "http://appropriate-occupation.moscow",
+      "description": "Inverse leading edge website",
+      "image": "https://loremflickr.com/128/128/abstract?34227"
+  }
 ]
 export { dataShops, dataShops2 }
