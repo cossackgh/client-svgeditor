@@ -324,9 +324,9 @@ export class ClientSVGEditor extends Base {
     console.log('getDataItem', getDataItem)
 
     ev.style.fill = this.options.mapTheme!.colorHoverItem
-    if (this.options.mapTheme!.isBorderItem) {
-      ev.style.stroke = this.options.mapTheme!.colorBorderItem
-      ev.style.strokeWidth = this.options.mapTheme!.widthBorderItem
+    if (this.options.mapTheme!.isBorderHoverItem) {
+      ev.style.stroke = this.options.mapTheme!.colorBorderHoverItem
+      ev.style.strokeWidth = this.options.mapTheme!.widthBorderHoverItem
     }
 
     ev.style.opacity = this.options.mapTheme!.opacityHoverItem
@@ -451,9 +451,11 @@ export class Baloon extends Base {
   render(dataRender: any) {
     console.log('dataRender = ', dataRender)
     this.baloonDom!.innerHTML = `
+    <div style="display:block; position:relative">
       <div class="baloon" style="background-color: ${
         this.themeBaloonOptions.colorBG
-      }">
+      };position: absolute;bottom: 0;left: 0;">
+      
         <div class="baloon-title" style="color:${
           this.themeBaloonOptions.colorTitle
         }">${dataRender.title}</div>
@@ -462,6 +464,10 @@ export class Baloon extends Base {
         }; display: ${dataRender.description !== '' ? 'block' : 'none'}">${
       dataRender.description
     }</div>
+    <div class="box45" style="background-color: ${
+      this.themeBaloonOptions.colorBG
+    }"></div>
+      </div>
       </div>
     `
     this.baloonDom!.style.display = 'block'
@@ -511,12 +517,14 @@ const createBaloon = (options: BaloonOptions) => {
 
 let handleMousemove = (event: { x: any; y: any }, baloon: any) => {
   /*   console.log(`cursor ev =`, event);
-  console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);
-  console.log(`cursor : X=`, baloon,` \n`); */
+  console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);*/
+
+  const getWidthElement = baloon.baloonDom.querySelector('.baloon').offsetWidth
+  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
   if (!baloon.themeBaloonOptions.isPositionFixed) {
-    baloon.baloonDom!.style.transform = `translate(${event.x - 100}px, ${
-      event.y - 120
-    }px)`
+    baloon.baloonDom!.style.transform = `translate(${
+      event.x - getWidthElement / 2
+    }px, ${event.y - 40}px)`
   }
 }
 

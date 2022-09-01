@@ -1,7 +1,7 @@
 import { ClientSVGEditor } from '../src/clientSVG'
 import '../src/style.css'
 import { DataInteractive } from '../src/models/simple.models'
-import { dataShops2, dataShops } from './dataItems'
+import { dataShops2, dataShops, dataShops3 } from './dataItems'
 
 export function setupCounter(element: HTMLButtonElement) {
   let counter = 0
@@ -16,6 +16,7 @@ export function testmylib() {
   console.log('testmylib')
   const nodeMap = document.getElementById('map')
   const nodeMap2 = document.getElementById('map2')
+  const nodeMap3 = document.getElementById('map3')
 
   const baloonTheme = {
     colorBG: '#eeeeee',
@@ -67,7 +68,7 @@ export function testmylib() {
     {
       title: 'Пример карты 2', // Заголовок карты
 
-      urlmap: './public/floor-1_1.svg', // Путь к файлу карты
+      urlmap: './public/floor-1_1-adaptive.svg', // Путь к файлу карты
       isRemoveUnuseItem: true, // Удалять ли неиспользуемые элементы карты
       funcClick: gotoURLClick,
       funcParams: 'https://www.google.com',
@@ -94,6 +95,40 @@ export function testmylib() {
   )
   const startMap2 = map2.start()
   console.log(startMap2)
+
+  const map3 = new ClientSVGEditor(
+    nodeMap3, // node - dom element to insert svg
+    dataShops3, // dataItems - data to render
+    {
+      title: 'Пример карты Adaptive', // Заголовок карты
+
+      urlmap: './public/plan-house-1.svg', // Путь к файлу карты
+      isRemoveUnuseItem: true, // Удалять ли неиспользуемые элементы карты
+      funcClick: gotoURLClick,
+      funcParams: 'https://www.google.com',
+      mapTheme: {
+        colorBG: '#ffffff',
+        colorItem: '#a55',
+        colorHoverItem: '#9e3232',
+        colorSelectItem: '#0000ff',
+        opacityItem: 0.1,
+        opacityHoverItem: 0.6,
+        opacitySelectItem: 1,
+        colorBorderItem: '#000000',
+        colorBorderHoverItem: '#ffff00',
+        colorBorderSelectItem: '#ffffff',
+        isBorderItem: true,
+        isBorderHoverItem: true,
+        isBorderSelectItem: false,
+        widthBorderItem: 2,
+        widthBorderHoverItem: 12,
+        widthBorderSelectItem: 2,
+      },
+    },
+    baloonTheme
+  )
+  const startMap3 = map3.start()
+  console.log(startMap3)
   // map1.insertSVG('./public/floor-1_1.svg');
   console.log('New Client map1 = ', map1)
 }

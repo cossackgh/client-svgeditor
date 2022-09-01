@@ -36,15 +36,26 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
 }
 
 #map {
   /* width: 1600px; 
   height: 1200px;*/
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
-  overflow: hidden;
+  
+}
+.second-map {
+  width: 100%;
+  margin: 0 auto;
+  
+  text-align: center;
+  
+}
+.third-map {
+  width: 50%;
 }
 #app {
   max-width: 1280px;
