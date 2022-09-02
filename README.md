@@ -13,16 +13,16 @@ import { ClientSVGEditor } from 'svgeditor-simple-client'
         colorTitle: '#000000', // Baloon title color
         colorDescription: '#000000', // Baloon description color
         isPositionFixed: false, // Baloon position fixed
-        top: 100, // Baloon top position
-        left: 200, // Baloon left position
+        top: 0, // Baloon top position
+        left: 0, // Baloon left position
       }
       const dataShops = [
       {
         id: '0',
-        idmap: 'SvgjsRect1009',
+        idmap: 'item-01',
         title: 'Bruen - Kessler',
-        slug: 'https://soulful-racism.info',
-        description: 'Focused bi-directional middleware',
+        slug: '/bruen-kessler',
+        description: 'Sample text description for this item',
         image: 'https://loremflickr.com/128/128/abstract?73275',
       },
        ...
@@ -57,7 +57,7 @@ import { ClientSVGEditor } from 'svgeditor-simple-client'
             widthBorderSelectItem: 2, // Width for border item on select
           },
         },
-        baloonTheme // Theme for baloon
+        baloonTheme // Theme for defaul baloon
       )
 
       const startMap = map.start(); // Start map
