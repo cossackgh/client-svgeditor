@@ -4,24 +4,219 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./public/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Example use ClientSVGEditor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css"
+    />
   </head>
   <body>
     <div id="app"></div>
     <h1>Example map #1</h1>
 
     <h3>Width 100%. Size map svg do not adaptive</h3>
+    <p>Example settings for this map</p>
+    <pre><code class="language-js">
+      const nodeMap = document.getElementById('map');
+      const baloonTheme = {
+        colorBG: '#eeeeee', // Baloon background color
+        colorTitle: '#000000', // Baloon title color
+        colorDescription: '#000000', // Baloon description color
+        isPositionFixed: false, // Baloon position fixed
+        top: 100, // Baloon top position
+        left: 200, // Baloon left position
+      }
+      const dataShops2 = [
+      {
+        id: '0',
+        idmap: 'SvgjsRect1009',
+        title: 'Bruen - Kessler',
+        slug: 'https://soulful-racism.info',
+        description: 'Focused bi-directional middleware',
+        image: 'https://loremflickr.com/128/128/abstract?73275',
+      },
+       ...
+      ];
+
+      const map1 = new ClientSVGEditor(
+        nodeMap, // node - dom element to insert svg
+        dataShops2, // dataItems - data to render in Baloon when hover on Item
+        {
+          title: 'Пример карты', // Head Title this map
+          urlmap: './public/Shelkovsky-float-0.svg', // Path to map svg
+          isRemoveUnuseItem: false, // Remove unuse item from map?
+          funcClick: gotoURLClick, // Function for click on item
+          funcParams: 'https://www.google.com', // Params for function click on item
+          mapTheme: {
+            // Theme for map
+            colorBG: '#ffdd3d', // Background color this map
+            colorItem: '#aaa', // Fill Color for item
+            colorHoverItem: '#9e3232', // Fill Color for item on hover
+            colorSelectItem: '#0000ff', // Fill Color for item on select
+            opacityItem: 0.0, // Opacity for item
+            opacityHoverItem: 0.3, // Opacity for item on hover
+            opacitySelectItem: 1, // Opacity for item on select
+            colorBorderItem: '#000000', // Border color for item
+            colorBorderHoverItem: '#ffffff', // Border color for item on hover
+            colorBorderSelectItem: '#ffffff', // Border color for item on select
+            isBorderItem: false, // Is set Border for item
+            isBorderHoverItem: false, // Is set Border for item on hover
+            isBorderSelectItem: false, // Is set Border for item on select
+            widthBorderItem: 2, // Width for border item
+            widthBorderHoverItem: 2, // Width for border item on hover
+            widthBorderSelectItem: 2, // Width for border item on select
+          },
+        },
+        baloonTheme // Theme for baloon
+      )
+
+      const startMap = map1.start(); // Start map
+      function gotoURLClick(dataelement) {
+        window.open(dataelement.slug, '_self')
+      }
+
+    </code>
+    </pre>
     <div id="map"></div>
     <div style="height: 200px; width: 100%"></div>
     <h1>Example map #2</h1>
     <h3>Width 100%. Size map svg is adaptive</h3>
+
+    <p>Example settings for this map</p>
+    <pre><code class="language-js">
+      const nodeMap = document.getElementById('map');
+      const baloonTheme = {
+        colorBG: '#eeeeee', // Baloon background color
+        colorTitle: '#000000', // Baloon title color
+        colorDescription: '#000000', // Baloon description color
+        isPositionFixed: false, // Baloon position fixed
+        top: 100, // Baloon top position
+        left: 200, // Baloon left position
+      }
+
+      const dataShops = [
+      {
+        id: '0',
+        idmap: 'item-0',
+        title: 'Cronin, Bayer and Halvorson',
+        slug: 'http://brief-function.tech',
+        description: 'Optimized 3rd generation paradigm',
+        image: 'https://loremflickr.com/128/128/abstract?48284',
+      },
+      ...
+      ];
+
+      const map2 = new ClientSVGEditor(
+        nodeMap2, // node - dom element to insert svg
+        dataShops, // // dataItems - data to render in Baloon when hover on Item
+        {
+          urlmap: './public/floor-1_1-adaptive.svg', // Path to map svg
+          isRemoveUnuseItem: true,  // Remove unuse item from map?
+          funcClick: gotoURLClick, // Function for click on item
+          funcParams: 'https://www.google.com',// Params for function click on item
+          mapTheme: {
+            // Theme for map
+            colorBG: '#ffffff', // Background color this map
+            colorItem: '#a55', // Fill Color for item
+            colorHoverItem: '#9e3232', // Fill Color for item on hover
+            colorSelectItem: '#0000ff', // Fill Color for item on select
+            opacityItem: 0.7, // Opacity for item
+            opacityHoverItem: 0.3, // Opacity for item on hover
+            opacitySelectItem: 1, // Opacity for item on select
+            colorBorderItem: '#000000', // Border color for item
+            colorBorderHoverItem: '#ffffff', // Border color for item on hover
+            colorBorderSelectItem: '#ffffff', // Border color for item on select
+            isBorderItem: true, // Is set Border for item
+            isBorderHoverItem: false, // Is set Border for item on hover
+            isBorderSelectItem: false, // Is set Border for item on select
+            widthBorderItem: 2, // Width for border item
+            widthBorderHoverItem: 2, // Width for border item on hover
+            widthBorderSelectItem: 2, // Width for border item on select
+          },
+        },
+        baloonTheme
+      )
+      const startMap2 = map2.start(); // Start map
+      function gotoURLClick(dataelement) {
+        window.open(dataelement.slug, '_self')
+      }
+    </code>
+    </pre>
+
     <div id="map2" class="second-map"></div>
     <div style="height: 200px; width: 100%"></div>
     <h1>Example map #3</h1>
     <h3>Width 50%. Size map svg is adaptive</h3>
+
+    <p>Example settings for this map</p>
+    <pre><code class="language-js">
+      const nodeMap = document.getElementById('map');
+      const baloonTheme = {
+        colorBG: '#eeeeee', // Baloon background color
+        colorTitle: '#000000', // Baloon title color
+        colorDescription: '#000000', // Baloon description color
+        isPositionFixed: false, // Baloon position fixed
+        top: 100, // Baloon top position
+        left: 200, // Baloon left position
+      }
+
+      const dataShops3 = [
+      {
+        id: '0',
+        idmap: 'item-terrasa',
+        title: 'Терраса',
+        slug: '/terrasa',
+        description: 'Терраса паред домом. 28,31 м2',
+        image: 'https://loremflickr.com/128/128/abstract?8225',
+      },
+      ...
+      ];
+
+      const map3 = new ClientSVGEditor(
+        nodeMap3, // node - dom element to insert svg
+        dataShops3, // // dataItems - data to render in Baloon when hover on Item
+        {
+          title: 'Пример карты 3 ', // Head Title this map
+          urlmap: './public/plan-house-1.svg', // Path to map svg
+          isRemoveUnuseItem: true,  // Remove unuse item from map?
+          funcClick: gotoURLClick, // Function for click on item
+          funcParams: 'https://www.google.com',// Params for function click on item
+          mapTheme: {
+            // Theme for map
+            colorBG: '#ffffff', // Background color this map
+            colorItem: '#a55', // Fill Color for item
+            colorHoverItem: '#9e3232', // Fill Color for item on hover
+            colorSelectItem: '#0000ff', // Fill Color for item on select
+            opacityItem: 0.1, // Opacity for item
+            opacityHoverItem: 0.6, // Opacity for item on hover
+            opacitySelectItem: 1, // Opacity for item on select
+            colorBorderItem: '#000000', // Border color for item
+            colorBorderHoverItem: '#ffff00', // Border color for item on hover
+            colorBorderSelectItem: '#ffffff', // Border color for item on select
+            isBorderItem: true, // Is set Border for item
+            isBorderHoverItem: true, // Is set Border for item on hover
+            isBorderSelectItem: false, // Is set Border for item on select
+            widthBorderItem: 2, // Width for border item
+            widthBorderHoverItem: 12, // Width for border item on hover
+            widthBorderSelectItem: 2, // Width for border item on select
+          },
+        },
+        baloonTheme
+      )
+      const startMap3 = map3.start(); // Start map
+      function gotoURLClick(dataelement) {
+        window.open(dataelement.slug, '_self')
+      }
+    </code>
+    </pre>
+
     <div id="map3" class="third-map"></div>
     <div style="height: 200px; width: 100%"></div>
 
     <script type="module" src="./main.ts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll()
+    </script>
   </body>
 </html>

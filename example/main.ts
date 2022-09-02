@@ -1,5 +1,5 @@
 import './style.css'
-import { setupCounter,testmylib } from './clientsvg'
+import { testmylib } from './clientsvg'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -8,5 +8,5 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </p>
   </div>
 `
-testmylib();
 
+testmylib()

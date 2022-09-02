@@ -13,7 +13,7 @@ export class ClientSVGEditor extends Base {
   node: any
   dataItems: DataInteractive[] = []
   options: DataOptions = {
-    title: 'Sample Map',
+    title: '',
     urlmap: '',
     interactiveLayer: '#interactive',
     isRemoveUnuseItem: false,
@@ -163,14 +163,13 @@ export class ClientSVGEditor extends Base {
     console.log('Start Dom push version 0.0.2')
     console.log('Start Dom NODE', this.node)
     console.log('Start Dom attributes = ', this.options)
-    if (this.options.title !== '') {
-      console.log('Start Dom title = ', this.options.title)
-    }
+
     if (this.options.urlmap !== '') {
       console.log('Start Dom urlmap = ', this.options.urlmap)
       console.log('Start Dom urlmap = ', this.node)
       this.insertSVG(this.options.urlmap!)
     }
+
     this.node.style.backgroundColor = this.options.mapTheme!.colorBG
     return true
   }
@@ -195,7 +194,20 @@ export class ClientSVGEditor extends Base {
     //const getBaloon=  createBaloon(optionsBaloon);
     this.nodeBallon = createBaloon(optionsBaloon)
     console.log('getBaloon', this.nodeBallon)
+    if (this.options.title !== '') {
+      console.log('Start Dom title = ', this.options.title)
 
+      const titleDom = document.createElement('div')
+      //titleDom.style.position = 'fixed'
+
+      titleDom.id = 'mapTitle'
+      titleDom.style.display = 'block'
+      console.log('Start Dom title node = ', this.node)
+      console.log('Start Dom title titleDom = ', titleDom)
+      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
+      this.node.insertBefore(titleDom, this.node.firstChild)
+      //this.node.appendChild(titleDom)
+    }
     return true
   }
 
@@ -211,7 +223,7 @@ export class ClientSVGEditor extends Base {
       )
       //const isItemUse = getInteractiveItems.find((itemObjects) =>itemObjects.id === item.idmap)
 
-      console.log('syncDataItemsVsInteractiveLayer isItemUse = ', isItemUse)
+      // console.log('syncDataItemsVsInteractiveLayer isItemUse = ', isItemUse)
       if (isItemUse === undefined) {
         console.log('syncDataItemsVsInteractiveLayer item = ', item.id)
         this.deleteItem(item.id!)
@@ -233,8 +245,8 @@ export class ClientSVGEditor extends Base {
     const interactiveLayer = this.node.querySelector(
       this.options.interactiveLayer
     )
-    console.log('initInteractiveLayer = ', interactiveLayer)
-    console.log('initInteractiveLayer = ', [...interactiveLayer.children])
+    /*     console.log('initInteractiveLayer = ', interactiveLayer)
+    console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
     interactiveLayer.addEventListener('mousemove', (e: any) => {
       //  console.log('mousemove', e.target);
       handleMousemove(e, this.nodeBallon)
@@ -420,7 +432,7 @@ const loadSVGFile = async (url: string) => {
   const data = fetch(url)
     .then((response) => response.text())
     .then((text) => {
-      console.log('text = ', text)
+      //  console.log('text = ', text)
       return text
     })
     .catch((error) => {
