@@ -62,8 +62,6 @@ export class ClientSVGEditor extends Base {
     this.baloonTheme = baloonTheme
     this.node = node
     this.dataItems = dataItems
-    console.log(this.options)
-    console.log(options)
 
     if (baloonTheme !== undefined) {
       this.baloonTheme = baloonTheme
@@ -155,18 +153,11 @@ export class ClientSVGEditor extends Base {
     }
   }
   test() {
-    console.log('test')
     return true
   }
 
   start() {
-    console.log('Start Dom push version 0.0.2')
-    console.log('Start Dom NODE', this.node)
-    console.log('Start Dom attributes = ', this.options)
-
     if (this.options.urlmap !== '') {
-      console.log('Start Dom urlmap = ', this.options.urlmap)
-      console.log('Start Dom urlmap = ', this.node)
       this.insertSVG(this.options.urlmap!)
     }
 
@@ -175,9 +166,7 @@ export class ClientSVGEditor extends Base {
   }
   async insertSVG(itemSVG: string) {
     this.node.innerHTML = ''
-    console.log('insertSVG')
-    console.log('insertSVG Dom NODE', this.node)
-    console.log('itemSVG', itemSVG)
+
     const getSVGData = await loadSVGFile(itemSVG)
 
     this.node.innerHTML = getSVGData
@@ -193,17 +182,14 @@ export class ClientSVGEditor extends Base {
     }
     //const getBaloon=  createBaloon(optionsBaloon);
     this.nodeBallon = createBaloon(optionsBaloon)
-    console.log('getBaloon', this.nodeBallon)
-    if (this.options.title !== '') {
-      console.log('Start Dom title = ', this.options.title)
 
+    if (this.options.title !== '') {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
       titleDom.id = 'mapTitle'
       titleDom.style.display = 'block'
-      console.log('Start Dom title node = ', this.node)
-      console.log('Start Dom title titleDom = ', titleDom)
+
       titleDom.innerHTML = `<h1>${this.options.title}</h1>`
       this.node.insertBefore(titleDom, this.node.firstChild)
       //this.node.appendChild(titleDom)
@@ -225,16 +211,12 @@ export class ClientSVGEditor extends Base {
 
       // console.log('syncDataItemsVsInteractiveLayer isItemUse = ', isItemUse)
       if (isItemUse === undefined) {
-        console.log('syncDataItemsVsInteractiveLayer item = ', item.id)
         this.deleteItem(item.id!)
       }
     })
   }
 
   deleteItem(id: string) {
-    console.log('deleteItem')
-    console.log('deleteItem Dom NODE', this.node)
-    console.log('deleteItem id = ', id)
     const item = this.node
       .querySelector(`${this.options.interactiveLayer}`)
       .querySelector(`#${id}`)
@@ -281,7 +263,7 @@ export class ClientSVGEditor extends Base {
           )
 
           item.addEventListener('click', (event: any) => {
-            console.log('click', event.target.id)
+            //  console.log('click', event.target.id)
             if (event.target.tagName !== 'g') {
               event.target.style.fill = this.options.mapTheme!.colorSelectItem
               event.target.style.stroke =
@@ -298,7 +280,7 @@ export class ClientSVGEditor extends Base {
           })
         } else {
           item.addEventListener('mouseover', (event) => {
-            console.log(item)
+            //  console.log(item)
             this.onHoverGroup(item)
           })
 
@@ -312,8 +294,8 @@ export class ClientSVGEditor extends Base {
             }
           )
           item.addEventListener('click', (event: any) => {
-            console.log('click ev', item)
-            console.log('click id', item.id)
+            //  console.log('click ev', item)
+            //  console.log('click id', item.id)
 
             this.onClick(
               this.options.funcClick,
@@ -325,7 +307,7 @@ export class ClientSVGEditor extends Base {
     )
   }
   onClick(func: any, params: any) {
-    console.log(`params =`, params)
+    //  console.log(`params =`, params)
     func(params)
   }
   onHover(ev: any) {
@@ -333,7 +315,7 @@ export class ClientSVGEditor extends Base {
   console.log('mouseover ID', ev.id);
   console.log('mouseover tagName', ev.tagName); */
     const getDataItem = this.dataItems.find((item) => item.idmap === ev.id)
-    console.log('getDataItem', getDataItem)
+    //  console.log('getDataItem', getDataItem)
 
     ev.style.fill = this.options.mapTheme!.colorHoverItem
     if (this.options.mapTheme!.isBorderHoverItem) {
@@ -365,7 +347,7 @@ export class ClientSVGEditor extends Base {
   console.log('mouseover tagName', ev.tagName);
   console.log('mouseover this.dataItems', this.dataItems); */
     const getDataItem = this.dataItems.find((item) => item.idmap === ev.id)
-    console.log('getDataItem', getDataItem)
+    //  console.log('getDataItem', getDataItem)
 
     if (getDataItem !== undefined) {
       if (getDataItem?.description !== undefined) {
@@ -388,7 +370,7 @@ export class ClientSVGEditor extends Base {
     const interactiveLayer = [
       ...this.node.querySelector(this.options.interactiveLayer).children,
     ]
-    console.log('clearInteractiveLayer = ', interactiveLayer)
+    //  console.log('clearInteractiveLayer = ', interactiveLayer)
     interactiveLayer.forEach(
       (element: {
         tagName: string
@@ -428,7 +410,7 @@ export class ClientSVGEditor extends Base {
 // create function load text file from url
 
 const loadSVGFile = async (url: string) => {
-  console.log('loadTextFromFile url = ', url)
+  //  console.log('loadTextFromFile url = ', url)
   const data = fetch(url)
     .then((response) => response.text())
     .then((text) => {
@@ -436,7 +418,7 @@ const loadSVGFile = async (url: string) => {
       return text
     })
     .catch((error) => {
-      console.log('error = ', error)
+      //  console.log('error = ', error)
       return error
     })
   return data
@@ -461,7 +443,7 @@ export class Baloon extends Base {
   }
 
   render(dataRender: any) {
-    console.log('dataRender = ', dataRender)
+    //  console.log('dataRender = ', dataRender)
     this.baloonDom!.innerHTML = `
     <div style="display:block; position:relative">
       <div class="baloon" style="background-color: ${
@@ -488,10 +470,10 @@ export class Baloon extends Base {
 }
 
 const createBaloon = (options: BaloonOptions) => {
-  console.log('createBaloon options = ', options)
+  //  console.log('createBaloon options = ', options)
 
   let baloon = new Baloon(options)
-  console.log('createBaloon document IF baloon.baloonDom = ', baloon.baloonDom)
+  //  console.log('createBaloon document IF baloon.baloonDom = ', baloon.baloonDom)
   if (baloon.baloonDom !== null) {
     // baloon.delete();
     //baloon.render({title: 'TITLE', description: 'DESCRIPTION'});
@@ -523,7 +505,7 @@ const createBaloon = (options: BaloonOptions) => {
     //baloon.render({title: 'TITLE', description: 'DESCRIPTION'});
     baloon.hide()
   }
-  console.log('createBaloon document = ', baloon.baloonDom)
+  //  console.log('createBaloon document = ', baloon.baloonDom)
   return baloon
 }
 
@@ -532,7 +514,7 @@ let handleMousemove = (event: { x: any; y: any }, baloon: any) => {
   console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);*/
 
   const getWidthElement = baloon.baloonDom.querySelector('.baloon').offsetWidth
-  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
+  //  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
   if (!baloon.themeBaloonOptions.isPositionFixed) {
     baloon.baloonDom!.style.transform = `translate(${
       event.x - getWidthElement / 2
@@ -541,8 +523,8 @@ let handleMousemove = (event: { x: any; y: any }, baloon: any) => {
 }
 
 const throttle = (func: any, wait: number) => {
-  console.log(`func =`, func)
-  console.log(`wait =`, wait)
+  //  console.log(`func =`, func)
+  //  console.log(`wait =`, wait)
   let timeout: any
   return function executedFunction(this: any, ...args: any) {
     const context = this

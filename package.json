@@ -1,6 +1,6 @@
 {
   "name": "svgeditor-simple-client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -55,6 +55,7 @@
     "url": "https://github.com/cossackgh/client-svgeditor/issues"
   },
   "dependencies": {
+    "ts-node": "^10.9.1",
     "tsc": "^2.0.4"
   },
   "devDependencies": {
@@ -71,10 +72,10 @@
     "pinst": "^2.1.6",
     "prettier": "^2.4.0",
     "ts-jest": "^27.0.5",
-    "ts-loader": "^9.2.5",
+    "ts-loader": "^9.3.1",
     "typescript": "^4.8.2",
     "vite": "^3.0.7",
-    "webpack": "^5.52.1",
+    "webpack": "^5.74.0",
     "webpack-cli": "^4.8.0"
   }
 }

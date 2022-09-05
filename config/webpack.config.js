@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, '../dist/umd'),
-    filename: 'index.js',
+    filename: 'svgeditor-simple-client.js',
     library: 'exampleTypescriptPackage',
     libraryTarget: 'umd',
     globalObject: 'this',
