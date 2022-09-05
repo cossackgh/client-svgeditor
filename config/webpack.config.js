@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  devtool: 'source-map',
   mode: 'production',
   entry: './src/index.ts',
   output: {
@@ -16,6 +17,10 @@ module.exports = {
         test: /\.ts(x*)?$/,
         exclude: /node_modules/,
         use: {
+          loader: 'expose-loader',
+          options: {
+            exposes: ['myNameSpace'],
+          },
           loader: 'ts-loader',
           options: {
             configFile: 'config/tsconfig.umd.json',
