@@ -1,11 +1,11 @@
 import type {
   DataInteractive,
   DataOptions,
-  MapTheme,
+  //MapTheme,
   BaloonOptions,
   BaloonTheme,
 } from './models/simple.models'
-import { SvgMap } from './_privatemodule/svg'
+//import { SvgMap } from './_privatemodule/svg'
 
 import Base from './base'
 
