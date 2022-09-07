@@ -7,9 +7,18 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist/umd'),
     filename: 'svgeditor-simple-client.js',
-    library: 'exampleTypescriptPackage',
-    libraryTarget: 'umd',
+    // library: 'libtest',
+    libraryTarget: 'module',
     globalObject: 'this',
+  },
+  experiments: {
+    //asyncWebAssembly: true,
+    //buildHttp: true,
+    //layers: true,
+    //lazyCompilation: true,
+    outputModule: true,
+    //syncWebAssembly: true,
+    // topLevelAwait: true,
   },
   module: {
     rules: [
@@ -17,7 +26,7 @@ module.exports = {
         test: /\.ts(x*)?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'expose-loader',
+          //loader: 'expose-loader',
           options: {
             exposes: ['myNameSpace'],
           },
