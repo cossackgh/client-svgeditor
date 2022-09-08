@@ -42,6 +42,9 @@ export interface DataOptions {
   funcClick?: Function
   funcParams?: any
   mapTheme?: MapTheme
+  isCustomBalloon?: boolean
+  nodeCustomBalloon?: HTMLElement | null
+  dataStructureCustomBalloon?: CastomBalloonOptions | null
 }
 
 /**
@@ -57,6 +60,17 @@ export interface BaloonOptions {
   description?: string
   image?: string
   baloonTheme: BaloonTheme
+}
+
+/**
+ * @description
+ * This is the description of the interface @CastomBalloonOptions
+ * @title {string} title - This is the title of the interface
+ * @description {string} description - This is the description of the interface
+ */
+export interface CastomBalloonOptions {
+  title?: string
+  description?: string
 }
 
 /**

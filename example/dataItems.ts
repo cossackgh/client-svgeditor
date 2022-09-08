@@ -414,7 +414,7 @@ const dataShops3: DataInteractive[] = [
   {
     id: '2',
     idmap: 'item-room-1',
-    title: 'Гостинная + Кухня + Столовая.',
+    title: 'Гостинная + Кухня + Столовая. ',
     slug: '/apartment',
     description: 'Площад помещения 48,24 м2',
     image: 'https://loremflickr.com/128/128/abstract?42696',
@@ -432,7 +432,8 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-hall-2',
     title: 'Прихожая',
     slug: '/hall',
-    description: 'Площад помещения 4,6 м2',
+    description:
+      '<p>Площад помещения 4,6 м2</p> <img src="https://loremflickr.com/128/128/abstract?54426"/>',
     image: 'https://loremflickr.com/128/128/abstract?21376',
   },
   {

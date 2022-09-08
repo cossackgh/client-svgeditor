@@ -23,8 +23,8 @@ export function testmylib() {
     colorTitle: '#000000',
     colorDescription: '#000000',
     isPositionFixed: false,
-    top: 100,
-    left: 200,
+    top: 0,
+    left: 0,
   }
 
   const map1 = new ClientSVGEditor(
@@ -95,6 +95,14 @@ export function testmylib() {
   )
   const startMap2 = map2.start()
   console.log(startMap2)
+  const baloonTheme3 = {
+    colorBG: '#eeeeee',
+    colorTitle: '#000000',
+    colorDescription: '#000000',
+    isPositionFixed: false,
+    top: 200,
+    left: 90,
+  }
 
   const map3 = new ClientSVGEditor(
     nodeMap3, // node - dom element to insert svg
@@ -123,8 +131,14 @@ export function testmylib() {
         widthBorderHoverItem: 12,
         widthBorderSelectItem: 2,
       },
+      isCustomBalloon: true,
+      nodeCustomBalloon: document.getElementById('cartoonballoon'),
+      dataStructureCustomBalloon: {
+        title: '.ctballoon__title',
+        description: '.ctballoon__description',
+      },
     },
-    baloonTheme
+    baloonTheme3
   )
   const startMap3 = map3.start()
   console.log(startMap3)

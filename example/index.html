@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example use ClientSVGEditor</title>
     <link
@@ -156,8 +156,8 @@
         colorTitle: '#000000', // Baloon title color
         colorDescription: '#000000', // Baloon description color
         isPositionFixed: false, // Baloon position fixed
-        top: 100, // Baloon top position
-        left: 200, // Baloon left position
+        top: 10, // Baloon top position
+        left: 20, // Baloon left position
       }
 
       const dataShops3 = [
@@ -200,6 +200,12 @@
             widthBorderHoverItem: 12, // Width for border item on hover
             widthBorderSelectItem: 2, // Width for border item on select
           },
+          isCustomBalloon: true, // Is custom baloon?
+          nodeCustomBalloon: document.getElementById('myballoon'), // Node for custom baloon
+          dataStructureCustomBalloon: {
+            title: '.balloon__title', // Selector for title
+            description: '.balloon__description', // Selector for description
+          },
         },
         baloonTheme
       )
@@ -212,6 +218,47 @@
 
     <div id="map3" class="third-map"></div>
     <div style="height: 200px; width: 100%"></div>
+
+    <div id="myballoon" class="hidden">
+      <div class="baseballoon">
+        <div class="balloon">
+          <div class="balloon__title">Title</div>
+          <div class="balloon__description">Description</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cartoonballoon">
+      <div class="baseballoon">
+        <div class="baseballoon_svg">
+          <svg
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 488.6 382.2"
+            style="enable-background: new 0 0 488.6 382.2"
+            xml:space="preserve"
+          >
+            <polygon
+              style="fill: #231f20"
+              points="0,33.3 17.5,275.9 96.1,281.9 150.2,382.2 182.8,288.6 437.2,308.1 488.6,0 	"
+            />
+            <polyline
+              style="fill: #ffffff"
+              points="40.2,264.8 24.7,49.2 475.1,20.6 429,294.7 176,275.3 149.9,354.6 115.2,270.6 40.2,264.8 
+			"
+            />
+          </svg>
+          <div class="ctballoon">
+            <div class="ctballoon__title">Title</div>
+            <div class="ctballoon__description">Description</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="./main.ts"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>

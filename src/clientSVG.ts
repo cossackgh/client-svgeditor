@@ -3,11 +3,13 @@ import type {
   DataOptions,
   //MapTheme,
   BaloonOptions,
+  CastomBalloonOptions,
   BaloonTheme,
 } from './models/simple.models'
 //import { SvgMap } from './_privatemodule/svg'
 
 import Base from './base'
+import { doc } from 'prettier'
 
 export class ClientSVGEditor extends Base {
   node: any
@@ -37,6 +39,9 @@ export class ClientSVGEditor extends Base {
       widthBorderHoverItem: 2,
       widthBorderSelectItem: 2,
     },
+    isCustomBalloon: false,
+    nodeCustomBalloon: null,
+    dataStructureCustomBalloon: null,
   }
 
   baloonTheme: BaloonTheme = {
@@ -49,6 +54,7 @@ export class ClientSVGEditor extends Base {
   }
 
   nodeBallon: Baloon | null
+  customNodeBallon!: HTMLElement | null
 
   constructor(
     node: any,
@@ -59,6 +65,7 @@ export class ClientSVGEditor extends Base {
   ) {
     super()
     this.nodeBallon = null
+    this.customNodeBallon = null
     this.baloonTheme = baloonTheme
     this.node = node
     this.dataItems = dataItems
@@ -87,6 +94,16 @@ export class ClientSVGEditor extends Base {
       }
       if (options.funcParams !== undefined) {
         this.options.funcParams = options.funcParams
+      }
+      if (options.isCustomBalloon !== undefined) {
+        this.options.isCustomBalloon = options.isCustomBalloon
+      }
+      if (options.nodeCustomBalloon !== undefined) {
+        this.options.nodeCustomBalloon = options.nodeCustomBalloon
+      }
+      if (options.dataStructureCustomBalloon !== undefined) {
+        this.options.dataStructureCustomBalloon =
+          options.dataStructureCustomBalloon
       }
       if (options.mapTheme !== undefined) {
         if (options.mapTheme.colorBG !== undefined) {
@@ -160,6 +177,14 @@ export class ClientSVGEditor extends Base {
     if (this.options.urlmap !== '') {
       this.insertSVG(this.options.urlmap!)
     }
+    console.log('isCastomBalloon', this.options.isCustomBalloon)
+    if (this.options.isCustomBalloon) {
+      console.log('isCastomBalloon', this.options.isCustomBalloon)
+      const customBalloon = this.options.nodeCustomBalloon!
+
+      customBalloon!.style.display = 'none'
+      customBalloon!.style.position = 'fixed'
+    }
 
     this.node.style.backgroundColor = this.options.mapTheme!.colorBG
     return true
@@ -181,7 +206,16 @@ export class ClientSVGEditor extends Base {
       baloonTheme: this.baloonTheme,
     }
     //const getBaloon=  createBaloon(optionsBaloon);
-    this.nodeBallon = createBaloon(optionsBaloon)
+
+    if (this.options.isCustomBalloon) {
+      //this.customNodeBallon = this.customNodeBallon
+      this.nodeBallon = createCustomBaloon(
+        optionsBaloon,
+        this.options.nodeCustomBalloon!
+      )
+    } else {
+      this.nodeBallon = createBaloon(optionsBaloon)
+    }
 
     if (this.options.title !== '') {
       const titleDom = document.createElement('div')
@@ -231,7 +265,11 @@ export class ClientSVGEditor extends Base {
     console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
     interactiveLayer.addEventListener('mousemove', (e: any) => {
       //  console.log('mousemove', e.target);
-      handleMousemove(e, this.nodeBallon)
+      if (this.options.isCustomBalloon) {
+        handleMousemove(e, this.nodeBallon, true)
+      } else {
+        handleMousemove(e, this.nodeBallon, false)
+      }
       //  throttle(handleMousemove(e,this.nodeBallon), 11200)
     })
     ;[...interactiveLayer.children].forEach(
@@ -325,20 +363,45 @@ export class ClientSVGEditor extends Base {
 
     ev.style.opacity = this.options.mapTheme!.opacityHoverItem
 
-    if (getDataItem !== undefined) {
-      if (getDataItem?.description !== undefined) {
-        this.nodeBallon!.render({
-          title: getDataItem?.title,
-          description: getDataItem?.description,
-        })
-      } else {
-        this.nodeBallon!.render({ title: getDataItem?.title, description: '' })
+    if (this.options.isCustomBalloon) {
+      if (getDataItem !== undefined) {
+        if (getDataItem?.description !== undefined) {
+          this.nodeBallon!.customRender(
+            {
+              title: getDataItem?.title,
+              description: getDataItem?.description,
+            },
+            this.options.dataStructureCustomBalloon
+          )
+        } else {
+          this.nodeBallon!.customRender(
+            {
+              title: getDataItem?.title,
+              description: '',
+            },
+            this.options.dataStructureCustomBalloon
+          )
+        }
       }
     } else {
-      this.nodeBallon!.render({
-        title: 'Info not found',
-        description: 'Info not found',
-      })
+      if (getDataItem !== undefined) {
+        if (getDataItem?.description !== undefined) {
+          this.nodeBallon!.render({
+            title: getDataItem?.title,
+            description: getDataItem?.description,
+          })
+        } else {
+          this.nodeBallon!.render({
+            title: getDataItem?.title,
+            description: '',
+          })
+        }
+      } else {
+        this.nodeBallon!.render({
+          title: 'Info not found',
+          description: 'Info not found',
+        })
+      }
     }
   }
   onHoverGroup(ev: any) {
@@ -425,13 +488,20 @@ const loadSVGFile = async (url: string) => {
 }
 
 export class Baloon extends Base {
-  themeBaloonOptions: BaloonTheme
+  themeBaloonOptions: BaloonTheme | null
   baloonDom: HTMLElement | null
-  constructor(options: BaloonOptions) {
+  constructor(options: BaloonOptions | null, domBalloon: HTMLElement | null) {
     super()
-
-    this.themeBaloonOptions = options.baloonTheme
-    this.baloonDom = document.querySelector('#BaloonItem')
+    if (options !== null) {
+      this.themeBaloonOptions = options!.baloonTheme
+    } else {
+      this.themeBaloonOptions = null
+    }
+    if (domBalloon !== null) {
+      this.baloonDom = domBalloon
+    } else {
+      this.baloonDom = document.querySelector('#BaloonItem')
+    }
   }
 
   delete() {
@@ -441,25 +511,28 @@ export class Baloon extends Base {
   hide() {
     this.baloonDom!.style.display = 'none'
   }
+  show() {
+    this.baloonDom!.style.display = 'block'
+  }
 
   render(dataRender: any) {
     //  console.log('dataRender = ', dataRender)
     this.baloonDom!.innerHTML = `
     <div style="display:block; position:relative">
       <div class="baloon" style="background-color: ${
-        this.themeBaloonOptions.colorBG
+        this.themeBaloonOptions?.colorBG
       };position: absolute;bottom: 0;left: 0;">
       
         <div class="baloon-title" style="color:${
-          this.themeBaloonOptions.colorTitle
+          this.themeBaloonOptions?.colorTitle
         }">${dataRender.title}</div>
         <div class="baloon-content" style="color:${
-          this.themeBaloonOptions.colorDescription
+          this.themeBaloonOptions?.colorDescription
         }; display: ${dataRender.description !== '' ? 'block' : 'none'}">${
       dataRender.description
     }</div>
     <div class="box45" style="background-color: ${
-      this.themeBaloonOptions.colorBG
+      this.themeBaloonOptions?.colorBG
     }"></div>
       </div>
       </div>
@@ -467,24 +540,37 @@ export class Baloon extends Base {
     this.baloonDom!.style.display = 'block'
     return true
   }
+  customRender(dataRender: any, structureCustomRender: any) {
+    console.log('custom Render dataRender = ', dataRender)
+    console.log('custom Render options = ', this.themeBaloonOptions)
+    console.log('custom Render structureCustomRender = ', structureCustomRender)
+    const titleDom = this.baloonDom!.querySelector(structureCustomRender.title)
+    const descriptionDom = this.baloonDom!.querySelector(
+      structureCustomRender.description
+    )
+    titleDom.innerHTML = dataRender.title
+    descriptionDom.innerHTML = dataRender.description
+    return true
+  }
 }
 
 const createBaloon = (options: BaloonOptions) => {
   //  console.log('createBaloon options = ', options)
 
-  let baloon = new Baloon(options)
+  let baloon = new Baloon(options, null)
+
   //  console.log('createBaloon document IF baloon.baloonDom = ', baloon.baloonDom)
   if (baloon.baloonDom !== null) {
     // baloon.delete();
     //baloon.render({title: 'TITLE', description: 'DESCRIPTION'});
   } else {
-    if (baloon.themeBaloonOptions.isPositionFixed) {
+    if (baloon.themeBaloonOptions?.isPositionFixed) {
       const baloonDom = document.createElement('div')
       baloonDom.style.position = 'fixed'
-      baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed
+      baloonDom.style.top = baloon.themeBaloonOptions?.isPositionFixed
         ? baloon.themeBaloonOptions.top + 'px'
         : '0px'
-      baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed
+      baloonDom.style.left = baloon.themeBaloonOptions?.isPositionFixed
         ? baloon.themeBaloonOptions.left + 'px'
         : '0px'
 
@@ -508,17 +594,69 @@ const createBaloon = (options: BaloonOptions) => {
   //  console.log('createBaloon document = ', baloon.baloonDom)
   return baloon
 }
+const createCustomBaloon = (
+  options: BaloonOptions | null,
+  domBaloon: HTMLElement
+) => {
+  //  console.log('createBaloon options = ', options)
 
-let handleMousemove = (event: { x: any; y: any }, baloon: any) => {
+  let baloon = new Baloon(options, domBaloon)
+
+  console.log('createBaloon document IF baloon.baloonDom = ', baloon.baloonDom)
+  if (baloon.baloonDom !== null) {
+    // baloon.delete();
+    baloon.baloonDom.style.top = 0 + 'px'
+    baloon.baloonDom.style.left = 0 + 'px'
+  } else {
+    /*     if (baloon.themeBaloonOptions.isPositionFixed) {
+      const baloonDom = document.createElement('div')
+      baloonDom.style.position = 'fixed'
+      baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed
+        ? baloon.themeBaloonOptions.top + 'px'
+        : '0px'
+      baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed
+        ? baloon.themeBaloonOptions.left + 'px'
+        : '0px'
+
+      baloonDom.id = 'BaloonItem'
+      baloonDom.style.display = 'block'
+      document.body.appendChild(baloonDom)
+    } else {
+      const baloonDom = document.createElement('div')
+      baloonDom.style.position = 'fixed'
+      baloonDom.style.top = '0px'
+      baloonDom.style.left = '0px'
+      baloonDom.id = 'BaloonItem'
+      baloonDom.style.display = 'block'
+      document.body.appendChild(baloonDom)
+    } */
+
+    baloon.baloonDom = domBaloon
+
+    baloon.hide()
+  }
+  //  console.log('createBaloon document = ', baloon.baloonDom)
+  return baloon
+}
+
+let handleMousemove = (
+  event: { x: any; y: any },
+  baloon: any,
+  isCustomBalloon: boolean
+) => {
   /*   console.log(`cursor ev =`, event);
   console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);*/
-
-  const getWidthElement = baloon.baloonDom.querySelector('.baloon').offsetWidth
+  console.log(`cursor : baloon =`, baloon, ` \n`)
+  baloon.show()
+  const getWidthElement = isCustomBalloon
+    ? baloon.baloonDom.offsetWidth
+    : baloon.baloonDom.querySelector('.baloon').offsetWidth
   //  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
-  if (!baloon.themeBaloonOptions.isPositionFixed) {
+  if (!baloon.themeBaloonOptions?.isPositionFixed) {
     baloon.baloonDom!.style.transform = `translate(${
-      event.x - getWidthElement / 2
-    }px, ${event.y - 40}px)`
+      event.x - getWidthElement / 2 - baloon.themeBaloonOptions.left
+    }px, ${event.y - 40 - baloon.themeBaloonOptions.top}px)`
+  } else {
   }
 }
 
