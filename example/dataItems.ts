@@ -408,7 +408,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-wc-1',
     title: 'Туалет.',
     slug: '/wc',
-    description: 'Площад помещения 3,61 м2',
+    description: 'Площадь помещения 3,61 м2',
     image: 'https://loremflickr.com/128/128/abstract?18629',
   },
   {
@@ -416,7 +416,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-room-1',
     title: 'Гостинная + Кухня + Столовая. ',
     slug: '/apartment',
-    description: 'Площад помещения 48,24 м2',
+    description: 'Площадь помещения 48,24 м2',
     image: 'https://loremflickr.com/128/128/abstract?42696',
   },
   {
@@ -424,7 +424,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-hall-1',
     title: 'Прихожая',
     slug: '/hall',
-    description: 'Площад помещения 4,6 м2',
+    description: 'Площадь помещения 4,6 м2',
     image: 'https://loremflickr.com/128/128/abstract?70521',
   },
   {
@@ -433,7 +433,7 @@ const dataShops3: DataInteractive[] = [
     title: 'Прихожая',
     slug: '/hall',
     description:
-      '<p>Площад помещения 4,6 м2</p> <img src="https://loremflickr.com/128/128/abstract?54426"/>',
+      '<span> <img src="https://loremflickr.com/128/128/abstract?54426" class="description__image"/></span> <span>Площадь этого помещения примерно 4,6 м2</span> ',
     image: 'https://loremflickr.com/128/128/abstract?21376',
   },
   {
@@ -441,7 +441,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-bathroom-1',
     title: 'Ванная',
     slug: '/bathroom',
-    description: 'Площад помещения 6,82 м2',
+    description: 'Площадь помещения 6,82 м2',
     image: 'https://loremflickr.com/128/128/abstract?54426',
   },
   {
@@ -449,7 +449,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-bathroom-2',
     title: 'Ванная',
     slug: '/bathroom',
-    description: 'Площад помещения 6,82 м2',
+    description: 'Площадь помещения 6,82 м2',
     image: 'https://loremflickr.com/128/128/abstract?87579',
   },
   {
@@ -457,7 +457,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-badroom-1',
     title: 'Спальня',
     slug: '/badroom',
-    description: 'Площад помещения 13,78 м2',
+    description: 'Площадь помещения 13,78 м2',
     image: 'https://loremflickr.com/128/128/abstract?77889',
   },
   {
@@ -465,7 +465,7 @@ const dataShops3: DataInteractive[] = [
     idmap: 'item-badroom-2',
     title: 'Спальня',
     slug: '/badroom',
-    description: 'Площад помещения 13,78 м2',
+    description: 'Площадь помещения 13,78 м2',
     image: 'https://loremflickr.com/128/128/abstract?17556',
   },
   {

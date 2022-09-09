@@ -55,12 +55,13 @@ export class ClientSVGEditor extends Base {
 
   nodeBallon: Baloon | null
   customNodeBallon!: HTMLElement | null
+  isMobile: boolean | undefined
 
   constructor(
     node: any,
     dataItems: DataInteractive[],
     options: DataOptions,
-
+    // isMobile: boolean,
     baloonTheme: BaloonTheme
   ) {
     super()
@@ -174,6 +175,8 @@ export class ClientSVGEditor extends Base {
   }
 
   start() {
+    this.isMobile = isMobile()
+    console.log('isMobile = ', this.isMobile)
     if (this.options.urlmap !== '') {
       this.insertSVG(this.options.urlmap!)
     }
@@ -263,15 +266,17 @@ export class ClientSVGEditor extends Base {
     )
     /*     console.log('initInteractiveLayer = ', interactiveLayer)
     console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
-    interactiveLayer.addEventListener('mousemove', (e: any) => {
-      //  console.log('mousemove', e.target);
-      if (this.options.isCustomBalloon) {
-        handleMousemove(e, this.nodeBallon, true)
-      } else {
-        handleMousemove(e, this.nodeBallon, false)
-      }
-      //  throttle(handleMousemove(e,this.nodeBallon), 11200)
-    })
+    if (!this.isMobile) {
+      interactiveLayer.addEventListener('mousemove', (e: any) => {
+        //  console.log('mousemove', e.target);
+        if (this.options.isCustomBalloon) {
+          handleMousemove(e, this.nodeBallon, true)
+        } else {
+          handleMousemove(e, this.nodeBallon, false)
+        }
+        //  throttle(handleMousemove(e,this.nodeBallon), 11200)
+      })
+    }
     ;[...interactiveLayer.children].forEach(
       (item: {
         id: string
@@ -289,48 +294,71 @@ export class ClientSVGEditor extends Base {
           item.addEventListener('mouseover', (event) => {
             this.onHover(event.target)
           })
-
-          item.addEventListener(
-            'mouseout',
-            (event: { target: { tagName: string } }) => {
-              if (event.target.tagName !== 'g') {
-                this.clearInteractiveLayer()
+          if (!this.isMobile) {
+            item.addEventListener(
+              'mouseout',
+              (event: { target: { tagName: string } }) => {
+                if (event.target.tagName !== 'g') {
+                  this.clearInteractiveLayer()
+                }
+                this.nodeBallon!.hide()
               }
-              this.nodeBallon!.hide()
-            }
-          )
-
-          item.addEventListener('click', (event: any) => {
-            //  console.log('click', event.target.id)
-            if (event.target.tagName !== 'g') {
-              event.target.style.fill = this.options.mapTheme!.colorSelectItem
-              event.target.style.stroke =
-                this.options.mapTheme!.colorBorderSelectItem
-              event.target.style.strokeWidth =
-                this.options.mapTheme!.widthBorderSelectItem
-              event.target.style.opacity =
-                this.options.mapTheme!.opacitySelectItem
-            }
-            this.onClick(
-              this.options.funcClick,
-              this.dataItems.find((item) => item.idmap === event.target.id)
             )
-          })
-        } else {
-          item.addEventListener('mouseover', (event) => {
-            //  console.log(item)
-            this.onHoverGroup(item)
-          })
 
-          item.addEventListener(
-            'mouseout',
-            (event: { target: { tagName: string } }) => {
+            item.addEventListener('click', (event: any) => {
+              //  console.log('click', event.target.id)
+              if (event.target.tagName !== 'g') {
+                event.target.style.fill = this.options.mapTheme!.colorSelectItem
+                event.target.style.stroke =
+                  this.options.mapTheme!.colorBorderSelectItem
+                event.target.style.strokeWidth =
+                  this.options.mapTheme!.widthBorderSelectItem
+                event.target.style.opacity =
+                  this.options.mapTheme!.opacitySelectItem
+              }
+              this.onClick(
+                this.options.funcClick,
+                this.dataItems.find((item) => item.idmap === event.target.id)
+              )
+            })
+          } else {
+            item.addEventListener('click', (event: any) => {
+              //  console.log('click', event.target.id)
+              /*               if (event.target.tagName !== 'g') {
+                event.target.style.fill = this.options.mapTheme!.colorSelectItem
+                event.target.style.stroke =
+                  this.options.mapTheme!.colorBorderSelectItem
+                event.target.style.strokeWidth =
+                  this.options.mapTheme!.widthBorderSelectItem
+                event.target.style.opacity =
+                  this.options.mapTheme!.opacitySelectItem
+              } */
               if (event.target.tagName !== 'g') {
                 this.clearInteractiveLayer()
               }
-              this.nodeBallon!.hide()
-            }
-          )
+              this.onClickMobile(
+                this.options.funcClick,
+                this.dataItems.find((item) => item.idmap === event.target.id)
+              )
+            })
+          }
+        } else {
+          if (!this.isMobile) {
+            item.addEventListener('mouseover', (event) => {
+              //  console.log(item)
+              this.onHoverGroup(item)
+            })
+
+            item.addEventListener(
+              'mouseout',
+              (event: { target: { tagName: string } }) => {
+                if (event.target.tagName !== 'g') {
+                  this.clearInteractiveLayer()
+                }
+                this.nodeBallon!.hide()
+              }
+            )
+          }
           item.addEventListener('click', (event: any) => {
             //  console.log('click ev', item)
             //  console.log('click id', item.id)
@@ -347,6 +375,10 @@ export class ClientSVGEditor extends Base {
   onClick(func: any, params: any) {
     //  console.log(`params =`, params)
     func(params)
+  }
+  onClickMobile(func: any, params: any) {
+    console.log(`onClickMobile params =`, params)
+    //func(params)
   }
   onHover(ev: any) {
     /*   console.log('onhover event', ev);
@@ -660,6 +692,12 @@ let handleMousemove = (
   }
 }
 
+const isMobile = () => {
+  return (
+    typeof window.orientation !== 'undefined' ||
+    navigator.userAgent.indexOf('IEMobile') !== -1
+  )
+}
 const throttle = (func: any, wait: number) => {
   //  console.log(`func =`, func)
   //  console.log(`wait =`, wait)

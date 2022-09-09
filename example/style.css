@@ -1,6 +1,6 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   font-weight: 400;
 
@@ -30,7 +30,11 @@ body {
   flex-direction: column;
   place-items: center;
   min-width: 320px;
+  max-width: 100%;
   min-height: 100vh;
+  align-items: center;
+  flex-wrap: wrap;
+
 }
 
 h1 {
@@ -44,7 +48,9 @@ h1 {
 }
 
 
-
+.precode{
+  max-width: 100%;
+}
 .baloon{
   padding: 10px;
   min-width: 20vw;
@@ -85,7 +91,7 @@ h1 {
   align-items: start;
   
   position: absolute;
-    top: 45px;
+    top: 35px;
     left: 20px;
 /*   min-height: 80px; */
 }
@@ -97,11 +103,21 @@ h1 {
   color: #f00; 
 }
 .ctballoon__description{
-  width: 90%;
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+
+  width: 80%;
   font-size: 1.0em;
   line-height: 1.0;
   font-weight: 400;
   color: #000; 
+}
+
+.description__image{
+  width: 50px;
+  height: 50px;
+  margin: 5px ;
 }
 .balloon__title{
   font-size: 1.2em;
@@ -207,6 +223,97 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* set mobile media */
+@media (max-width: 768px) {
+  body {
+    
+    place-items: none;
+    
+  }
+  #map{
+    width: 100%;
+    overflow: scroll;
+  }
+  #map3{
+    width: 100%;
+    overflow: scroll;
+  }
+  .baloon{
+    padding: 10px;
+    min-width: 80vw;
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(200, 200, 200);
+    border-radius: 4px;
+    background-color: rgb(221, 233, 116);
+    
+  /*   min-height: 80px; */
+  }
+  .balloon{
+    padding: 10px;
+    min-width: 80vw;
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(200, 200, 200);
+    border-radius: 4px;
+    background-color: rgb(221, 233, 116);
+    position: absolute;
+      bottom: 0;
+  /*   min-height: 80px; */
+  }
+  .ctballoon{
+    padding: 10px;
+    min-width: 80vw;
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    
+    position: absolute;
+      top: 35px;
+      left: 20px;
+  /*   min-height: 80px; */
+  }
+  .ctballoon__title{
+    width: 90%;
+    font-size: 1.2em;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #f00; 
+  }
+  .ctballoon__description{
+    display: flex;
+      flex-direction: row;
+      align-items: center;
+  
+    width: 80%;
+    font-size: 1.0em;
+    line-height: 1.0;
+    font-weight: 400;
+    color: #000; 
+  }
+  
+  .description__image{
+    width: 50px;
+    height: 50px;
+    margin: 5px ;
+  }
+  .balloon__title{
+    font-size: 1.2em;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #f00; 
+  }
+  .balloon__description{
+    font-size: 1.0em
+  
+}
 }
 
 @media (prefers-color-scheme: light) {
