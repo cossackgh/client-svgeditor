@@ -45,6 +45,7 @@ export interface DataOptions {
   isCustomBalloon?: boolean
   nodeCustomBalloon?: HTMLElement | null
   dataStructureCustomBalloon?: CastomBalloonOptions | null
+  isMobileZoom?: boolean | null
 }
 
 /**

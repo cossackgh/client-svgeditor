@@ -43,6 +43,7 @@ export class ClientSVGEditor extends Base {
     isCustomBalloon: false,
     nodeCustomBalloon: null,
     dataStructureCustomBalloon: null,
+    isMobileZoom: false
   }
 
   baloonTheme: BaloonTheme = {
@@ -57,6 +58,7 @@ export class ClientSVGEditor extends Base {
   nodeBallon: Baloon | null
   customNodeBallon!: HTMLElement | null
   isMobile: boolean | undefined
+
   evCache: any[] | undefined
   prevDiff: number = -1
   currentZoom: number = 1
@@ -109,6 +111,10 @@ export class ClientSVGEditor extends Base {
       if (options.dataStructureCustomBalloon !== undefined) {
         this.options.dataStructureCustomBalloon =
           options.dataStructureCustomBalloon
+      }
+      if (options.isMobileZoom !== undefined) {
+        this.options.isMobileZoom =
+          options.isMobileZoom
       }
       if (options.mapTheme !== undefined) {
         if (options.mapTheme.colorBG !== undefined) {
@@ -210,8 +216,10 @@ export class ClientSVGEditor extends Base {
     }
     this.initInteractiveLayer()
     this.clearInteractiveLayer()
-    if (this.isMobile) {
-      this.initZoom()
+    console.log('this.options.isMobileZoom', this.options.isMobileZoom)
+    if (this.isMobile ) {
+      if(this.options.isMobileZoom){
+      this.initZoom()}
       this.initMobileBalloon()
     }
     //create object optionsBaloon type BaloonOptions
@@ -560,7 +568,7 @@ export class ClientSVGEditor extends Base {
       <button  style="height: 40px;" >Посмотреть</button>
     </a>
     </div>
-    
+
     </div>
     `
 
@@ -741,7 +749,7 @@ export class Baloon extends Base {
       <div class="baloon" style="background-color: ${
         this.themeBaloonOptions?.colorBG
       };position: absolute;bottom: 0;left: 0;">
-      
+
         <div class="baloon-title" style="color:${
           this.themeBaloonOptions?.colorTitle
         }">${dataRender.title}</div>

@@ -81,6 +81,7 @@ export function testmylib() {
         widthBorderHoverItem: 2, // Width for border item on hover
         widthBorderSelectItem: 2, // Width for border item on select
       },
+      isMobileZoom: true,
     },
     baloonTheme
   )
