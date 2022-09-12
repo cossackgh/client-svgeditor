@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./icon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
     <title>Example use ClientSVGEditor</title>
     <link
       rel="stylesheet"
@@ -142,8 +148,10 @@
       }
     </code>
     </pre>
+    <div class="nonezoom">
+      <div id="map2" class="second-map"></div>
+    </div>
 
-    <div id="map2" class="second-map"></div>
     <div style="height: 200px; width: 100%"></div>
     <h1>Example map #3</h1>
     <h3>Width 50%. Size map svg is adaptive</h3>
@@ -228,7 +236,7 @@
       </div>
     </div>
 
-    <div id="cartoonballoon">
+    <div id="cartoonballoon" class="hidden">
       <div class="baseballoon">
         <div class="baseballoon_svg">
           <svg

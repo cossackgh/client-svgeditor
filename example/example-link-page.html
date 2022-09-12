@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example Link Page</title>
+    <style>
+      .title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center;
+      }
+      .description {
+        font-size: 1.1rem;
+        line-height: 1.2;
+        font-weight: normal;
+        text-align: center;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="center">This is sample link page</h1>
+    <h3 id="titleParam" class="title"></h3>
+    <h3 id="descriptionParam" class="description"></h3>
+    <script>
+      console.log(window.location.search)
+      // Get the URL parameters
+      const urlParams = new URLSearchParams(window.location.search)
+      // Get the value of the parameter
+      const myParam = urlParams.get('title')
+      // Log the value of the parameter
+      console.log(myParam)
+      // Set the value of the parameter
+      document.getElementById('titleParam').innerHTML = myParam
+      // Get the value of the parameter
+      const myParam2 = urlParams.get('description')
+      // Log the value of the parameter
+      console.log(myParam2)
+      // Set the value of the parameter
+      document.getElementById('descriptionParam').innerHTML = myParam2
+    </script>
+  </body>
+</html>
