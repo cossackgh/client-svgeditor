@@ -7,7 +7,7 @@ import type {
   BaloonTheme,
 } from './models/simple.models'
 //import { SvgMap } from './_privatemodule/svg'
-
+//import PinchZoom from './pinch-zoom.min.js'
 import Base from './base'
 import { doc } from 'prettier'
 import { visitFunctionBody } from 'typescript'
@@ -43,7 +43,7 @@ export class ClientSVGEditor extends Base {
     isCustomBalloon: false,
     nodeCustomBalloon: null,
     dataStructureCustomBalloon: null,
-    isMobileZoom: false
+    isMobileZoom: false,
   }
 
   baloonTheme: BaloonTheme = {
@@ -113,8 +113,7 @@ export class ClientSVGEditor extends Base {
           options.dataStructureCustomBalloon
       }
       if (options.isMobileZoom !== undefined) {
-        this.options.isMobileZoom =
-          options.isMobileZoom
+        this.options.isMobileZoom = options.isMobileZoom
       }
       if (options.mapTheme !== undefined) {
         if (options.mapTheme.colorBG !== undefined) {
@@ -217,9 +216,10 @@ export class ClientSVGEditor extends Base {
     this.initInteractiveLayer()
     this.clearInteractiveLayer()
     console.log('this.options.isMobileZoom', this.options.isMobileZoom)
-    if (this.isMobile ) {
-      if(this.options.isMobileZoom){
-      this.initZoom()}
+    if (this.isMobile) {
+      if (this.options.isMobileZoom) {
+        this.initZoom()
+      }
       this.initMobileBalloon()
     }
     //create object optionsBaloon type BaloonOptions
@@ -403,12 +403,19 @@ export class ClientSVGEditor extends Base {
 
   initZoom() {
     const el = this.node
+    /*     const optionsZoom = {
+      minZoom: 1,
+      maxZoom: 3,
+      zoomSpeed: 0.1,
+      zoomStep: 0.1,
+    }
+    let pz = new PinchZoom(el, optionsZoom)
+    pz.enable() */
+
     el!.onpointerdown = this.pointerdownHandler.bind(this)
     el!.onpointermove = this.pointermoveHandler.bind(this)
     console.log(this.isMobile)
-    // Use same handler for pointer{up,cancel,out,leave} events since
-    // the semantics for these events - in this app - are the same.
-    /*     el!.onpointerup = pointerupHandler;*/
+    //     el!.onpointerup = pointerupHandler;
     el!.onpointercancel = this.pointerupHandler.bind(this)
     el!.onpointerout = this.pointerupHandler.bind(this)
     el!.onpointerleave = this.pointerupHandler.bind(this)
@@ -434,6 +441,7 @@ export class ClientSVGEditor extends Base {
     // indicate the pointer's target received a move event.
     console.log('pointerMove', ev)
     //ev.target.style.border = 'dashed'
+    //const diffArrMove = [];
 
     // Find this event in the cache and update its record with this event
     const index = this.evCache!.findIndex(
@@ -452,8 +460,8 @@ export class ClientSVGEditor extends Base {
         if (curDiff > this.prevDiff) {
           // The distance between the two pointers has increased
           // Увеличение
-          this.currentZoom = this.currentZoom + Math.floor(curDiff / 10) / 100
-          console.log('Pinch moving OUT -> Zoom in', Math.floor(curDiff / 10))
+          this.currentZoom = this.currentZoom + Math.floor(curDiff / 10) / 200
+          console.log('Pinch moving OUT -> Zoom in', this.currentZoom)
         }
         if (this.currentZoom > 5) {
           this.currentZoom = 5
@@ -466,7 +474,7 @@ export class ClientSVGEditor extends Base {
         //Уменьшение
         console.log('Pinch moving IN -> Zoom out', this.currentZoom)
         //ev.target.style.background = 'lightblue'
-        this.currentZoom = this.currentZoom - Math.floor(curDiff / 10) / 100
+        this.currentZoom = this.currentZoom - Math.floor(curDiff / 10) / 200
         if (this.currentZoom < 0.5) {
           this.currentZoom = 0.5
         }
@@ -475,6 +483,11 @@ export class ClientSVGEditor extends Base {
       this.prevDiff = curDiff
       this.node!.firstChild.style.transform = `scale(${this.currentZoom})` //  scale(1.5)
       this.node!.firstChild.style.transformOrigin = 'center'
+    } else {
+      console.log('Pan moving')
+      const curDiffX = Math.abs(ev.clientX)
+      const curDiffY = Math.abs(ev.clientY)
+      console.log('curDiffX = ', curDiffX, '   ||  curDiffY = ', curDiffY)
     }
   }
 
