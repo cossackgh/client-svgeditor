@@ -9,4 +9,5 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-testmylib()
+const startIndex = testmylib()
+console.log(startIndex)

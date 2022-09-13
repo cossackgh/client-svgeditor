@@ -1,13 +1,24 @@
 import { ClientSVGEditor } from '../src/clientSVG'
 import '../src/style.css'
 import { DataInteractive } from '../src/models/simple.models'
-import { dataShops2, dataShops, dataShops3 } from './dataItems'
+import {
+  dataShops2,
+  dataShops,
+  dataShops3,
+  dataShops4Floor0,
+  dataShops4Floor1,
+  dataShops4Floor2,
+  dataShops4Floor3,
+  dataShops4Floor4,
+  dataShops4Floor5,
+} from './dataItems'
 
 export function testmylib() {
   console.log('testmylib')
   const nodeMap = document.getElementById('map')
   const nodeMap2 = document.getElementById('map2')
   const nodeMap3 = document.getElementById('map3')
+  const nodeMap4 = document.getElementById('map4')
 
   const baloonTheme = {
     colorBG: '#eeeeee',
@@ -133,9 +144,109 @@ export function testmylib() {
     baloonTheme3
   )
   const startMap3 = map3.start()
+
   console.log(startMap3)
   // map1.insertSVG('./public/floor-1_1.svg');
   console.log('New Client map1 = ', map1)
+
+  const map4 = new ClientSVGEditor(
+    nodeMap4, // node - dom element to insert svg
+    dataShops4Floor0, // dataItems - data to render
+    {
+      title: 'Этаж 0', // Head Title this map
+      urlmap: './public/multy/grand-floor-0.svg', // Path to map svg
+      isRemoveUnuseItem: true, // Remove unuse item from map?
+      funcClick: gotoURLClick, // Function for click on item
+      funcParams: 'https://www.google.com', // Params for function click on item
+      mapTheme: {
+        colorBG: '#ffffff',
+        colorItem: '#a55',
+        colorHoverItem: '#9e3232',
+        colorSelectItem: '#0000ff',
+        opacityItem: 0.1,
+        opacityHoverItem: 0.6,
+        opacitySelectItem: 1,
+        colorBorderItem: '#000000',
+        colorBorderHoverItem: '#ffff00',
+        colorBorderSelectItem: '#ffffff',
+        isBorderItem: true,
+        isBorderHoverItem: true,
+        isBorderSelectItem: false,
+        widthBorderItem: 2,
+        widthBorderHoverItem: 2,
+        widthBorderSelectItem: 2,
+      },
+      isCustomBalloon: false,
+    },
+    baloonTheme
+  )
+
+  const startMap4 = map4.start()
+
+  const btnArray = document.querySelectorAll('.btn__map')
+
+  btnArray.forEach((btn) => {
+    console.log('btnArray = ', btn.id)
+    btn.addEventListener('click', (e) => {
+      const elementBtn = e.target as HTMLElement
+      console.log('e.target = ', elementBtn.id)
+      switch (elementBtn.id) {
+        case 'floor-0':
+          console.log('FLOOR 0')
+          console.log('map4 = ', map4)
+          map4.options.urlmap = './public/multy/grand-floor-0.svg'
+          map4.options.title = 'Этаж 0'
+          map4.dataItems = dataShops4Floor0
+          map4.start()
+          break
+        case 'floor-1':
+          console.log('FLOOR 1')
+          console.log('map4 = ', map4)
+          map4.options.urlmap = './public/multy/grand-floor-1.svg'
+          map4.options.title = 'Этаж 1'
+          map4.dataItems = dataShops4Floor1
+          map4.start()
+          break
+        case 'floor-2':
+          console.log('FLOOR 2')
+          map4.options.urlmap = './public/multy/grand-floor-2.svg'
+          map4.options.title = 'Этаж 2'
+          map4.dataItems = dataShops4Floor2
+          map4.start()
+          break
+        case 'floor-3':
+          console.log('FLOOR 3')
+          map4.options.urlmap = './public/multy/grand-floor-3.svg'
+          map4.options.title = 'Этаж 3'
+          map4.dataItems = dataShops4Floor3
+          map4.start()
+          break
+        case 'floor-4':
+          console.log('FLOOR 4')
+          map4.options.urlmap = './public/multy/grand-floor-4.svg'
+          map4.options.title = 'Этаж 4'
+          map4.dataItems = dataShops4Floor4
+          map4.start()
+          break
+        case 'floor-5':
+          console.log('FLOOR 5')
+          map4.options.urlmap = './public/multy/grand-floor-5.svg'
+          map4.options.title = 'Этаж 5'
+          map4.dataItems = dataShops4Floor5
+          map4.start()
+          break
+
+        default:
+          break
+      }
+    })
+  })
+
+  const loadSVG = (url) => {
+    console.log('loadSVG', url)
+    console.log('startMap4 =', startMap4)
+  }
+  return loadSVG
 }
 
 function gotoURLClick(dataelement: any) {
