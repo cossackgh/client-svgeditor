@@ -11,6 +11,7 @@ import {
   dataShops4Floor3,
   dataShops4Floor4,
   dataShops4Floor5,
+  ExampleSVG,
 } from './dataItems'
 
 export function testmylib() {
@@ -19,6 +20,7 @@ export function testmylib() {
   const nodeMap2 = document.getElementById('map2')
   const nodeMap3 = document.getElementById('map3')
   const nodeMap4 = document.getElementById('map4')
+  const nodeMap5 = document.getElementById('map5')
 
   const baloonTheme = {
     colorBG: '#eeeeee',
@@ -242,6 +244,39 @@ export function testmylib() {
     })
   })
 
+  const map5 = new ClientSVGEditor(
+    nodeMap5, // node - dom element to insert svg
+    dataShops3, // dataItems - data to render
+    {
+      title: 'Load SVG from String', // Head Title this map
+      stringSVG: ExampleSVG, // String SVG
+      funcClick: gotoURLClick, // Function for click on item
+      funcParams: 'https://www.google.com', // Params for function click on item
+      mapTheme: {
+        colorBG: '#ffffff',
+        colorItem: '#a55',
+        colorHoverItem: '#9e3232',
+        colorSelectItem: '#0000ff',
+        opacityItem: 0.1,
+        opacityHoverItem: 0.6,
+        opacitySelectItem: 1,
+        colorBorderItem: '#000000',
+        colorBorderHoverItem: '#ffff00',
+        colorBorderSelectItem: '#ffffff',
+        isBorderItem: true,
+        isBorderHoverItem: true,
+        isBorderSelectItem: false,
+        widthBorderItem: 2,
+        widthBorderHoverItem: 2,
+        widthBorderSelectItem: 2,
+      },
+      isSVGFromSring: true,
+    },
+    baloonTheme
+  )
+
+  const startMap5 = map5.start()
+  console.log('startMap5 = ', startMap5)
   const loadSVG = (url) => {
     console.log('loadSVG', url)
     console.log('startMap4 =', startMap4)

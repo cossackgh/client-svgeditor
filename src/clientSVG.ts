@@ -18,6 +18,7 @@ export class ClientSVGEditor extends Base {
   options: DataOptions = {
     title: '',
     urlmap: '',
+    stringSVG: '',
     interactiveLayer: '#interactive',
     isRemoveUnuseItem: false,
     funcClick: this.onClick,
@@ -44,6 +45,7 @@ export class ClientSVGEditor extends Base {
     nodeCustomBalloon: null,
     dataStructureCustomBalloon: null,
     isMobileZoom: false,
+    isSVGFromSring: false,
   }
 
   baloonTheme: BaloonTheme = {
@@ -90,6 +92,9 @@ export class ClientSVGEditor extends Base {
       if (options.urlmap !== undefined) {
         this.options.urlmap = options.urlmap
       }
+      if (options.stringSVG !== undefined) {
+        this.options.stringSVG = options.stringSVG
+      }
       if (options.interactiveLayer !== undefined) {
         this.options.interactiveLayer = options.interactiveLayer
       }
@@ -114,6 +119,9 @@ export class ClientSVGEditor extends Base {
       }
       if (options.isMobileZoom !== undefined) {
         this.options.isMobileZoom = options.isMobileZoom
+      }
+      if (options.isSVGFromSring !== undefined) {
+        this.options.isSVGFromSring = options.isSVGFromSring
       }
       if (options.mapTheme !== undefined) {
         if (options.mapTheme.colorBG !== undefined) {
@@ -186,10 +194,13 @@ export class ClientSVGEditor extends Base {
   start() {
     this.isMobile = isMobile()
     this.evCache = []
-    console.log('isMobile = ', this.isMobile)
+    console.log('START  = ', this.options.title)
+    //  console.log('isMobile = ', this.isMobile)
 
     if (this.options.urlmap !== '') {
       this.insertSVG(this.options.urlmap!)
+    } else if (this.options.isSVGFromSring) {
+      this.insertSVGFromString(this.options.stringSVG!)
     }
     console.log('isCastomBalloon', this.options.isCustomBalloon)
     if (this.options.isCustomBalloon) {
@@ -210,6 +221,55 @@ export class ClientSVGEditor extends Base {
     const getSVGData = await loadSVGFile(itemSVG)
 
     this.node.innerHTML = getSVGData
+    if (this.options.isRemoveUnuseItem) {
+      this.syncDataItemsVsInteractiveLayer()
+    }
+    this.initInteractiveLayer()
+    this.clearInteractiveLayer()
+    console.log('this.options.isMobileZoom', this.options.isMobileZoom)
+    if (this.isMobile) {
+      if (this.options.isMobileZoom) {
+        this.initZoom()
+      }
+      this.initMobileBalloon()
+    }
+    //create object optionsBaloon type BaloonOptions
+    const optionsBaloon: BaloonOptions = {
+      baloonTheme: this.baloonTheme,
+    }
+    //const getBaloon=  createBaloon(optionsBaloon);
+
+    if (this.options.isCustomBalloon) {
+      //this.customNodeBallon = this.customNodeBallon
+      if (!this.isMobile) {
+        this.nodeBallon = createCustomBaloon(
+          optionsBaloon,
+          this.options.nodeCustomBalloon!
+        )
+      }
+    } else {
+      if (!this.isMobile) {
+        this.nodeBallon = createBaloon(optionsBaloon)
+      }
+    }
+
+    if (this.options.title !== '') {
+      const titleDom = document.createElement('div')
+      //titleDom.style.position = 'fixed'
+
+      titleDom.id = 'mapTitle'
+      titleDom.style.display = 'block'
+
+      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
+      this.node.insertBefore(titleDom, this.node.firstChild)
+      //this.node.appendChild(titleDom)
+    }
+    return true
+  }
+  insertSVGFromString(stringSVG: string) {
+    this.node.innerHTML = ''
+
+    this.node.innerHTML = stringSVG
     if (this.options.isRemoveUnuseItem) {
       this.syncDataItemsVsInteractiveLayer()
     }

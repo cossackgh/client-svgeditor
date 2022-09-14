@@ -35,6 +35,7 @@ export interface DataOptions {
   title?: string
   colorBG?: string
   urlmap?: string
+  stringSVG?: string
   interactiveLayer?: string
   description?: string
   image?: string
@@ -46,6 +47,7 @@ export interface DataOptions {
   nodeCustomBalloon?: HTMLElement | null
   dataStructureCustomBalloon?: CastomBalloonOptions | null
   isMobileZoom?: boolean | null
+  isSVGFromSring?: boolean | null
 }
 
 /**
