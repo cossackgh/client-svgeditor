@@ -399,7 +399,7 @@ const dataShops3: DataInteractive[] = [
     id: '0',
     idmap: 'item-terrasa',
     title: 'Терраса',
-    slug: '/terrasa',
+
     description: 'Терраса паред домом. 28,31 м2',
     image: 'https://loremflickr.com/128/128/abstract?8225',
   },

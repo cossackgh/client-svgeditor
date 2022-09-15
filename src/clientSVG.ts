@@ -21,7 +21,7 @@ export class ClientSVGEditor extends Base {
     stringSVG: '',
     interactiveLayer: '#interactive',
     isRemoveUnuseItem: false,
-    funcClick: this.onClick,
+    funcClick: this.localClick,
     funcParams: {},
     mapTheme: {
       colorBG: '#ffffff',
@@ -72,6 +72,7 @@ export class ClientSVGEditor extends Base {
     // isMobile: boolean,
     baloonTheme: BaloonTheme
   ) {
+    console.log('Input NODE = ', node)
     super()
     this.nodeBallon = null
     this.customNodeBallon = null
@@ -192,6 +193,7 @@ export class ClientSVGEditor extends Base {
   }
 
   start() {
+    if (this.node === null || this.node === undefined) return
     this.isMobile = isMobile()
     this.evCache = []
     console.log('START  = ', this.options.title)
@@ -208,6 +210,7 @@ export class ClientSVGEditor extends Base {
       const customBalloon = this.options.nodeCustomBalloon!
 
       customBalloon!.style.display = 'none'
+      customBalloon!.style.zIndex = '999999'
       customBalloon!.style.position = 'fixed'
     }
 
@@ -226,7 +229,12 @@ export class ClientSVGEditor extends Base {
     }
     this.initInteractiveLayer()
     this.clearInteractiveLayer()
-    console.log('this.options.isMobileZoom', this.options.isMobileZoom)
+    const svg = this.node.querySelector('svg')!
+    console.log('this.node', svg)
+    svg.style = ''
+    svg.style.width = '100%'
+    svg.style.height = '100%'
+    //console.log('this.options.isMobileZoom', this.options.isMobileZoom)
     if (this.isMobile) {
       if (this.options.isMobileZoom) {
         this.initZoom()
@@ -455,8 +463,16 @@ export class ClientSVGEditor extends Base {
     )
   }
   onClick(func: any, params: any) {
-    //  console.log(`params =`, params)
+    console.log(`params =`, params)
+    console.log(`func =`, func)
     func(params)
+  }
+
+  localClick(params: any) {
+    console.log(`params =`, params)
+    if (params.slug !== '' || params.slug !== undefined) {
+      window.open(params.slug, '_self')
+    }
   }
 
   // get function for mobile pointerevent  for zoom effect
@@ -605,6 +621,7 @@ export class ClientSVGEditor extends Base {
 
       baloonMobile.id = 'BaloonMobile'
       baloonMobile.style.display = 'none'
+      baloonMobile.style.zIndex = '999999'
       document.body.appendChild(baloonMobile)
       baloonMobile.innerHTML = `
     <div  style="background-color: ${this.baloonTheme.colorBG}; border-radius: 10px 10px 0 0; box-shadow: 0 0 10px rgba(0,0,0,0.5); width: 100%; height: 100%;">
@@ -841,9 +858,9 @@ export class Baloon extends Base {
     return true
   }
   customRender(dataRender: any, structureCustomRender: any) {
-    console.log('custom Render dataRender = ', dataRender)
+    /*     console.log('custom Render dataRender = ', dataRender)
     console.log('custom Render options = ', this.themeBaloonOptions)
-    console.log('custom Render structureCustomRender = ', structureCustomRender)
+    console.log('custom Render structureCustomRender = ', structureCustomRender) */
     const titleDom = this.baloonDom!.querySelector(structureCustomRender.title)
     const descriptionDom = this.baloonDom!.querySelector(
       structureCustomRender.description
@@ -876,6 +893,7 @@ const createBaloon = (options: BaloonOptions) => {
 
       baloonDom.id = 'BaloonItem'
       baloonDom.style.display = 'block'
+      baloonDom.style.zIndex = '999999'
       document.body.appendChild(baloonDom)
     } else {
       const baloonDom = document.createElement('div')
@@ -884,6 +902,7 @@ const createBaloon = (options: BaloonOptions) => {
       baloonDom.style.left = '0px'
       baloonDom.id = 'BaloonItem'
       baloonDom.style.display = 'block'
+      baloonDom.style.zIndex = '999999'
       document.body.appendChild(baloonDom)
     }
 
@@ -908,29 +927,6 @@ const createCustomBaloon = (
     baloon.baloonDom.style.top = 0 + 'px'
     baloon.baloonDom.style.left = 0 + 'px'
   } else {
-    /*     if (baloon.themeBaloonOptions.isPositionFixed) {
-      const baloonDom = document.createElement('div')
-      baloonDom.style.position = 'fixed'
-      baloonDom.style.top = baloon.themeBaloonOptions.isPositionFixed
-        ? baloon.themeBaloonOptions.top + 'px'
-        : '0px'
-      baloonDom.style.left = baloon.themeBaloonOptions.isPositionFixed
-        ? baloon.themeBaloonOptions.left + 'px'
-        : '0px'
-
-      baloonDom.id = 'BaloonItem'
-      baloonDom.style.display = 'block'
-      document.body.appendChild(baloonDom)
-    } else {
-      const baloonDom = document.createElement('div')
-      baloonDom.style.position = 'fixed'
-      baloonDom.style.top = '0px'
-      baloonDom.style.left = '0px'
-      baloonDom.id = 'BaloonItem'
-      baloonDom.style.display = 'block'
-      document.body.appendChild(baloonDom)
-    } */
-
     baloon.baloonDom = domBaloon
 
     baloon.hide()
@@ -946,7 +942,7 @@ let handleMousemove = (
 ) => {
   /*   console.log(`cursor ev =`, event);
   console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);*/
-  console.log(`cursor : baloon =`, baloon, ` \n`)
+  // console.log(`cursor : baloon =`, baloon, ` \n`)
   baloon.show()
   const getWidthElement = isCustomBalloon
     ? baloon.baloonDom.offsetWidth

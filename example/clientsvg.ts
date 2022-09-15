@@ -17,10 +17,12 @@ import {
 export function testmylib() {
   console.log('testmylib')
   const nodeMap = document.getElementById('map')
+  //const nodeMap = document.getElementById('map44')
   const nodeMap2 = document.getElementById('map2')
   const nodeMap3 = document.getElementById('map3')
   const nodeMap4 = document.getElementById('map4')
   const nodeMap5 = document.getElementById('map5')
+  //const nodeMap5 = undefined
 
   const baloonTheme = {
     colorBG: '#eeeeee',
@@ -250,7 +252,6 @@ export function testmylib() {
     {
       title: 'Load SVG from String', // Head Title this map
       stringSVG: ExampleSVG, // String SVG
-      funcClick: gotoURLClick, // Function for click on item
       funcParams: 'https://www.google.com', // Params for function click on item
       mapTheme: {
         colorBG: '#ffffff',
