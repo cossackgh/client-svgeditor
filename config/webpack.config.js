@@ -1,6 +1,7 @@
 const path = require('path')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
+  plugins: [new MiniCssExtractPlugin()],
   devtool: 'source-map',
   mode: 'production',
   entry: './src/index.ts',
@@ -35,6 +36,11 @@ module.exports = {
             configFile: 'config/tsconfig.umd.json',
           },
         },
+      },
+
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
