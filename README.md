@@ -1,7 +1,9 @@
 # Simple Client for SVG Editor
 ## Install
 ``` npm install svgeditor-simple-client```
-
+## Demo
+Use case of this library is to create a  [simple interactive map](http://svgedit.za-vod.ru/example/). 
+ 
 ## Use Client
 ```javascript
 import { ClientSVGEditor } from 'svgeditor-simple-client'
