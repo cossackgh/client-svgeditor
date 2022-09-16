@@ -5,7 +5,16 @@
 ## Use Client
 ```javascript
 import { ClientSVGEditor } from 'svgeditor-simple-client'
+```
+## OR Use Client from vanilla js
+```html
+<link rel="stylesheet"  href="./css/style.css" />
+    ................
+<script src="./js/svgeditor-simple-client.js"></script>
+```
+## Set up Client
 
+```javascript
 
    const nodeMap = document.getElementById('map'); // Get Node where you insert SVG map
       const baloonTheme = {
@@ -34,6 +43,8 @@ import { ClientSVGEditor } from 'svgeditor-simple-client'
         {
           title: 'Пример карты', // Head Title this map
           urlmap: './public/Shelkovsky-float-0.svg', // Path to map svg
+          stringSVG: '', // String SVG map if isSVGFromSring => true
+          interactiveLayer: '#interactive', // Layer for interactive items in SVG map. Default: #interactive
           isRemoveUnuseItem: false, // Remove unuse item from map?
           funcClick: gotoURLClick, // Function for click on item
           funcParams: 'https://www.google.com', // Params for function click on item
@@ -56,6 +67,11 @@ import { ClientSVGEditor } from 'svgeditor-simple-client'
             widthBorderHoverItem: 2, // Width for border item on hover
             widthBorderSelectItem: 2, // Width for border item on select
           },
+              isCustomBalloon: false, // Is you use custom baloon?
+              nodeCustomBalloon: null, // Node HTMLElement for custom baloon
+              dataStructureCustomBalloon: null, // Data structure for custom baloon
+              isMobileZoom: false, // Is turn on zoom swipe on mobile?
+              isSVGFromSring: false, // Is load SVG from string? 
         },
         baloonTheme // Theme for defaul baloon
       )

@@ -1,6 +1,6 @@
 {
   "name": "svgeditor-simple-client",
-  "version": "0.0.88",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

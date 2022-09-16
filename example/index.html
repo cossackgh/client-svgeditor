@@ -84,7 +84,7 @@
     </code>
     </pre>
     <div id="map"></div>
-    <div style="height: 200px; width: 100%"></div>
+    <div class="divide-block"></div>
     <h1>Example map #2</h1>
     <h3>Width 100%. Size map svg is adaptive</h3>
 
@@ -151,9 +151,9 @@
 
     <div id="map2" class="second-map"></div>
 
-    <div style="height: 200px; width: 100%"></div>
+    <div class="divide-block"></div>
     <h1>Example map #3</h1>
-    <h3>Width 50%. Size map svg is adaptive</h3>
+    <h3>Width 50%. Size map svg is adaptive. Example custom Balloon</h3>
 
     <p>Example settings for this map</p>
     <pre class="precode"><code class="language-js">
@@ -208,7 +208,7 @@
             widthBorderSelectItem: 2, // Width for border item on select
           },
           isCustomBalloon: true, // Is custom baloon?
-          nodeCustomBalloon: document.getElementById('myballoon'), // Node for custom baloon
+          nodeCustomBalloon: document.getElementById('cartoonballoon'), // Node for custom baloon
           dataStructureCustomBalloon: {
             title: '.balloon__title', // Selector for title
             description: '.balloon__description', // Selector for description
@@ -223,15 +223,52 @@
     </code>
     </pre>
 
+    <h3>Example custom Balloon in HTML</h3>
+    <pre class="precode">
+      <code class="language-html">
+        &lt;div id=&quot;cartoonballoon&quot; class=&quot;hidden&quot;&gt;
+        &lt;div class=&quot;baseballoon&quot;&gt;
+          &lt;div class=&quot;baseballoon_svg&quot;&gt;
+            &lt;svg
+              version=&quot;1.1&quot;
+              id=&quot;Layer_1&quot;
+              xmlns=&quot;http://www.w3.org/2000/svg&quot;
+              xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+              x=&quot;0px&quot;
+              y=&quot;0px&quot;
+              viewBox=&quot;0 0 488.6 382.2&quot;
+              style=&quot;enable-background: new 0 0 488.6 382.2&quot;
+              xml:space=&quot;preserve&quot;
+            &gt;
+              &lt;polygon
+                style=&quot;fill: #231f20&quot;
+                points=&quot;0,33.3 17.5,275.9 96.1,281.9 150.2,382.2 182.8,288.6 437.2,308.1 488.6,0 	&quot;
+              /&gt;
+              &lt;polyline
+                style=&quot;fill: #ffffff&quot;
+                points=&quot;40.2,264.8 24.7,49.2 475.1,20.6 429,294.7 176,275.3 149.9,354.6 115.2,270.6 40.2,264.8 
+        &quot;
+              /&gt;
+            &lt;/svg&gt;
+            &lt;div class=&quot;ctballoon&quot;&gt;
+              &lt;div class=&quot;ctballoon__title&quot;&gt;Title&lt;/div&gt;
+              &lt;div class=&quot;ctballoon__description&quot;&gt;Description&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+  </code>
+</pre>
+
     <div id="map3" class="third-map"></div>
-    <div style="height: 200px; width: 100%"></div>
+    <div class="divide-block"></div>
 
     <h1>Example map #4</h1>
     <h3>MultyLayer. Size map svg is adaptive</h3>
     <div class="buttons-floors">
       <ul class="ul-li-button">
         <li>
-          <button id="floor-0" class="btn__map">0 этаж</button>
+          <button id="floor-0" class="btn__map active">0 этаж</button>
         </li>
         <li>
           <button id="floor-1" class="btn__map">1 этаж</button>
@@ -251,12 +288,12 @@
       </ul>
     </div>
     <div id="map4" class="multy-map"></div>
-    <div style="height: 200px; width: 100%"></div>
+    <div class="divide-block"></div>
 
     <h1>Example map #5</h1>
     <h3>Load SVG from string. Size map svg is adaptive</h3>
     <div id="map5" class="third-map"></div>
-    <div style="height: 200px; width: 100%"></div>
+    <div class="divide-block"></div>
 
     <div id="myballoon" class="hidden">
       <div class="baseballoon">
@@ -303,10 +340,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     <script>
       hljs.highlightAll()
-      console.log('Hello Index html')
-      function fff() {
-        console.log(window)
-      }
     </script>
   </body>
 </html>

@@ -49,7 +49,7 @@ h1 {
 
 
 .precode{
-  max-width: 100%;
+  width: 100%;
 }
 .baloon{
   padding: 10px;
@@ -186,7 +186,8 @@ h1 {
 }
 .multy-map{
   width: 70%;
-  height: 80vh;
+/*   height: 80vh; */
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -205,6 +206,24 @@ h1 {
 }
 .third-map {
   width: 50%;
+  
+}
+
+.w-full{
+  width: 100%;
+}
+.btn__map{
+  margin: 0 5px;
+  padding: 0.7em;
+  font-size: 0.9em;
+}
+.btn__map:hover{
+  background-color: #aeb97f;
+  border-color: #fff;
+}
+.btn__map.active{
+  background-color: #aeb97f;
+  border-color: #fff;
 }
 #app {
   max-width: 1280px;
@@ -233,6 +252,87 @@ h1 {
   color: #888;
 }
 
+.divide-block{
+  width: 100%;
+  height: 200px;
+}
+
+.fade-in {
+	-webkit-animation: slide-fade-in 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-fade-in 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.fade-out {
+	-webkit-animation: slide-fade-out 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-fade-out 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+/**
+ * ----------------------------------------
+ * animation slide-top
+ * ----------------------------------------
+ */
+ @-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(-100);
+            transform: translateY(-100);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(-100);
+            transform: translateY(-100);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@-webkit-keyframes slide-fade-in {
+  0% {
+    -webkit-opacity: 0;
+            opacity: 0;
+  }
+  100% {
+    -webkit-opacity: 1;
+            opacity: 1;
+  }
+}
+@keyframes slide-fade-in {
+  0% {
+    -webkit-opacity: 0;
+            opacity: 0;
+  }
+  100% {
+    -webkit-opacity: 1;
+            opacity: 1;
+  }
+}
+@-webkit-keyframes slide-fade-out {
+  0% {
+    -webkit-opacity: 1;
+            opacity: 1;
+  }
+  100% {
+    -webkit-opacity: 0;
+            opacity: 0;
+  }
+}
+@keyframes slide-fade-out {
+  0% {
+    -webkit-opacity: 1;
+            opacity: 1;
+  }
+  100% {
+    -webkit-opacity: 0;
+            opacity: 0;
+  }
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -258,6 +358,16 @@ button:focus-visible {
     
     place-items: none;
     
+  }
+  h1{
+    font-size: 1.5em;
+  }
+  h3{
+    font-size: 0.9em;
+  }
+  .divide-block{
+    width: 100%;
+    height: 40px;
   }
   #map{
     width: 100%;
@@ -340,6 +450,13 @@ button:focus-visible {
   .balloon__description{
     font-size: 1.0em
   
+}
+
+.multy-map{
+  width: 95%;
+  height: inherit;
+  aspect-ratio: 3/2;
+  margin-top: 4px;
 }
 }
 

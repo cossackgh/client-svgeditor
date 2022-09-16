@@ -188,56 +188,82 @@ export function testmylib() {
   const startMap4 = map4.start()
 
   const btnArray = document.querySelectorAll('.btn__map')
-
   btnArray.forEach((btn) => {
     console.log('btnArray = ', btn.id)
     btn.addEventListener('click', (e) => {
       const elementBtn = e.target as HTMLElement
+      const pauseAnimMap = 800
+      animateFade()
       console.log('e.target = ', elementBtn.id)
       switch (elementBtn.id) {
         case 'floor-0':
           console.log('FLOOR 0')
           console.log('map4 = ', map4)
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-0.svg'
           map4.options.title = 'Этаж 0'
           map4.dataItems = dataShops4Floor0
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
+
           break
         case 'floor-1':
           console.log('FLOOR 1')
           console.log('map4 = ', map4)
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-1.svg'
           map4.options.title = 'Этаж 1'
           map4.dataItems = dataShops4Floor1
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
           break
         case 'floor-2':
           console.log('FLOOR 2')
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-2.svg'
           map4.options.title = 'Этаж 2'
           map4.dataItems = dataShops4Floor2
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
           break
         case 'floor-3':
           console.log('FLOOR 3')
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-3.svg'
           map4.options.title = 'Этаж 3'
           map4.dataItems = dataShops4Floor3
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
           break
         case 'floor-4':
           console.log('FLOOR 4')
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-4.svg'
           map4.options.title = 'Этаж 4'
           map4.dataItems = dataShops4Floor4
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
           break
         case 'floor-5':
           console.log('FLOOR 5')
+          clearActive()
+          elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-5.svg'
           map4.options.title = 'Этаж 5'
           map4.dataItems = dataShops4Floor5
-          map4.start()
+          setTimeout(() => {
+            map4.start()
+          }, pauseAnimMap)
           break
 
         default:
@@ -245,6 +271,24 @@ export function testmylib() {
       }
     })
   })
+
+  function animateFade() {
+    const classes = document.querySelector('#map4')?.classList
+
+    classes?.toggle('fade-out')
+    setTimeout(() => {
+      classes?.toggle('fade-in')
+      classes?.toggle('fade-out')
+      setTimeout(() => {
+        classes?.toggle('fade-in')
+      }, 1000)
+    }, 1000)
+  }
+  function clearActive() {
+    btnArray.forEach((btn) => {
+      btn.classList.remove('active')
+    })
+  }
 
   const map5 = new ClientSVGEditor(
     nodeMap5, // node - dom element to insert svg
