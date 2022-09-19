@@ -1,6 +1,6 @@
 {
   "name": "svgeditor-simple-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -10,7 +10,7 @@
     "dev": "vite",
     "buildts": "npx tsc",
     "buildex": "vite build",
-    "postinstall": "husky install",
+    "_postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
     "postversion": "git push --follow-tags",

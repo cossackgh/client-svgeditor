@@ -40,6 +40,7 @@ export interface DataOptions {
   description?: string
   image?: string
   isRemoveUnuseItem?: boolean
+  isHoverEnable?: boolean
   funcClick?: Function
   funcParams?: any
   mapTheme?: MapTheme

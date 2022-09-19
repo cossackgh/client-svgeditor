@@ -188,6 +188,7 @@ export function testmylib() {
   const startMap4 = map4.start()
 
   const btnArray = document.querySelectorAll('.btn__map')
+  const btnSelect = document.querySelector('.button-group')
   btnArray.forEach((btn) => {
     console.log('btnArray = ', btn.id)
     btn.addEventListener('click', (e) => {
@@ -199,10 +200,12 @@ export function testmylib() {
         case 'floor-0':
           console.log('FLOOR 0')
           console.log('map4 = ', map4)
+          btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-0.svg'
           map4.options.title = 'Этаж 0'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor0
           setTimeout(() => {
             map4.start()
@@ -212,10 +215,12 @@ export function testmylib() {
         case 'floor-1':
           console.log('FLOOR 1')
           console.log('map4 = ', map4)
+          btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-1.svg'
           map4.options.title = 'Этаж 1'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor1
           setTimeout(() => {
             map4.start()
@@ -223,10 +228,12 @@ export function testmylib() {
           break
         case 'floor-2':
           console.log('FLOOR 2')
+          btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-2.svg'
           map4.options.title = 'Этаж 2'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor2
           setTimeout(() => {
             map4.start()
@@ -234,10 +241,12 @@ export function testmylib() {
           break
         case 'floor-3':
           console.log('FLOOR 3')
+          btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-3.svg'
           map4.options.title = 'Этаж 3'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor3
           setTimeout(() => {
             map4.start()
@@ -245,10 +254,13 @@ export function testmylib() {
           break
         case 'floor-4':
           console.log('FLOOR 4')
+
+          btnSelect?.classList.remove('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-4.svg'
           map4.options.title = 'Этаж 4'
+          map4.options.isHoverEnable = false // Remove hover effect
           map4.dataItems = dataShops4Floor4
           setTimeout(() => {
             map4.start()
@@ -256,10 +268,12 @@ export function testmylib() {
           break
         case 'floor-5':
           console.log('FLOOR 5')
+          btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
           map4.options.urlmap = './public/multy/grand-floor-5.svg'
           map4.options.title = 'Этаж 5'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor5
           setTimeout(() => {
             map4.start()
@@ -272,6 +286,24 @@ export function testmylib() {
     })
   })
 
+  initSelectItems()
+  function initSelectItems() {
+    const btnSelect1 = document.querySelector('#btn__select1')
+    const btnSelect2 = document.querySelector('#btn__select2')
+    console.log('btnSelect1 = ', btnSelect1)
+    btnSelect1?.addEventListener('click', (e) => {
+      e.stopImmediatePropagation()
+      map4.clearInteractiveLayer()
+      console.log('btnSelect1 = ', e.target)
+      map4.selectItem('Shape-2-01')
+    })
+    btnSelect2?.addEventListener('click', (e) => {
+      e.stopImmediatePropagation()
+      map4.clearInteractiveLayer()
+      console.log('btnSelect1 = ', e.target)
+      map4.selectItem('Shape-2-36')
+    })
+  }
   function animateFade() {
     const classes = document.querySelector('#map4')?.classList
 

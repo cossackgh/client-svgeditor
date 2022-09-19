@@ -185,8 +185,9 @@ h1 {
   
 }
 .multy-map{
-  width: 70%;
-/*   height: 80vh; */
+  width: 50%;
+/*  height: 80vh;*/
+aspect-ratio: 3/2;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -206,7 +207,6 @@ h1 {
 }
 .third-map {
   width: 50%;
-  
 }
 
 .w-full{
@@ -258,12 +258,12 @@ h1 {
 }
 
 .fade-in {
-	-webkit-animation: slide-fade-in 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-fade-in 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	-webkit-animation: slide-fade-in 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-fade-in 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .fade-out {
-	-webkit-animation: slide-fade-out 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-fade-out 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	-webkit-animation: slide-fade-out 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-fade-out 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 
@@ -352,6 +352,38 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.button-group.hidden {
+  display: none;
+}
+.button-group p{
+  margin: 0;
+}
+.button-group {
+  display: block;
+
+}
+.ul__select{
+  display: flex;
+  flex-wrap: wrap;
+  
+  
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.btn__select{
+  margin: 0 5px;
+  padding: 0.7em;
+  font-size: 0.9em;
+}
+.btn__select.active{
+  background-color: #aeb97f;
+  border-color: #fff;
+}
+
 /* set mobile media */
 @media (max-width: 768px) {
   body {
@@ -369,9 +401,10 @@ button:focus-visible {
     width: 100%;
     height: 40px;
   }
-  .precode{
-    width: 100%;
-  }
+.precode{
+  width: 100%;
+}
+
   #map{
     width: 100%;
     overflow: scroll;
@@ -457,7 +490,6 @@ button:focus-visible {
 
 .multy-map{
   width: 95%;
-  height: inherit;
   aspect-ratio: 3/2;
   margin-top: 4px;
 }

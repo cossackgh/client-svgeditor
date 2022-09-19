@@ -21,6 +21,7 @@ export class ClientSVGEditor extends Base {
     stringSVG: '',
     interactiveLayer: '#interactive',
     isRemoveUnuseItem: false,
+    isHoverEnable: true,
     funcClick: this.localClick,
     funcParams: {},
     mapTheme: {
@@ -61,8 +62,8 @@ export class ClientSVGEditor extends Base {
   customNodeBallon!: HTMLElement | null
   isMobile: boolean | undefined
 
-  evCache: any[] | undefined
-  prevDiff: number = -1
+  static evCache: any[] | undefined
+  static prevDiff: number = -1
   currentZoom: number = 1
 
   constructor(
@@ -101,6 +102,9 @@ export class ClientSVGEditor extends Base {
       }
       if (options.isRemoveUnuseItem !== undefined) {
         this.options.isRemoveUnuseItem = options.isRemoveUnuseItem
+      }
+      if (options.isHoverEnable !== undefined) {
+        this.options.isHoverEnable = options.isHoverEnable
       }
       if (options.funcClick !== undefined) {
         this.options.funcClick = options.funcClick
@@ -188,14 +192,14 @@ export class ClientSVGEditor extends Base {
       }
     }
   }
-  test() {
+  static test() {
     return true
   }
 
   start() {
     if (this.node === null || this.node === undefined) return
     this.isMobile = isMobile()
-    this.evCache = []
+    ClientSVGEditor.evCache = []
     console.log('START  = ', this.options.title)
     //  console.log('isMobile = ', this.isMobile)
 
@@ -216,8 +220,13 @@ export class ClientSVGEditor extends Base {
 
     this.node.style.backgroundColor = this.options.mapTheme!.colorBG
     this.node.style.overflow = 'auto'
+    document.body.addEventListener('click', (e) => {
+      this.nodeBallon!.hide()
+    })
+
     return true
   }
+
   async insertSVG(itemSVG: string) {
     this.node.innerHTML = ''
 
@@ -225,9 +234,12 @@ export class ClientSVGEditor extends Base {
 
     this.node.innerHTML = getSVGData
     if (this.options.isRemoveUnuseItem) {
-      this.syncDataItemsVsInteractiveLayer()
+      ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    this.initInteractiveLayer()
+    console.log('HOVER ENABLE = ', this.options.isHoverEnable)
+    if (this.options.isHoverEnable) {
+      this.initInteractiveLayer()
+    }
     this.clearInteractiveLayer()
     const svg = this.node.querySelector('svg')!
     console.log('this.node', svg)
@@ -279,9 +291,11 @@ export class ClientSVGEditor extends Base {
 
     this.node.innerHTML = stringSVG
     if (this.options.isRemoveUnuseItem) {
-      this.syncDataItemsVsInteractiveLayer()
+      ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    this.initInteractiveLayer()
+    if (this.options.isHoverEnable) {
+      this.initInteractiveLayer()
+    }
     this.clearInteractiveLayer()
     console.log('this.options.isMobileZoom', this.options.isMobileZoom)
     if (this.isMobile) {
@@ -324,21 +338,22 @@ export class ClientSVGEditor extends Base {
     return true
   }
 
-  syncDataItemsVsInteractiveLayer() {
+  static syncDataItemsVsInteractiveLayer(client: any) {
     const getInteractiveItems = [
-      ...this.node.querySelector(`${this.options.interactiveLayer}`).children,
+      ...client.node.querySelector(`${client.options.interactiveLayer}`)
+        .children,
     ]
 
     getInteractiveItems.forEach((item) => {
       //console.log('syncDataItemsVsInteractiveLayer item = ' , item.idmap);
-      const isItemUse = this.dataItems.find(
-        (itemObjects) => itemObjects.idmap === item.id
+      const isItemUse = client.dataItems.find(
+        (itemObjects: { idmap: string }) => itemObjects.idmap === item.id
       )
       //const isItemUse = getInteractiveItems.find((itemObjects) =>itemObjects.id === item.idmap)
 
       // console.log('syncDataItemsVsInteractiveLayer isItemUse = ', isItemUse)
       if (isItemUse === undefined) {
-        this.deleteItem(item.id!)
+        client.deleteItem(item.id!)
       }
     })
   }
@@ -349,6 +364,102 @@ export class ClientSVGEditor extends Base {
       .querySelector(`#${id}`)
     item?.remove()
   }
+  getPositionScroll(element: HTMLElement = this.node) {
+    const scrollX = element.getBoundingClientRect().left
+    const scrollY = element.getBoundingClientRect().top
+
+    console.log('element', this.node)
+    console.log('scrollX', scrollX)
+    console.log('scrollY', scrollY)
+    return { scrollX, scrollY }
+  }
+
+  selectItem(id: string) {
+    const item = this.node
+      .querySelector(`${this.options.interactiveLayer}`)
+      .querySelector(`#${id}`)
+    console.log('item', item)
+    console.log('item X', item.getBoundingClientRect())
+    item.style.fill = this.options.mapTheme!.colorSelectItem
+    item.style.stroke = this.options.mapTheme!.colorBorderSelectItem
+    item.style.strokeWidth = this.options.mapTheme!.widthBorderSelectItem
+    item.style.opacity = this.options.mapTheme!.opacitySelectItem
+    const getDataItem = this.dataItems.find((item) => item.idmap === id)
+    if (!this.isMobile) {
+      if (this.options.isCustomBalloon) {
+        if (getDataItem !== undefined) {
+          if (getDataItem?.description !== undefined) {
+            this.nodeBallon!.customRender(
+              {
+                title: getDataItem?.title,
+                description: getDataItem?.description,
+              },
+              this.options.dataStructureCustomBalloon
+            )
+          } else {
+            this.nodeBallon!.customRender(
+              {
+                title: getDataItem?.title,
+                description: '',
+              },
+              this.options.dataStructureCustomBalloon
+            )
+          }
+        }
+      } else {
+        if (getDataItem !== undefined) {
+          if (getDataItem?.description !== undefined) {
+            this.nodeBallon!.render({
+              title: getDataItem?.title,
+              description: getDataItem?.description,
+            })
+          } else {
+            this.nodeBallon!.render({
+              title: getDataItem?.title,
+              description: '',
+            })
+          }
+        } else {
+          this.nodeBallon!.render({
+            title: 'Info not found',
+            description: 'Info not found',
+          })
+        }
+      }
+    }
+    handleMousemove(
+      item.getBoundingClientRect(),
+      this.nodeBallon,
+      this.options.isCustomBalloon!
+    )
+
+    document.addEventListener('scroll', (e: any) => {
+      console.log('scroll', e)
+      this.getPositionScroll(item)
+      handleMousemove(
+        item.getBoundingClientRect(),
+        this.nodeBallon,
+        this.options.isCustomBalloon!
+      )
+      //this.nodeBallon!.hide()
+    })
+  }
+
+  showBalloonS(id: string) {
+    const item = this.node
+      .querySelector(`${this.options.interactiveLayer}`)
+      .querySelector(`#${id}`)
+    /*     const itemData = this.dataItems.find(
+      (itemObjects: { idmap: string }) => itemObjects.idmap === id
+    )
+    if (itemData !== undefined) {
+      if (this.isMobile) {
+        this.nodeBallon?.showBalloon(itemData)
+      } else {
+        this.nodeBallon?.showBalloon(itemData, item)
+      }
+    } */
+  }
 
   initInteractiveLayer() {
     const interactiveLayer = this.node.querySelector(
@@ -358,15 +469,13 @@ export class ClientSVGEditor extends Base {
     console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
     if (!this.isMobile) {
       interactiveLayer.addEventListener('mousemove', (e: any) => {
-        //  console.log('mousemove', e.target);
-        if (this.options.isCustomBalloon) {
-          handleMousemove(e, this.nodeBallon, true)
-        } else {
-          handleMousemove(e, this.nodeBallon, false)
-        }
+        console.log('mousemove', e.x, e.y)
+        handleMousemove(e, this.nodeBallon, this.options.isCustomBalloon!)
+
         //  throttle(handleMousemove(e,this.nodeBallon), 11200)
       })
     }
+
     ;[...interactiveLayer.children].forEach(
       (item: {
         id: string
@@ -396,15 +505,16 @@ export class ClientSVGEditor extends Base {
             )
 
             item.addEventListener('click', (event: any) => {
-              //  console.log('click', event.target.id)
+              console.log('click', event.target.id)
               if (event.target.tagName !== 'g') {
-                event.target.style.fill = this.options.mapTheme!.colorSelectItem
+                this.selectItem(event.target.id)
+                /*                 event.target.style.fill = this.options.mapTheme!.colorSelectItem
                 event.target.style.stroke =
                   this.options.mapTheme!.colorBorderSelectItem
                 event.target.style.strokeWidth =
                   this.options.mapTheme!.widthBorderSelectItem
                 event.target.style.opacity =
-                  this.options.mapTheme!.opacitySelectItem
+                  this.options.mapTheme!.opacitySelectItem */
               }
               this.onClick(
                 this.options.funcClick,
@@ -501,9 +611,9 @@ export class ClientSVGEditor extends Base {
     // The pointerdown event signals the start of a touch interaction.
     // This event is cached to support 2-finger gestures
     console.log('pointerDown', ev)
-    console.log('mob  == ', this.evCache)
+    console.log('mob  == ', ClientSVGEditor.evCache)
 
-    this.evCache!.push(ev)
+    ClientSVGEditor.evCache!.push(ev)
   }
 
   pointermoveHandler(ev: any) {
@@ -520,20 +630,21 @@ export class ClientSVGEditor extends Base {
     //const diffArrMove = [];
 
     // Find this event in the cache and update its record with this event
-    const index = this.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache!.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    this.evCache![index] = ev
+    ClientSVGEditor.evCache![index] = ev
 
     // If two pointers are down, check for pinch gestures
-    if (this.evCache!.length === 2) {
+    if (ClientSVGEditor.evCache!.length === 2) {
       // Calculate the distance between the two pointers
       const curDiff = Math.abs(
-        this.evCache![0].clientX - this.evCache![1].clientX
+        ClientSVGEditor.evCache![0].clientX -
+          ClientSVGEditor.evCache![1].clientX
       )
 
-      if (this.prevDiff > 0) {
-        if (curDiff > this.prevDiff) {
+      if (ClientSVGEditor.prevDiff > 0) {
+        if (curDiff > ClientSVGEditor.prevDiff) {
           // The distance between the two pointers has increased
           // Увеличение
           this.currentZoom = this.currentZoom + Math.floor(curDiff / 10) / 200
@@ -545,7 +656,7 @@ export class ClientSVGEditor extends Base {
         console.log('this.currentZoom = ', this.currentZoom)
         //ev.target.style.background = 'pink'
       }
-      if (curDiff < this.prevDiff) {
+      if (curDiff < ClientSVGEditor.prevDiff) {
         // The distance between the two pointers has decreased
         //Уменьшение
         console.log('Pinch moving IN -> Zoom out', this.currentZoom)
@@ -556,7 +667,7 @@ export class ClientSVGEditor extends Base {
         }
       }
       // Cache the distance for the next move event
-      this.prevDiff = curDiff
+      ClientSVGEditor.prevDiff = curDiff
       this.node!.firstChild.style.transform = `scale(${this.currentZoom})` //  scale(1.5)
       this.node!.firstChild.style.transformOrigin = 'center'
     } else {
@@ -573,16 +684,16 @@ export class ClientSVGEditor extends Base {
     // background and border
     //this.removeEvent(ev)
 
-    const index = this.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache!.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    this.evCache!.splice(index, 1)
+    ClientSVGEditor.evCache!.splice(index, 1)
 
     //ev.target.style.background = "white";
     //ev.target.style.border = "1px solid black";
 
     // If the number of pointers down is less than two then reset diff tracker
-    if (this.evCache!.length < 2) {
+    if (ClientSVGEditor.evCache!.length < 2) {
       //this.prevDiff = -1
       //  this.currentZoom = Math.floor(this.prevDiff / 10) / 10
       console.log('this.currentZoom = ', this.currentZoom)
@@ -590,10 +701,10 @@ export class ClientSVGEditor extends Base {
   }
   removeEvent(ev: any) {
     // Remove this event from the target's cache
-    const index = this.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache!.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    this.evCache!.splice(index, 1)
+    ClientSVGEditor.evCache!.splice(index, 1)
   }
 
   initMobileBalloon = () => {
@@ -774,16 +885,16 @@ export class ClientSVGEditor extends Base {
   }
 
   // Add given element at a position
-  add(element: any, i: number) {
+  static add(client: any, element: any, i: number) {
     //element = makeInstance(element)
 
     if (i == null) {
-      this.node.appendChild(element.node)
-    } else if (element.node !== this.node.childNodes[i]) {
-      this.node.insertBefore(element.node, this.node.childNodes[i])
+      client.node.appendChild(element.node)
+    } else if (element.node !== client.node.childNodes[i]) {
+      client.node.insertBefore(element.node, client.node.childNodes[i])
     }
 
-    return this
+    return client
   }
 }
 
@@ -936,12 +1047,12 @@ const createCustomBaloon = (
 }
 
 let handleMousemove = (
-  event: { x: any; y: any },
+  position: { x: number; y: number },
   baloon: any,
   isCustomBalloon: boolean
 ) => {
-  /*   console.log(`cursor ev =`, event);
-  console.log(`cursor : X= ${event.x} px : Y= ${event.y} px\n`);*/
+  /*   console.log(`cursor ev =`, position);
+  console.log(`cursor : X= ${position.x} px : Y= ${position.y} px\n`);*/
   // console.log(`cursor : baloon =`, baloon, ` \n`)
   baloon.show()
   const getWidthElement = isCustomBalloon
@@ -950,8 +1061,8 @@ let handleMousemove = (
   //  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
   if (!baloon.themeBaloonOptions?.isPositionFixed) {
     baloon.baloonDom!.style.transform = `translate(${
-      event.x - getWidthElement / 2 - baloon.themeBaloonOptions.left
-    }px, ${event.y - 40 - baloon.themeBaloonOptions.top}px)`
+      position.x - getWidthElement / 2 - baloon.themeBaloonOptions.left
+    }px, ${position.y - 40 - baloon.themeBaloonOptions.top}px)`
   } else {
   }
 }
