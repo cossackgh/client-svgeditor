@@ -277,7 +277,8 @@ export class ClientSVGEditor extends Base {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
-      titleDom.id = 'mapTitle'
+     
+      titleDom.setAttribute('class','svgmap-title')
       titleDom.style.display = 'block'
 
       titleDom.innerHTML = `<h1>${this.options.title}</h1>`
@@ -328,7 +329,7 @@ export class ClientSVGEditor extends Base {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
-      titleDom.id = 'mapTitle'
+      titleDom.setAttribute('class','svgmap-title')
       titleDom.style.display = 'block'
 
       titleDom.innerHTML = `<h1>${this.options.title}</h1>`
@@ -368,9 +369,9 @@ export class ClientSVGEditor extends Base {
     const scrollX = element.getBoundingClientRect().left
     const scrollY = element.getBoundingClientRect().top
 
-    console.log('element', this.node)
+/*     console.log('element', this.node)
     console.log('scrollX', scrollX)
-    console.log('scrollY', scrollY)
+    console.log('scrollY', scrollY) */
     return { scrollX, scrollY }
   }
 
