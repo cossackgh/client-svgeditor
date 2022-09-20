@@ -353,14 +353,17 @@ button:focus-visible {
 }
 
 .button-group.hidden {
-  display: none;
+  visibility: hidden;
+ 
 }
 .button-group p{
   margin: 0;
+  
 }
 .button-group {
   display: block;
-
+  visibility: visible;
+  height: 7vh;
 }
 .ul__select{
   display: flex;

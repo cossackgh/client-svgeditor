@@ -15,7 +15,7 @@ import { visitFunctionBody } from 'typescript'
 export class ClientSVGEditor extends Base {
   node: any
   dataItems: DataInteractive[] = []
-  options: DataOptions = {
+  options: DataOptions | null = {
     title: '',
     urlmap: '',
     stringSVG: '',
@@ -64,6 +64,8 @@ export class ClientSVGEditor extends Base {
 
   static evCache: any[] | undefined
   static prevDiff: number = -1
+  static scrollEvent: any
+  static selectItem: any
   currentZoom: number = 1
 
   constructor(
@@ -89,104 +91,104 @@ export class ClientSVGEditor extends Base {
       //this.options = options
 
       if (options.title !== undefined) {
-        this.options.title = options.title
+        this.options!.title = options.title
       }
       if (options.urlmap !== undefined) {
-        this.options.urlmap = options.urlmap
+        this.options!.urlmap = options.urlmap
       }
       if (options.stringSVG !== undefined) {
-        this.options.stringSVG = options.stringSVG
+        this.options!.stringSVG = options.stringSVG
       }
       if (options.interactiveLayer !== undefined) {
-        this.options.interactiveLayer = options.interactiveLayer
+        this.options!.interactiveLayer = options.interactiveLayer
       }
       if (options.isRemoveUnuseItem !== undefined) {
-        this.options.isRemoveUnuseItem = options.isRemoveUnuseItem
+        this.options!.isRemoveUnuseItem = options.isRemoveUnuseItem
       }
       if (options.isHoverEnable !== undefined) {
-        this.options.isHoverEnable = options.isHoverEnable
+        this.options!.isHoverEnable = options.isHoverEnable
       }
       if (options.funcClick !== undefined) {
-        this.options.funcClick = options.funcClick
+        this.options!.funcClick = options.funcClick
       }
       if (options.funcParams !== undefined) {
-        this.options.funcParams = options.funcParams
+        this.options!.funcParams = options.funcParams
       }
       if (options.isCustomBalloon !== undefined) {
-        this.options.isCustomBalloon = options.isCustomBalloon
+        this.options!.isCustomBalloon = options.isCustomBalloon
       }
       if (options.nodeCustomBalloon !== undefined) {
-        this.options.nodeCustomBalloon = options.nodeCustomBalloon
+        this.options!.nodeCustomBalloon = options.nodeCustomBalloon
       }
       if (options.dataStructureCustomBalloon !== undefined) {
-        this.options.dataStructureCustomBalloon =
+        this.options!.dataStructureCustomBalloon =
           options.dataStructureCustomBalloon
       }
       if (options.isMobileZoom !== undefined) {
-        this.options.isMobileZoom = options.isMobileZoom
+        this.options!.isMobileZoom = options.isMobileZoom
       }
       if (options.isSVGFromSring !== undefined) {
-        this.options.isSVGFromSring = options.isSVGFromSring
+        this.options!.isSVGFromSring = options.isSVGFromSring
       }
       if (options.mapTheme !== undefined) {
         if (options.mapTheme.colorBG !== undefined) {
-          this.options.mapTheme!.colorBG = options.mapTheme.colorBG
+          this.options!.mapTheme!.colorBG = options.mapTheme.colorBG
         }
         if (options.mapTheme.colorItem !== undefined) {
-          this.options.mapTheme!.colorItem = options.mapTheme.colorItem
+          this.options!.mapTheme!.colorItem = options.mapTheme.colorItem
         }
         if (options.mapTheme.colorHoverItem !== undefined) {
-          this.options.mapTheme!.colorHoverItem =
+          this.options!.mapTheme!.colorHoverItem =
             options.mapTheme.colorHoverItem
         }
         if (options.mapTheme.colorSelectItem !== undefined) {
-          this.options.mapTheme!.colorSelectItem =
+          this.options!.mapTheme!.colorSelectItem =
             options.mapTheme.colorSelectItem
         }
         if (options.mapTheme.opacityItem !== undefined) {
-          this.options.mapTheme!.opacityItem = options.mapTheme.opacityItem
+          this.options!.mapTheme!.opacityItem = options.mapTheme.opacityItem
         }
         if (options.mapTheme.opacityHoverItem !== undefined) {
-          this.options.mapTheme!.opacityHoverItem =
+          this.options!.mapTheme!.opacityHoverItem =
             options.mapTheme.opacityHoverItem
         }
         if (options.mapTheme.opacitySelectItem !== undefined) {
-          this.options.mapTheme!.opacitySelectItem =
+          this.options!.mapTheme!.opacitySelectItem =
             options.mapTheme.opacitySelectItem
         }
         if (options.mapTheme.colorBorderItem !== undefined) {
-          this.options.mapTheme!.colorBorderItem =
+          this.options!.mapTheme!.colorBorderItem =
             options.mapTheme.colorBorderItem
         }
         if (options.mapTheme.colorBorderHoverItem !== undefined) {
-          this.options.mapTheme!.colorBorderHoverItem =
+          this.options!.mapTheme!.colorBorderHoverItem =
             options.mapTheme.colorBorderHoverItem
         }
         if (options.mapTheme.colorBorderSelectItem !== undefined) {
-          this.options.mapTheme!.colorBorderSelectItem =
+          this.options!.mapTheme!.colorBorderSelectItem =
             options.mapTheme.colorBorderSelectItem
         }
         if (options.mapTheme.isBorderItem !== undefined) {
-          this.options.mapTheme!.isBorderItem = options.mapTheme.isBorderItem
+          this.options!.mapTheme!.isBorderItem = options.mapTheme.isBorderItem
         }
         if (options.mapTheme.isBorderHoverItem !== undefined) {
-          this.options.mapTheme!.isBorderHoverItem =
+          this.options!.mapTheme!.isBorderHoverItem =
             options.mapTheme.isBorderHoverItem
         }
         if (options.mapTheme.isBorderSelectItem !== undefined) {
-          this.options.mapTheme!.isBorderSelectItem =
+          this.options!.mapTheme!.isBorderSelectItem =
             options.mapTheme.isBorderSelectItem
         }
         if (options.mapTheme.widthBorderItem !== undefined) {
-          this.options.mapTheme!.widthBorderItem =
+          this.options!.mapTheme!.widthBorderItem =
             options.mapTheme.widthBorderItem
         }
         if (options.mapTheme.widthBorderHoverItem !== undefined) {
-          this.options.mapTheme!.widthBorderHoverItem =
+          this.options!.mapTheme!.widthBorderHoverItem =
             options.mapTheme.widthBorderHoverItem
         }
         if (options.mapTheme.widthBorderSelectItem !== undefined) {
-          this.options.mapTheme!.widthBorderSelectItem =
+          this.options!.mapTheme!.widthBorderSelectItem =
             options.mapTheme.widthBorderSelectItem
         }
       }
@@ -200,29 +202,56 @@ export class ClientSVGEditor extends Base {
     if (this.node === null || this.node === undefined) return
     this.isMobile = isMobile()
     ClientSVGEditor.evCache = []
-    console.log('START  = ', this.options.title)
+    console.log('START  = ', this.options!.title)
     //  console.log('isMobile = ', this.isMobile)
 
-    if (this.options.urlmap !== '') {
-      this.insertSVG(this.options.urlmap!)
-    } else if (this.options.isSVGFromSring) {
-      this.insertSVGFromString(this.options.stringSVG!)
+    if (this.options!.urlmap !== '') {
+      this.insertSVG(this.options!.urlmap!)
+    } else if (this.options!.isSVGFromSring) {
+      this.insertSVGFromString(this.options!.stringSVG!)
     }
-    console.log('isCastomBalloon', this.options.isCustomBalloon)
-    if (this.options.isCustomBalloon) {
-      console.log('isCastomBalloon', this.options.isCustomBalloon)
-      const customBalloon = this.options.nodeCustomBalloon!
+    console.log('isCastomBalloon', this.options!.isCustomBalloon)
+    if (this.options!.isCustomBalloon) {
+      console.log('isCastomBalloon', this.options!.isCustomBalloon)
+      const customBalloon = this.options!.nodeCustomBalloon!
 
       customBalloon!.style.display = 'none'
       customBalloon!.style.zIndex = '999999'
       customBalloon!.style.position = 'fixed'
     }
 
-    this.node.style.backgroundColor = this.options.mapTheme!.colorBG
+    this.node.style.backgroundColor = this.options!.mapTheme!.colorBG
     this.node.style.overflow = 'auto'
-    document.body.addEventListener('click', (e) => {
+    //console.log('this.options!.isMobileZoom', this.options!.isMobileZoom)
+    if (this.isMobile) {
+      if (this.options!.isMobileZoom) {
+        this.initZoom()
+      }
+      this.initMobileBalloon()
+    }
+    //create object optionsBaloon type BaloonOptions
+    const optionsBaloon: BaloonOptions = {
+      baloonTheme: this.baloonTheme,
+    }
+    //const getBaloon=  createBaloon(optionsBaloon);
+
+    if (this.options!.isCustomBalloon) {
+      //this.customNodeBallon = this.customNodeBallon
+      if (!this.isMobile) {
+        this.nodeBallon = createCustomBaloon(
+          optionsBaloon,
+          this.options!.nodeCustomBalloon!
+        )
+      }
+    } else {
+      if (!this.isMobile) {
+        this.nodeBallon = createBaloon(optionsBaloon)
+      }
+    }
+    this.nodeBallon!.hide()
+    /*     document.body.addEventListener('click', (e) => {
       this.nodeBallon!.hide()
-    })
+    }) */
 
     return true
   }
@@ -233,11 +262,11 @@ export class ClientSVGEditor extends Base {
     const getSVGData = await loadSVGFile(itemSVG)
 
     this.node.innerHTML = getSVGData
-    if (this.options.isRemoveUnuseItem) {
+    if (this.options!.isRemoveUnuseItem) {
       ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    console.log('HOVER ENABLE = ', this.options.isHoverEnable)
-    if (this.options.isHoverEnable) {
+    console.log('HOVER ENABLE = ', this.options!.isHoverEnable)
+    if (this.options!.isHoverEnable) {
       this.initInteractiveLayer()
     }
     this.clearInteractiveLayer()
@@ -246,42 +275,15 @@ export class ClientSVGEditor extends Base {
     svg.style = ''
     svg.style.width = '100%'
     svg.style.height = '100%'
-    //console.log('this.options.isMobileZoom', this.options.isMobileZoom)
-    if (this.isMobile) {
-      if (this.options.isMobileZoom) {
-        this.initZoom()
-      }
-      this.initMobileBalloon()
-    }
-    //create object optionsBaloon type BaloonOptions
-    const optionsBaloon: BaloonOptions = {
-      baloonTheme: this.baloonTheme,
-    }
-    //const getBaloon=  createBaloon(optionsBaloon);
 
-    if (this.options.isCustomBalloon) {
-      //this.customNodeBallon = this.customNodeBallon
-      if (!this.isMobile) {
-        this.nodeBallon = createCustomBaloon(
-          optionsBaloon,
-          this.options.nodeCustomBalloon!
-        )
-      }
-    } else {
-      if (!this.isMobile) {
-        this.nodeBallon = createBaloon(optionsBaloon)
-      }
-    }
-
-    if (this.options.title !== '') {
+    if (this.options!.title !== '') {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
-     
-      titleDom.setAttribute('class','svgmap-title')
+      titleDom.setAttribute('class', 'svgmap-title')
       titleDom.style.display = 'block'
 
-      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
+      titleDom.innerHTML = `<h1>${this.options!.title}</h1>`
       this.node.insertBefore(titleDom, this.node.firstChild)
       //this.node.appendChild(titleDom)
     }
@@ -291,16 +293,16 @@ export class ClientSVGEditor extends Base {
     this.node.innerHTML = ''
 
     this.node.innerHTML = stringSVG
-    if (this.options.isRemoveUnuseItem) {
+    if (this.options!.isRemoveUnuseItem) {
       ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    if (this.options.isHoverEnable) {
+    if (this.options!.isHoverEnable) {
       this.initInteractiveLayer()
     }
     this.clearInteractiveLayer()
-    console.log('this.options.isMobileZoom', this.options.isMobileZoom)
+    console.log('this.options!.isMobileZoom', this.options!.isMobileZoom)
     if (this.isMobile) {
-      if (this.options.isMobileZoom) {
+      if (this.options!.isMobileZoom) {
         this.initZoom()
       }
       this.initMobileBalloon()
@@ -311,12 +313,12 @@ export class ClientSVGEditor extends Base {
     }
     //const getBaloon=  createBaloon(optionsBaloon);
 
-    if (this.options.isCustomBalloon) {
+    if (this.options!.isCustomBalloon) {
       //this.customNodeBallon = this.customNodeBallon
       if (!this.isMobile) {
         this.nodeBallon = createCustomBaloon(
           optionsBaloon,
-          this.options.nodeCustomBalloon!
+          this.options!.nodeCustomBalloon!
         )
       }
     } else {
@@ -325,14 +327,14 @@ export class ClientSVGEditor extends Base {
       }
     }
 
-    if (this.options.title !== '') {
+    if (this.options!.title !== '') {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
-      titleDom.setAttribute('class','svgmap-title')
+      titleDom.setAttribute('class', 'svgmap-title')
       titleDom.style.display = 'block'
 
-      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
+      titleDom.innerHTML = `<h1>${this.options!.title}</h1>`
       this.node.insertBefore(titleDom, this.node.firstChild)
       //this.node.appendChild(titleDom)
     }
@@ -359,9 +361,19 @@ export class ClientSVGEditor extends Base {
     })
   }
 
+  disposeClient() {
+    this.nodeBallon = null
+    this.node = null
+    this.dataItems = []
+    this.options = null
+  }
+
+  hideBalloon() {
+    this.nodeBallon!.hide()
+  }
   deleteItem(id: string) {
     const item = this.node
-      .querySelector(`${this.options.interactiveLayer}`)
+      .querySelector(`${this.options!.interactiveLayer}`)
       .querySelector(`#${id}`)
     item?.remove()
   }
@@ -369,25 +381,57 @@ export class ClientSVGEditor extends Base {
     const scrollX = element.getBoundingClientRect().left
     const scrollY = element.getBoundingClientRect().top
 
-/*     console.log('element', this.node)
+    /*     console.log('element', this.node)
     console.log('scrollX', scrollX)
     console.log('scrollY', scrollY) */
     return { scrollX, scrollY }
   }
 
+  /*   static getPositionScroll(item: any) {
+    throw new Error('Method not implemented.')
+  }
+ */
+
+  multySelectItem(arrayId: string[]) {
+    //remove event
+    console.log('ClientSVGEditor.scrollEvent', ClientSVGEditor.scrollEvent)
+
+    window.removeEventListener('scroll', this.myScrollOut)
+    console.log(window)
+
+    arrayId.forEach((id) => {
+      const item = this.node
+        .querySelector(`${this.options!.interactiveLayer}`)
+        .querySelector(`#${id}`)
+      console.log('item', item)
+
+      item.style.fill = this.options!.mapTheme!.colorSelectItem
+      item.style.stroke = this.options!.mapTheme!.colorBorderSelectItem
+      item.style.strokeWidth = this.options!.mapTheme!.widthBorderSelectItem
+      item.style.opacity = this.options!.mapTheme!.opacitySelectItem
+      item.style.fillOpacity = this.options!.mapTheme!.opacitySelectItem
+    })
+  }
+
   selectItem(id: string) {
-    const item = this.node
-      .querySelector(`${this.options.interactiveLayer}`)
+    ClientSVGEditor.selectItem = this.node
+      .querySelector(`${this.options!.interactiveLayer}`)
       .querySelector(`#${id}`)
-    console.log('item', item)
-    console.log('item X', item.getBoundingClientRect())
-    item.style.fill = this.options.mapTheme!.colorSelectItem
-    item.style.stroke = this.options.mapTheme!.colorBorderSelectItem
-    item.style.strokeWidth = this.options.mapTheme!.widthBorderSelectItem
-    item.style.opacity = this.options.mapTheme!.opacitySelectItem
+    console.log('item', ClientSVGEditor.selectItem)
+    console.log('item X', ClientSVGEditor.selectItem.getBoundingClientRect())
+    ClientSVGEditor.selectItem.style.fill =
+      this.options!.mapTheme!.colorSelectItem
+    ClientSVGEditor.selectItem.style.stroke =
+      this.options!.mapTheme!.colorBorderSelectItem
+    ClientSVGEditor.selectItem.style.strokeWidth =
+      this.options!.mapTheme!.widthBorderSelectItem
+    ClientSVGEditor.selectItem.style.opacity =
+      this.options!.mapTheme!.opacitySelectItem
+    ClientSVGEditor.selectItem.style.fillOpacity =
+      this.options!.mapTheme!.opacitySelectItem
     const getDataItem = this.dataItems.find((item) => item.idmap === id)
     if (!this.isMobile) {
-      if (this.options.isCustomBalloon) {
+      if (this.options!.isCustomBalloon) {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
             this.nodeBallon!.customRender(
@@ -395,7 +439,7 @@ export class ClientSVGEditor extends Base {
                 title: getDataItem?.title,
                 description: getDataItem?.description,
               },
-              this.options.dataStructureCustomBalloon
+              this.options!.dataStructureCustomBalloon
             )
           } else {
             this.nodeBallon!.customRender(
@@ -403,7 +447,7 @@ export class ClientSVGEditor extends Base {
                 title: getDataItem?.title,
                 description: '',
               },
-              this.options.dataStructureCustomBalloon
+              this.options!.dataStructureCustomBalloon
             )
           }
         }
@@ -429,26 +473,28 @@ export class ClientSVGEditor extends Base {
       }
     }
     handleMousemove(
-      item.getBoundingClientRect(),
+      ClientSVGEditor.selectItem.getBoundingClientRect(),
       this.nodeBallon,
-      this.options.isCustomBalloon!
+      this.options!.isCustomBalloon!
     )
 
-    document.addEventListener('scroll', (e: any) => {
-      console.log('scroll', e)
-      this.getPositionScroll(item)
-      handleMousemove(
-        item.getBoundingClientRect(),
-        this.nodeBallon,
-        this.options.isCustomBalloon!
-      )
-      //this.nodeBallon!.hide()
-    })
+    window.addEventListener('scroll', this.myScrollOut)
+
+    console.log('ClientSVGEditor.scrollEvent ', ClientSVGEditor.scrollEvent)
+  }
+
+  myScrollOut = () => {
+    console.log(`MyScrollOUT =`)
+    handleMousemove(
+      ClientSVGEditor.selectItem.getBoundingClientRect(),
+      this.nodeBallon,
+      this.options!.isCustomBalloon!
+    )
   }
 
   showBalloonS(id: string) {
     const item = this.node
-      .querySelector(`${this.options.interactiveLayer}`)
+      .querySelector(`${this.options!.interactiveLayer}`)
       .querySelector(`#${id}`)
     /*     const itemData = this.dataItems.find(
       (itemObjects: { idmap: string }) => itemObjects.idmap === id
@@ -464,14 +510,14 @@ export class ClientSVGEditor extends Base {
 
   initInteractiveLayer() {
     const interactiveLayer = this.node.querySelector(
-      this.options.interactiveLayer
+      this.options!.interactiveLayer
     )
     /*     console.log('initInteractiveLayer = ', interactiveLayer)
     console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
     if (!this.isMobile) {
       interactiveLayer.addEventListener('mousemove', (e: any) => {
         console.log('mousemove', e.x, e.y)
-        handleMousemove(e, this.nodeBallon, this.options.isCustomBalloon!)
+        handleMousemove(e, this.nodeBallon, this.options!.isCustomBalloon!)
 
         //  throttle(handleMousemove(e,this.nodeBallon), 11200)
       })
@@ -509,16 +555,16 @@ export class ClientSVGEditor extends Base {
               console.log('click', event.target.id)
               if (event.target.tagName !== 'g') {
                 this.selectItem(event.target.id)
-                /*                 event.target.style.fill = this.options.mapTheme!.colorSelectItem
+                /*                 event.target.style.fill = this.options!.mapTheme!.colorSelectItem
                 event.target.style.stroke =
-                  this.options.mapTheme!.colorBorderSelectItem
+                  this.options!.mapTheme!.colorBorderSelectItem
                 event.target.style.strokeWidth =
-                  this.options.mapTheme!.widthBorderSelectItem
+                  this.options!.mapTheme!.widthBorderSelectItem
                 event.target.style.opacity =
-                  this.options.mapTheme!.opacitySelectItem */
+                  this.options!.mapTheme!.opacitySelectItem */
               }
               this.onClick(
-                this.options.funcClick,
+                this.options!.funcClick,
                 this.dataItems.find((item) => item.idmap === event.target.id)
               )
             })
@@ -526,19 +572,19 @@ export class ClientSVGEditor extends Base {
             item.addEventListener('click', (event: any) => {
               //  console.log('click', event.target.id)
               /*               if (event.target.tagName !== 'g') {
-                event.target.style.fill = this.options.mapTheme!.colorSelectItem
+                event.target.style.fill = this.options!.mapTheme!.colorSelectItem
                 event.target.style.stroke =
-                  this.options.mapTheme!.colorBorderSelectItem
+                  this.options!.mapTheme!.colorBorderSelectItem
                 event.target.style.strokeWidth =
-                  this.options.mapTheme!.widthBorderSelectItem
+                  this.options!.mapTheme!.widthBorderSelectItem
                 event.target.style.opacity =
-                  this.options.mapTheme!.opacitySelectItem
+                  this.options!.mapTheme!.opacitySelectItem
               } */
               if (event.target.tagName !== 'g') {
                 this.clearInteractiveLayer()
               }
               this.onClickMobile(
-                this.options.funcClick,
+                this.options!.funcClick,
                 this.dataItems.find((item) => item.idmap === event.target.id)
               )
             })
@@ -565,7 +611,7 @@ export class ClientSVGEditor extends Base {
             //  console.log('click id', item.id)
 
             this.onClick(
-              this.options.funcClick,
+              this.options!.funcClick,
               this.dataItems.find((itemd) => itemd.idmap === item.id)
             )
           })
@@ -710,14 +756,14 @@ export class ClientSVGEditor extends Base {
 
   initMobileBalloon = () => {
     const interactiveLayer = this.node.querySelector(
-      this.options.interactiveLayer
+      this.options!.interactiveLayer
     )
     interactiveLayer.addEventListener('click', (e: any) => {
       console.log('click', e.target.id)
       e.stopPropagation()
       /* if (e.target.tagName !== 'g') {
       this.onClickMobile(
-        this.options.funcClick,
+        this.options!.funcClick,
         this.dataItems.find((item) => item.idmap === e.target.id)
       )
     } */
@@ -783,15 +829,15 @@ export class ClientSVGEditor extends Base {
     const getDataItem = this.dataItems.find((item) => item.idmap === ev.id)
     //  console.log('getDataItem', getDataItem)
 
-    ev.style.fill = this.options.mapTheme!.colorHoverItem
-    if (this.options.mapTheme!.isBorderHoverItem) {
-      ev.style.stroke = this.options.mapTheme!.colorBorderHoverItem
-      ev.style.strokeWidth = this.options.mapTheme!.widthBorderHoverItem
+    ev.style.fill = this.options!.mapTheme!.colorHoverItem
+    if (this.options!.mapTheme!.isBorderHoverItem) {
+      ev.style.stroke = this.options!.mapTheme!.colorBorderHoverItem
+      ev.style.strokeWidth = this.options!.mapTheme!.widthBorderHoverItem
     }
 
-    ev.style.opacity = this.options.mapTheme!.opacityHoverItem
+    ev.style.opacity = this.options!.mapTheme!.opacityHoverItem
     if (!this.isMobile) {
-      if (this.options.isCustomBalloon) {
+      if (this.options!.isCustomBalloon) {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
             this.nodeBallon!.customRender(
@@ -799,7 +845,7 @@ export class ClientSVGEditor extends Base {
                 title: getDataItem?.title,
                 description: getDataItem?.description,
               },
-              this.options.dataStructureCustomBalloon
+              this.options!.dataStructureCustomBalloon
             )
           } else {
             this.nodeBallon!.customRender(
@@ -807,7 +853,7 @@ export class ClientSVGEditor extends Base {
                 title: getDataItem?.title,
                 description: '',
               },
-              this.options.dataStructureCustomBalloon
+              this.options!.dataStructureCustomBalloon
             )
           }
         }
@@ -860,7 +906,7 @@ export class ClientSVGEditor extends Base {
 
   clearInteractiveLayer() {
     const interactiveLayer = [
-      ...this.node.querySelector(this.options.interactiveLayer).children,
+      ...this.node.querySelector(this.options!.interactiveLayer).children,
     ]
     //  console.log('clearInteractiveLayer = ', interactiveLayer)
     interactiveLayer.forEach(
@@ -873,13 +919,13 @@ export class ClientSVGEditor extends Base {
           strokeWidth: number | undefined
         }
       }) => {
-        element.style.fill = this.options.mapTheme!.colorItem
-        if (this.options.mapTheme!.isBorderItem) {
-          element.style.stroke = this.options.mapTheme!.colorBorderItem
-          element.style.strokeWidth = this.options.mapTheme!.widthBorderItem
+        element.style.fill = this.options!.mapTheme!.colorItem
+        if (this.options!.mapTheme!.isBorderItem) {
+          element.style.stroke = this.options!.mapTheme!.colorBorderItem
+          element.style.strokeWidth = this.options!.mapTheme!.widthBorderItem
         }
         if (element.tagName !== 'g') {
-          element.style.opacity = this.options.mapTheme!.opacityItem
+          element.style.opacity = this.options!.mapTheme!.opacityItem
         }
       }
     )

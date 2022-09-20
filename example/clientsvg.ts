@@ -12,6 +12,8 @@ import {
   dataShops4Floor4,
   dataShops4Floor5,
   ExampleSVG,
+  dataArraySelectShops1,
+  dataArraySelectShops2,
 } from './dataItems'
 
 export function testmylib() {
@@ -189,24 +191,33 @@ export function testmylib() {
 
   const btnArray = document.querySelectorAll('.btn__map')
   const btnSelect = document.querySelector('.button-group')
+  const btnSelect1 = document.querySelector('#btn__select1')
+  const btnSelect2 = document.querySelector('#btn__select2')
+  const btnGroupSelect1 = document.querySelector('#btn__group_select1')
+  const btnGroupSelect2 = document.querySelector('#btn__group_select2')
   btnArray.forEach((btn) => {
     console.log('btnArray = ', btn.id)
     btn.addEventListener('click', (e) => {
       const elementBtn = e.target as HTMLElement
       const pauseAnimMap = 800
+
+      btnSelect1?.classList.remove('active')
+      btnSelect2?.classList.remove('active')
       animateFade()
       console.log('e.target = ', elementBtn.id)
       switch (elementBtn.id) {
         case 'floor-0':
           console.log('FLOOR 0')
+          map4.hideBalloon()
           console.log('map4 = ', map4)
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-0.svg'
-          map4.options.title = 'Этаж 0'
-          map4.options.isHoverEnable = true // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-0.svg'
+          map4.options!.title = 'Этаж 0'
+          map4.options!.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor0
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
@@ -214,67 +225,77 @@ export function testmylib() {
           break
         case 'floor-1':
           console.log('FLOOR 1')
+          map4.hideBalloon()
           console.log('map4 = ', map4)
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-1.svg'
-          map4.options.title = 'Этаж 1'
-          map4.options.isHoverEnable = true // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-1.svg'
+          map4.options!.title = 'Этаж 1'
+          map4.options!.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor1
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
           break
         case 'floor-2':
           console.log('FLOOR 2')
+          map4.hideBalloon()
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-2.svg'
-          map4.options.title = 'Этаж 2'
-          map4.options.isHoverEnable = true // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-2.svg'
+          map4.options!.title = 'Этаж 2'
+          map4.options!.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor2
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
           break
         case 'floor-3':
           console.log('FLOOR 3')
+          map4.hideBalloon()
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-3.svg'
-          map4.options.title = 'Этаж 3'
-          map4.options.isHoverEnable = true // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-3.svg'
+          map4.options!.title = 'Этаж 3'
+          map4.options!.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor3
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
           break
         case 'floor-4':
           console.log('FLOOR 4')
-
+          map4.hideBalloon()
           btnSelect?.classList.remove('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-4.svg'
-          map4.options.title = 'Этаж 4'
-          map4.options.isHoverEnable = false // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-4.svg'
+          map4.options!.title = 'Этаж 4'
+          map4.options!.isHoverEnable = false // Remove hover effect
           map4.dataItems = dataShops4Floor4
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
           break
         case 'floor-5':
           console.log('FLOOR 5')
+          map4.hideBalloon()
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options.urlmap = './public/multy/grand-floor-5.svg'
-          map4.options.title = 'Этаж 5'
-          map4.options.isHoverEnable = true // Remove hover effect
+          map4.options!.urlmap = './public/multy/grand-floor-5.svg'
+          map4.options!.title = 'Этаж 5'
+          map4.options!.isHoverEnable = true // Remove hover effect
+
           map4.dataItems = dataShops4Floor5
+
           setTimeout(() => {
             map4.start()
           }, pauseAnimMap)
@@ -288,22 +309,68 @@ export function testmylib() {
 
   initSelectItems()
   function initSelectItems() {
-    const btnSelect1 = document.querySelector('#btn__select1')
-    const btnSelect2 = document.querySelector('#btn__select2')
+    /*     const btnSelect1 = document.querySelector('#btn__select1')
+    const btnSelect2 = document.querySelector('#btn__select2') */
     console.log('btnSelect1 = ', btnSelect1)
     btnSelect1?.addEventListener('click', (e) => {
-      e.stopImmediatePropagation()
+      //  e.stopImmediatePropagation()
+      clearActiveBtn()
+      btnSelect1?.classList.add('active')
+
       map4.clearInteractiveLayer()
       console.log('btnSelect1 = ', e.target)
+      map4.options!.mapTheme!.colorSelectItem = '#ff0000'
+      map4.options!.mapTheme!.opacitySelectItem = 1
+      map4.options!.mapTheme!.widthBorderSelectItem = 2
       map4.selectItem('Shape-2-01')
     })
     btnSelect2?.addEventListener('click', (e) => {
-      e.stopImmediatePropagation()
+      //  e.stopImmediatePropagation()
+      clearActiveBtn()
+      btnSelect2?.classList.add('active')
+
       map4.clearInteractiveLayer()
       console.log('btnSelect1 = ', e.target)
+      map4.options!.mapTheme!.colorSelectItem = '#ff0000'
+      map4.options!.mapTheme!.opacitySelectItem = 1
+      map4.options!.mapTheme!.widthBorderSelectItem = 2
       map4.selectItem('Shape-2-36')
     })
+    btnGroupSelect1?.addEventListener('click', (e) => {
+      //  e.stopImmediatePropagation()
+      map4.hideBalloon()
+      clearActiveBtn()
+      btnGroupSelect1?.classList.add('active')
+
+      map4.clearInteractiveLayer()
+      console.log('btnGroupSelect1 = ', e.target)
+      map4.options!.mapTheme!.colorSelectItem = '#334f0c'
+      map4.options!.mapTheme!.opacitySelectItem = 0.7
+      map4.options!.mapTheme!.widthBorderSelectItem = 1.1
+      map4.multySelectItem(dataArraySelectShops1)
+    })
+    btnGroupSelect2?.addEventListener('click', (e) => {
+      //  e.stopImmediatePropagation()
+      map4.hideBalloon()
+      clearActiveBtn()
+      btnGroupSelect2?.classList.add('active')
+
+      map4.clearInteractiveLayer()
+      console.log('btnGroupSelect2 = ', e.target)
+      map4.options!.mapTheme!.colorSelectItem = '#ff400c'
+      map4.options!.mapTheme!.widthBorderSelectItem = 1.1
+      map4.options!.mapTheme!.opacitySelectItem = 0.7
+      map4.multySelectItem(dataArraySelectShops2)
+    })
   }
+
+  function clearActiveBtn() {
+    btnSelect1?.classList.remove('active')
+    btnSelect2?.classList.remove('active')
+    btnGroupSelect1?.classList.remove('active')
+    btnGroupSelect2?.classList.remove('active')
+  }
+
   function animateFade() {
     const classes = document.querySelector('#map4')?.classList
 
