@@ -363,7 +363,7 @@ button:focus-visible {
 .button-group {
   display: block;
   visibility: visible;
-  height: 7vh;
+  height: 4.5em;
 }
 .ul__select{
   display: flex;
