@@ -14,7 +14,7 @@ import { ClientSVGEditor } from 'svgeditor-simple-client'
 ```
 ## OR Use Client for vanilla js
 **Download last releases version library**
-for example https://github.com/cossackgh/client-svgeditor/releases/download/v0.1.0-beta/svgeditor-simple-client-0.1.0.tgz
+for example https://github.com/cossackgh/client-svgeditor/releases/download/v0.1.2-beta/svgeditor-simple-client-0.1.2.tgz
 unpack it. Find ```/umd``` folder. Copy ```svgeditor-simple-client.js``` to your JS folder end copy ```main.css``` to your CSS folder.
 Add to your HTML file
 
