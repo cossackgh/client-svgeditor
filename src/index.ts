@@ -1,4 +1,4 @@
 import { ClientSVGEditor } from './clientSVG'
-import './style.css'
+//import './style.css'
 
 export { ClientSVGEditor }
