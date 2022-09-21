@@ -53,7 +53,7 @@ Add to your HTML file
         nodeMap, // node - dom element to insert svg
         dataShops, // dataItems - data to render in Baloon when hover on Item
         {
-          title: 'Пример карты', // Head Title this map
+          title: 'Sample map', // Head Title this map
           urlmap: './public/Shelkovsky-float-0.svg', // Path to map svg
           stringSVG: '', // String SVG map if isSVGFromSring => true
           interactiveLayer: '#interactive', // Layer for interactive items in SVG map. Default: #interactive
@@ -88,8 +88,54 @@ Add to your HTML file
         baloonTheme // Theme for defaul baloon
       )
 
-      const startMap = map.start(); // Start map
+      map.start(); // Start map
+```
+### Sample custom select single item
 
+```javascript
+      map.clearInteractiveLayer() // Clear interactive layer if you use select single item before next select
+      // You can change default options for map
+      map.options!.mapTheme!.colorSelectItem = '#ff0000' // Set color for select item if you  need
+      map.options!.mapTheme!.opacitySelectItem = 1 // Set opacity for select item if you  need
+      map.options!.mapTheme!.widthBorderSelectItem = 2 // Set width border for select item if you  need
+      
+      map.selectItem('Shape-2-01') // Select item by id item in SVG map
+```
+### Sample custom multyselect items. 
+
+```javascript
+...
+const dataArraySelect = [
+  'Shape-2-04',
+  'Shape-2-06',
+  'Shape-2-29',
+  'Shape-2-14',
+  'Shape-2-21',
+  'Shape-2-08',
+  'Shape-2-27',
+  'Shape-2-20',
+  'Shape-2-31',
+  'Shape-2-56',
+  'Shape-2-22',
+  'Shape-2-23',
+  'Shape-2-24',
+  'Shape-2-89',
+  'Shape-2-26',
+]
+
+      map.clearInteractiveLayer() // Clear interactive layer if you use select single item before next select
+      // You can change default options for map
+      map.options.mapTheme.colorSelectItem = '#ff400с' // Set color for select item if you  need
+      map.options.mapTheme.widthBorderSelectItem = 1.1 // Set width border for select item if you  need
+      map.options.mapTheme.opacitySelectItem = 1 // Set opacity for select item if you  need
+      map.options.mapTheme.widthBorderSelectItem = 2 // Set width border for select item if you  need
+
+      map.multySelectItem(dataArraySelect) // Select group items by array id items in SVG map
+      
+```
+## Example custom function click on item
+
+```javascript
       function gotoURLClick(dataelement) { // Sample callback function when you click on active item on map
         window.open(dataelement.slug, '_self')
       }

@@ -1,5 +1,5 @@
 import { ClientSVGEditor } from '../src/clientSVG'
-import '../src/style.css'
+//import '../src/style.css'
 import { DataInteractive } from '../src/models/simple.models'
 import {
   dataShops2,

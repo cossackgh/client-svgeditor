@@ -53,17 +53,17 @@ export interface DataOptions {
 
 /**
  * @description
- * This is the description of the interface @BaloonOptions
+ * This is the description of the interface @BalloonOptions
  * @title {string} title - This is the title of the interface
  * @description {string} description - This is the description of the interface
  * @image {string} image - This is the image of the interface
- * @baloonTheme  {BaloonTheme}
+ * @balloonTheme  {BalloonTheme}
  */
-export interface BaloonOptions {
+export interface BalloonOptions {
   title?: string
   description?: string
   image?: string
-  baloonTheme: BaloonTheme
+  balloonTheme: BalloonTheme
 }
 
 /**
@@ -79,15 +79,15 @@ export interface CastomBalloonOptions {
 
 /**
  * @description
- * This is the description of the interface @BaloonTheme
- * @colorBG {string} colorBG - This is the colorBG of the Baloon
- * @colorTitle {string} colorTitle - This is the colorTitle of the Baloon
- * @colorDescription {string} colorDescription - This is the colorDescription of the Baloon
- * @isPositionFixed {boolean} isPositionFixed - This is the use of the Baloon fixed position
- * @top {number}  top - This is the top positon of the Baloon
- * @left {number} left - This is the left position of the Baloon
+ * This is the description of the interface @BalloonTheme
+ * @colorBG {string} colorBG - This is the colorBG of the Balloon
+ * @colorTitle {string} colorTitle - This is the colorTitle of the Balloon
+ * @colorDescription {string} colorDescription - This is the colorDescription of the Balloon
+ * @isPositionFixed {boolean} isPositionFixed - This is the use of the Balloon fixed position
+ * @top {number}  top - This is the top positon of the Balloon
+ * @left {number} left - This is the left position of the Balloon
  */
-export interface BaloonTheme {
+export interface BalloonTheme {
   colorBG?: string
   colorTitle?: string
   colorDescription?: string

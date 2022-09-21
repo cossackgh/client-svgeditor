@@ -1,7 +1,7 @@
-.baloon{
+.balloon{
   padding: 10px;
-  min-width: 20vw;
-  max-width: 25vw;
+  min-width: 8vw;
+/*   max-width: 25vw; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,13 +9,13 @@
   border-radius: 4px;
 /*   min-height: 80px; */
 }
-.baloon-title{
+.balloon .balloon-title{
   font-size: 1.2em;
   line-height: 1.2;
   font-weight: 600;
-  
+  white-space: nowrap;
 }
-.baloon-content{
+.balloon-content{
   font-size: 1.0em;
   line-height: 1.1;
   margin-top: 1em;

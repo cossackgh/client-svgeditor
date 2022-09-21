@@ -68,7 +68,7 @@ h1 {
   display:block; 
   position:relative;
 }
-.balloon{
+/* .balloon{
   padding: 10px;
   min-width: 15vw;
   max-width: 35vw;
@@ -80,8 +80,7 @@ h1 {
   background-color: rgb(221, 233, 116);
   position: absolute;
     bottom: 0;
-/*   min-height: 80px; */
-}
+} */
 .ctballoon{
   padding: 10px;
   min-width: 15vw;
@@ -132,27 +131,7 @@ h1 {
   color: #000; 
   text-align: center;
 }
-.baloon-title{
-  font-size: 1.2em;
-  line-height: 1.2;
-  font-weight: 600;
-  
-}
-.baloon-content{
-  font-size: 1.0em;
-  line-height: 1.1;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-.box45{
-  background-color: #f00;
-  width: 25px;
-  height: 25px;
-  display: flex;  
-  align-items: center;
-  justify-content: center;
-  transform: translate(0, 22px) rotate(45deg);
-}
+
 
 .baseballoon_svg{
   position: absolute;
@@ -265,7 +244,9 @@ aspect-ratio: 3/2;
 	-webkit-animation: slide-fade-out 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-fade-out 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-
+.text-center{
+  text-align: center;
+}
 
 /**
  * ----------------------------------------
@@ -354,11 +335,9 @@ button:focus-visible {
 
 .button-group.hidden {
   visibility: hidden;
- 
 }
 .button-group p{
   margin: 0;
-  
 }
 .button-group {
   display: block;
@@ -368,8 +347,6 @@ button:focus-visible {
 .ul__select{
   display: flex;
   flex-wrap: wrap;
-  
-  
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -390,9 +367,7 @@ button:focus-visible {
 /* set mobile media */
 @media (max-width: 768px) {
   body {
-    
     place-items: none;
-    
   }
   h1{
     font-size: 1.5em;
