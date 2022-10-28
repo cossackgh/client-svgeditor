@@ -2,8 +2,8 @@ import { DataInteractive } from '../src/models/simple.models'
 const dataShops2: DataInteractive[] = [
   {
     id: '0',
-    idmap: 'SvgjsRect1009',
-    title: 'Bruen - Kessler',
+    idmap: 'map-kessler',
+    title: 'Local Shop Kessler',
     slug: 'https://soulful-racism.info',
     description: 'Focused bi-directional middleware',
     image: 'https://loremflickr.com/128/128/abstract?73275',
@@ -498,7 +498,7 @@ const dataShops: DataInteractive[] = [
   {
     id: '0',
     idmap: 'item-0',
-    title: 'Cronin, Bayer and Halvorson',
+    title: '##### Cronin, Bayer and Halvorson',
     slug: './example-link-page.html?title=Cronin, Bayer and Halvorson',
     description: 'Optimized 3rd generation paradigm',
     image: 'https://loremflickr.com/128/128/abstract?48284',
