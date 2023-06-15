@@ -1,4 +1,3 @@
-
 export default class Base {
   // constructor (node/*, {extensions = []} */) {
   //   // this.tags = []

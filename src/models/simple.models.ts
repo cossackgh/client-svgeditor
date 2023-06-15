@@ -41,8 +41,8 @@ export interface DataOptions {
   image?: string
   isRemoveUnuseItem?: boolean
   isHoverEnable?: boolean
-  funcClick?: Function
-  funcParams?: any
+  funcClick?: (params: any) => void
+  funcParams?: unknown
   mapTheme?: MapTheme
   isCustomBalloon?: boolean
   nodeCustomBalloon?: HTMLElement | null

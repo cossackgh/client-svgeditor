@@ -15,7 +15,7 @@ import { visitFunctionBody } from 'typescript'
 export class ClientSVGEditor extends Base {
   node: any
   dataItems: DataInteractive[] = []
-  options: DataOptions | null = {
+  options: DataOptions | any = {
     title: '',
     urlmap: '',
     stringSVG: '',
@@ -63,13 +63,13 @@ export class ClientSVGEditor extends Base {
   isMobile: boolean | undefined
 
   static evCache: any[] | undefined
-  static prevDiff: number = -1
+  static prevDiff = -1
   static scrollEvent: any
   static selectItem: any
-  currentZoom: number = 1
+  currentZoom = 1
 
   constructor(
-    node: any,
+    node: unknown,
     dataItems: DataInteractive[],
     options: DataOptions,
     // isMobile: boolean,
@@ -86,13 +86,10 @@ export class ClientSVGEditor extends Base {
     if (balloonTheme !== undefined) {
       this.balloonTheme = balloonTheme
     }
-
     if (options !== undefined) {
       //this.options = options
+      this.options.title = options?.title
 
-      if (options.title !== undefined) {
-        this.options!.title = options.title
-      }
       if (options.urlmap !== undefined) {
         this.options!.urlmap = options.urlmap
       }
@@ -202,11 +199,11 @@ export class ClientSVGEditor extends Base {
     if (this.node === null || this.node === undefined) return
     this.isMobile = isMobile()
     ClientSVGEditor.evCache = []
-    console.log('START  = ', this.options!.title)
+    console.log('START  = ', this.options?.title)
     //  console.log('isMobile = ', this.isMobile)
 
     if (this.options!.urlmap !== '') {
-      this.insertSVG(this.options!.urlmap!)
+      this.insertSVG(this.options?.urlmap as string)
     } else if (this.options!.isSVGFromSring) {
       this.insertSVGFromString(this.options!.stringSVG!)
     }
@@ -415,10 +412,10 @@ export class ClientSVGEditor extends Base {
 
   selectItem(id: string) {
     ClientSVGEditor.selectItem = this.node
-      .querySelector(`${this.options!.interactiveLayer}`)
+      .querySelector(`${this.options?.interactiveLayer}`)
       .querySelector(`#${id}`)
     console.log('item', ClientSVGEditor.selectItem)
-    console.log('item X', ClientSVGEditor.selectItem.getBoundingClientRect())
+    console.log('item X', ClientSVGEditor.selectItem?.getBoundingClientRect())
     ClientSVGEditor.selectItem.style.fill =
       this.options!.mapTheme!.colorSelectItem
     ClientSVGEditor.selectItem.style.stroke =
@@ -1032,7 +1029,7 @@ export class Balloon extends Base {
 const createBalloon = (options: BalloonOptions) => {
   //  console.log('createBalloon options = ', options)
 
-  let baloon = new Balloon(options, null)
+  const baloon = new Balloon(options, null)
 
   //  console.log('createBalloon document IF baloon.balloonDom = ', baloon.balloonDom)
   if (baloon.balloonDom !== null) {
@@ -1077,7 +1074,7 @@ const createCustomBalloon = (
 ) => {
   //  console.log('createBalloon options = ', options)
 
-  let baloon = new Balloon(options, domBalloon)
+  const baloon = new Balloon(options, domBalloon)
 
   console.log(
     'createBalloon document IF baloon.balloonDom = ',
@@ -1096,7 +1093,7 @@ const createCustomBalloon = (
   return baloon
 }
 
-let handleMousemove = (
+const handleMousemove = (
   position: { x: number; y: number },
   baloon: any,
   isCustomBalloon: boolean
@@ -1134,9 +1131,7 @@ const isMobile = () => {
   })(navigator.userAgent || navigator.vendor)
   return check
 }
-const throttle = (func: any, wait: number) => {
-  //  console.log(`func =`, func)
-  //  console.log(`wait =`, wait)
+/* const throttle = (func: any, wait: number) => {
   let timeout: any
   return function executedFunction(this: any, ...args: any) {
     const context = this
@@ -1147,4 +1142,4 @@ const throttle = (func: any, wait: number) => {
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
-}
+} */

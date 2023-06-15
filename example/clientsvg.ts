@@ -260,9 +260,9 @@ export function testmylib() {
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-3.svg'
-          map4.options!.title = 'Этаж 3'
-          map4.options!.isHoverEnable = true // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-3.svg'
+          map4.options.title = 'Этаж 3'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor3
 
           setTimeout(() => {
@@ -275,9 +275,9 @@ export function testmylib() {
           btnSelect?.classList.remove('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-4.svg'
-          map4.options!.title = 'Этаж 4'
-          map4.options!.isHoverEnable = false // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-4.svg'
+          map4.options.title = 'Этаж 4'
+          map4.options.isHoverEnable = false // Remove hover effect
           map4.dataItems = dataShops4Floor4
 
           setTimeout(() => {
@@ -290,9 +290,9 @@ export function testmylib() {
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-5.svg'
-          map4.options!.title = 'Этаж 5'
-          map4.options!.isHoverEnable = true // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-5.svg'
+          map4.options.title = 'Этаж 5'
+          map4.options.isHoverEnable = true // Remove hover effect
 
           map4.dataItems = dataShops4Floor5
 
