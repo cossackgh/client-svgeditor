@@ -9,7 +9,7 @@ import type {
 //import { SvgMap } from './_privatemodule/svg'
 //import PinchZoom from './pinch-zoom.min.js'
 import Base from './base'
-import { doc } from 'prettier'
+//import { doc } from 'prettier'
 import { visitFunctionBody } from 'typescript'
 
 export class ClientSVGEditor extends Base {
@@ -58,11 +58,11 @@ export class ClientSVGEditor extends Base {
     left: 20,
   }
 
-  nodeBallon: Balloon | null
-  customNodeBallon!: HTMLElement | null
+  nodeBallon: Balloon | any
+  customNodeBallon!: HTMLElement | any
   isMobile: boolean | undefined
 
-  static evCache: any[] | undefined
+  static evCache: any[]
   static prevDiff = -1
   static scrollEvent: any
   static selectItem: any
@@ -88,108 +88,77 @@ export class ClientSVGEditor extends Base {
     }
     if (options !== undefined) {
       //this.options = options
-      this.options.title = options?.title
+      this.options.title = options?.title ?? this.options.title
+      this.options.urlmap = options?.urlmap ?? this.options.urlmap
+      this.options.stringSVG = options?.stringSVG ?? this.options.stringSVG
+      this.options.interactiveLayer =
+        options?.interactiveLayer ?? this.options.interactiveLayer
+      this.options.isRemoveUnuseItem =
+        options?.isRemoveUnuseItem ?? this.options.isRemoveUnuseItem
+      this.options.isHoverEnable =
+        options?.isHoverEnable ?? this.options.isHoverEnable
+      this.options.funcClick = options?.funcClick ?? this.options.funcClick
+      this.options.funcParams = options?.funcParams ?? this.options.funcParams
+      this.options.isCustomBalloon =
+        options?.isCustomBalloon ?? this.options.isCustomBalloon
+      this.options.nodeCustomBalloon =
+        options?.nodeCustomBalloon ?? this.options.nodeCustomBalloon
+      this.options.dataStructureCustomBalloon =
+        options?.dataStructureCustomBalloon ??
+        this.options.dataStructureCustomBalloon
+      this.options.isMobileZoom =
+        options?.isMobileZoom ?? this.options.isMobileZoom
+      this.options.isSVGFromSring =
+        options?.isSVGFromSring ?? this.options.isSVGFromSring
 
-      if (options.urlmap !== undefined) {
-        this.options!.urlmap = options.urlmap
-      }
-      if (options.stringSVG !== undefined) {
-        this.options!.stringSVG = options.stringSVG
-      }
-      if (options.interactiveLayer !== undefined) {
-        this.options!.interactiveLayer = options.interactiveLayer
-      }
-      if (options.isRemoveUnuseItem !== undefined) {
-        this.options!.isRemoveUnuseItem = options.isRemoveUnuseItem
-      }
-      if (options.isHoverEnable !== undefined) {
-        this.options!.isHoverEnable = options.isHoverEnable
-      }
-      if (options.funcClick !== undefined) {
-        this.options!.funcClick = options.funcClick
-      }
-      if (options.funcParams !== undefined) {
-        this.options!.funcParams = options.funcParams
-      }
-      if (options.isCustomBalloon !== undefined) {
-        this.options!.isCustomBalloon = options.isCustomBalloon
-      }
-      if (options.nodeCustomBalloon !== undefined) {
-        this.options!.nodeCustomBalloon = options.nodeCustomBalloon
-      }
-      if (options.dataStructureCustomBalloon !== undefined) {
-        this.options!.dataStructureCustomBalloon =
-          options.dataStructureCustomBalloon
-      }
-      if (options.isMobileZoom !== undefined) {
-        this.options!.isMobileZoom = options.isMobileZoom
-      }
-      if (options.isSVGFromSring !== undefined) {
-        this.options!.isSVGFromSring = options.isSVGFromSring
-      }
       if (options.mapTheme !== undefined) {
-        if (options.mapTheme.colorBG !== undefined) {
-          this.options!.mapTheme!.colorBG = options.mapTheme.colorBG
-        }
-        if (options.mapTheme.colorItem !== undefined) {
-          this.options!.mapTheme!.colorItem = options.mapTheme.colorItem
-        }
-        if (options.mapTheme.colorHoverItem !== undefined) {
-          this.options!.mapTheme!.colorHoverItem =
-            options.mapTheme.colorHoverItem
-        }
-        if (options.mapTheme.colorSelectItem !== undefined) {
-          this.options!.mapTheme!.colorSelectItem =
-            options.mapTheme.colorSelectItem
-        }
-        if (options.mapTheme.opacityItem !== undefined) {
-          this.options!.mapTheme!.opacityItem = options.mapTheme.opacityItem
-        }
-        if (options.mapTheme.opacityHoverItem !== undefined) {
-          this.options!.mapTheme!.opacityHoverItem =
-            options.mapTheme.opacityHoverItem
-        }
-        if (options.mapTheme.opacitySelectItem !== undefined) {
-          this.options!.mapTheme!.opacitySelectItem =
-            options.mapTheme.opacitySelectItem
-        }
-        if (options.mapTheme.colorBorderItem !== undefined) {
-          this.options!.mapTheme!.colorBorderItem =
-            options.mapTheme.colorBorderItem
-        }
-        if (options.mapTheme.colorBorderHoverItem !== undefined) {
-          this.options!.mapTheme!.colorBorderHoverItem =
-            options.mapTheme.colorBorderHoverItem
-        }
-        if (options.mapTheme.colorBorderSelectItem !== undefined) {
-          this.options!.mapTheme!.colorBorderSelectItem =
-            options.mapTheme.colorBorderSelectItem
-        }
-        if (options.mapTheme.isBorderItem !== undefined) {
-          this.options!.mapTheme!.isBorderItem = options.mapTheme.isBorderItem
-        }
-        if (options.mapTheme.isBorderHoverItem !== undefined) {
-          this.options!.mapTheme!.isBorderHoverItem =
-            options.mapTheme.isBorderHoverItem
-        }
-        if (options.mapTheme.isBorderSelectItem !== undefined) {
-          this.options!.mapTheme!.isBorderSelectItem =
-            options.mapTheme.isBorderSelectItem
-        }
-        if (options.mapTheme.widthBorderItem !== undefined) {
-          this.options!.mapTheme!.widthBorderItem =
-            options.mapTheme.widthBorderItem
-        }
-        if (options.mapTheme.widthBorderHoverItem !== undefined) {
-          this.options!.mapTheme!.widthBorderHoverItem =
-            options.mapTheme.widthBorderHoverItem
-        }
-        if (options.mapTheme.widthBorderSelectItem !== undefined) {
-          this.options!.mapTheme!.widthBorderSelectItem =
-            options.mapTheme.widthBorderSelectItem
-        }
+        this.options.mapTheme.colorBG =
+          options?.mapTheme?.colorBG ?? this.options.mapTheme.colorBG
+        this.options.mapTheme.colorItem =
+          options?.mapTheme?.colorItem ?? this.options.mapTheme.colorItem
+        this.options.mapTheme.colorHoverItem =
+          options?.mapTheme?.colorHoverItem ??
+          this.options.mapTheme.colorHoverItem
+        this.options.mapTheme.colorSelectItem =
+          options?.mapTheme?.colorSelectItem ??
+          this.options.mapTheme.colorSelectItem
+        this.options.mapTheme.opacityItem =
+          options?.mapTheme?.opacityItem ?? this.options.mapTheme.opacityItem
+        this.options.mapTheme.opacityHoverItem =
+          options?.mapTheme?.opacityHoverItem ??
+          this.options.mapTheme.opacityHoverItem
+        this.options.mapTheme.opacitySelectItem =
+          options?.mapTheme?.opacitySelectItem ??
+          this.options.mapTheme.opacitySelectItem
+        this.options.mapTheme.colorBorderItem =
+          options?.mapTheme?.colorBorderItem ??
+          this.options.mapTheme.colorBorderItem
+        this.options.mapTheme.colorBorderHoverItem =
+          options?.mapTheme?.colorBorderHoverItem ??
+          this.options.mapTheme.colorBorderHoverItem
+        this.options.mapTheme.colorBorderSelectItem =
+          options?.mapTheme?.colorBorderSelectItem ??
+          this.options.mapTheme.colorBorderSelectItem
+        this.options.mapTheme.isBorderItem =
+          options?.mapTheme?.isBorderItem ?? this.options.mapTheme.isBorderItem
+        this.options.mapTheme.isBorderHoverItem =
+          options?.mapTheme?.isBorderHoverItem ??
+          this.options.mapTheme.isBorderHoverItem
+        this.options.mapTheme.isBorderSelectItem =
+          options?.mapTheme?.isBorderSelectItem
+        this.options.mapTheme.widthBorderItem =
+          options?.mapTheme?.widthBorderItem ??
+          this.options.mapTheme.widthBorderItem
+        this.options.mapTheme.widthBorderHoverItem =
+          options?.mapTheme?.widthBorderHoverItem ??
+          this.options.mapTheme.widthBorderHoverItem
+        this.options.mapTheme.widthBorderSelectItem =
+          options?.mapTheme?.widthBorderSelectItem ??
+          this.options.mapTheme.widthBorderSelectItem
       }
     }
+    console.log('     #### options = ', options)
+    console.log('this #### options = ', this.options)
   }
   static test() {
     return true
@@ -201,27 +170,29 @@ export class ClientSVGEditor extends Base {
     ClientSVGEditor.evCache = []
     console.log('START  = ', this.options?.title)
     //  console.log('isMobile = ', this.isMobile)
+    console.log('this.options.urlmap  = ', this.options.urlmap)
+    console.log('this.options.isSVGFromSring  = ', this.options.isSVGFromSring)
 
-    if (this.options!.urlmap !== '') {
-      this.insertSVG(this.options?.urlmap as string)
-    } else if (this.options!.isSVGFromSring) {
-      this.insertSVGFromString(this.options!.stringSVG!)
+    if (this.options.urlmap !== '' && this.options.urlmap !== undefined) {
+      this.insertSVG(this.options.urlmap)
+    } else if (this.options.isSVGFromSring) {
+      this.insertSVGFromString(this.options.stringSVG)
     }
-    console.log('isCastomBalloon', this.options!.isCustomBalloon)
-    if (this.options!.isCustomBalloon) {
-      console.log('isCastomBalloon', this.options!.isCustomBalloon)
-      const customBalloon = this.options!.nodeCustomBalloon!
+    console.log('isCastomBalloon', this.options.isCustomBalloon)
+    if (this.options.isCustomBalloon) {
+      console.log('isCastomBalloon', this.options.isCustomBalloon)
+      const customBalloon = this.options.nodeCustomBalloon
 
-      customBalloon!.style.display = 'none'
-      customBalloon!.style.zIndex = '999999'
-      customBalloon!.style.position = 'fixed'
+      customBalloon.style.display = 'none'
+      customBalloon.style.zIndex = '999999'
+      customBalloon.style.position = 'fixed'
     }
 
-    this.node.style.backgroundColor = this.options!.mapTheme!.colorBG
+    this.node.style.backgroundColor = this.options.mapTheme.colorBG
     this.node.style.overflow = 'auto'
-    //console.log('this.options!.isMobileZoom', this.options!.isMobileZoom)
+    //console.log('this.options.isMobileZoom', this.options.isMobileZoom)
     if (this.isMobile) {
-      if (this.options!.isMobileZoom) {
+      if (this.options.isMobileZoom) {
         this.initZoom()
       }
       this.initMobileBalloon()
@@ -232,12 +203,12 @@ export class ClientSVGEditor extends Base {
     }
     //const getBalloon=  createBalloon(optionsBalloon);
 
-    if (this.options!.isCustomBalloon) {
+    if (this.options.isCustomBalloon) {
       //this.customNodeBallon = this.customNodeBallon
       if (!this.isMobile) {
         this.nodeBallon = createCustomBalloon(
           optionsBalloon,
-          this.options!.nodeCustomBalloon!
+          this.options.nodeCustomBalloon
         )
       }
     } else {
@@ -245,7 +216,7 @@ export class ClientSVGEditor extends Base {
         this.nodeBallon = createBalloon(optionsBalloon)
       }
     }
-    this.nodeBallon!.hide()
+    this.nodeBallon.hide()
     /*     document.body.addEventListener('click', (e) => {
       this.nodeBallon!.hide()
     }) */
@@ -259,28 +230,28 @@ export class ClientSVGEditor extends Base {
     const getSVGData = await loadSVGFile(itemSVG)
 
     this.node.innerHTML = getSVGData
-    if (this.options!.isRemoveUnuseItem) {
+    if (this.options.isRemoveUnuseItem) {
       ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    console.log('HOVER ENABLE = ', this.options!.isHoverEnable)
-    if (this.options!.isHoverEnable) {
+    console.log('HOVER ENABLE = ', this.options.isHoverEnable)
+    if (this.options.isHoverEnable) {
       this.initInteractiveLayer()
     }
     this.clearInteractiveLayer()
-    const svg = this.node.querySelector('svg')!
+    const svg = this.node.querySelector('svg')
     console.log('this.node', svg)
     svg.style = ''
     svg.style.width = '100%'
     svg.style.height = '100%'
 
-    if (this.options!.title !== '') {
+    if (this.options.title !== '') {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
       titleDom.setAttribute('class', 'svgmap-title')
       titleDom.style.display = 'block'
 
-      titleDom.innerHTML = `<h1>${this.options!.title}</h1>`
+      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
       this.node.insertBefore(titleDom, this.node.firstChild)
       //this.node.appendChild(titleDom)
     }
@@ -290,16 +261,16 @@ export class ClientSVGEditor extends Base {
     this.node.innerHTML = ''
 
     this.node.innerHTML = stringSVG
-    if (this.options!.isRemoveUnuseItem) {
+    if (this.options.isRemoveUnuseItem) {
       ClientSVGEditor.syncDataItemsVsInteractiveLayer(this)
     }
-    if (this.options!.isHoverEnable) {
+    if (this.options.isHoverEnable) {
       this.initInteractiveLayer()
     }
     this.clearInteractiveLayer()
-    console.log('this.options!.isMobileZoom', this.options!.isMobileZoom)
+    console.log('this.options.isMobileZoom', this.options.isMobileZoom)
     if (this.isMobile) {
-      if (this.options!.isMobileZoom) {
+      if (this.options.isMobileZoom) {
         this.initZoom()
       }
       this.initMobileBalloon()
@@ -310,12 +281,12 @@ export class ClientSVGEditor extends Base {
     }
     //const getBalloon=  createBalloon(optionsBalloon);
 
-    if (this.options!.isCustomBalloon) {
+    if (this.options.isCustomBalloon) {
       //this.customNodeBallon = this.customNodeBallon
       if (!this.isMobile) {
         this.nodeBallon = createCustomBalloon(
           optionsBalloon,
-          this.options!.nodeCustomBalloon!
+          this.options.nodeCustomBalloon
         )
       }
     } else {
@@ -324,14 +295,14 @@ export class ClientSVGEditor extends Base {
       }
     }
 
-    if (this.options!.title !== '') {
+    if (this.options.title !== '') {
       const titleDom = document.createElement('div')
       //titleDom.style.position = 'fixed'
 
       titleDom.setAttribute('class', 'svgmap-title')
       titleDom.style.display = 'block'
 
-      titleDom.innerHTML = `<h1>${this.options!.title}</h1>`
+      titleDom.innerHTML = `<h1>${this.options.title}</h1>`
       this.node.insertBefore(titleDom, this.node.firstChild)
       //this.node.appendChild(titleDom)
     }
@@ -353,7 +324,7 @@ export class ClientSVGEditor extends Base {
 
       // console.log('syncDataItemsVsInteractiveLayer isItemUse = ', isItemUse)
       if (isItemUse === undefined) {
-        client.deleteItem(item.id!)
+        client.deleteItem(item.id)
       }
     })
   }
@@ -366,11 +337,11 @@ export class ClientSVGEditor extends Base {
   }
 
   hideBalloon() {
-    this.nodeBallon!.hide()
+    this.nodeBallon.hide()
   }
   deleteItem(id: string) {
     const item = this.node
-      .querySelector(`${this.options!.interactiveLayer}`)
+      .querySelector(`${this.options.interactiveLayer}`)
       .querySelector(`#${id}`)
     item?.remove()
   }
@@ -398,15 +369,15 @@ export class ClientSVGEditor extends Base {
 
     arrayId.forEach((id) => {
       const item = this.node
-        .querySelector(`${this.options!.interactiveLayer}`)
+        .querySelector(`${this.options.interactiveLayer}`)
         .querySelector(`#${id}`)
       console.log('item', item)
 
-      item.style.fill = this.options!.mapTheme!.colorSelectItem
-      item.style.stroke = this.options!.mapTheme!.colorBorderSelectItem
-      item.style.strokeWidth = this.options!.mapTheme!.widthBorderSelectItem
-      item.style.opacity = this.options!.mapTheme!.opacitySelectItem
-      item.style.fillOpacity = this.options!.mapTheme!.opacitySelectItem
+      item.style.fill = this.options.mapTheme.colorSelectItem
+      item.style.stroke = this.options.mapTheme.colorBorderSelectItem
+      item.style.strokeWidth = this.options.mapTheme.widthBorderSelectItem
+      item.style.opacity = this.options.mapTheme.opacitySelectItem
+      item.style.fillOpacity = this.options.mapTheme.opacitySelectItem
     })
   }
 
@@ -417,52 +388,52 @@ export class ClientSVGEditor extends Base {
     console.log('item', ClientSVGEditor.selectItem)
     console.log('item X', ClientSVGEditor.selectItem?.getBoundingClientRect())
     ClientSVGEditor.selectItem.style.fill =
-      this.options!.mapTheme!.colorSelectItem
+      this.options.mapTheme.colorSelectItem
     ClientSVGEditor.selectItem.style.stroke =
-      this.options!.mapTheme!.colorBorderSelectItem
+      this.options.mapTheme.colorBorderSelectItem
     ClientSVGEditor.selectItem.style.strokeWidth =
-      this.options!.mapTheme!.widthBorderSelectItem
+      this.options.mapTheme.widthBorderSelectItem
     ClientSVGEditor.selectItem.style.opacity =
-      this.options!.mapTheme!.opacitySelectItem
+      this.options.mapTheme.opacitySelectItem
     ClientSVGEditor.selectItem.style.fillOpacity =
-      this.options!.mapTheme!.opacitySelectItem
+      this.options.mapTheme.opacitySelectItem
     const getDataItem = this.dataItems.find((item) => item.idmap === id)
     if (!this.isMobile) {
-      if (this.options!.isCustomBalloon) {
+      if (this.options.isCustomBalloon) {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
-            this.nodeBallon!.customRender(
+            this.nodeBallon.customRender(
               {
                 title: getDataItem?.title,
                 description: getDataItem?.description,
               },
-              this.options!.dataStructureCustomBalloon
+              this.options.dataStructureCustomBalloon
             )
           } else {
-            this.nodeBallon!.customRender(
+            this.nodeBallon.customRender(
               {
                 title: getDataItem?.title,
                 description: '',
               },
-              this.options!.dataStructureCustomBalloon
+              this.options.dataStructureCustomBalloon
             )
           }
         }
       } else {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
-            this.nodeBallon!.render({
+            this.nodeBallon.render({
               title: getDataItem?.title,
               description: getDataItem?.description,
             })
           } else {
-            this.nodeBallon!.render({
+            this.nodeBallon.render({
               title: getDataItem?.title,
               description: '',
             })
           }
         } else {
-          this.nodeBallon!.render({
+          this.nodeBallon.render({
             title: 'Info not found',
             description: 'Info not found',
           })
@@ -472,7 +443,7 @@ export class ClientSVGEditor extends Base {
     handleMousemove(
       ClientSVGEditor.selectItem.getBoundingClientRect(),
       this.nodeBallon,
-      this.options!.isCustomBalloon!
+      this.options.isCustomBalloon
     )
 
     window.addEventListener('scroll', this.myScrollOut)
@@ -485,13 +456,13 @@ export class ClientSVGEditor extends Base {
     handleMousemove(
       ClientSVGEditor.selectItem.getBoundingClientRect(),
       this.nodeBallon,
-      this.options!.isCustomBalloon!
+      this.options.isCustomBalloon
     )
   }
 
   showBalloonS(id: string) {
     const item = this.node
-      .querySelector(`${this.options!.interactiveLayer}`)
+      .querySelector(`${this.options.interactiveLayer}`)
       .querySelector(`#${id}`)
     /*     const itemData = this.dataItems.find(
       (itemObjects: { idmap: string }) => itemObjects.idmap === id
@@ -507,14 +478,14 @@ export class ClientSVGEditor extends Base {
 
   initInteractiveLayer() {
     const interactiveLayer = this.node.querySelector(
-      this.options!.interactiveLayer
+      this.options.interactiveLayer
     )
     /*     console.log('initInteractiveLayer = ', interactiveLayer)
     console.log('initInteractiveLayer = ', [...interactiveLayer.children]) */
     if (!this.isMobile) {
       interactiveLayer.addEventListener('mousemove', (e: any) => {
-        console.log('mousemove', e.x, e.y)
-        handleMousemove(e, this.nodeBallon, this.options!.isCustomBalloon!)
+        //console.log('mousemove', e.x, e.y)
+        handleMousemove(e, this.nodeBallon, this.options.isCustomBalloon)
 
         //  throttle(handleMousemove(e,this.nodeBallon), 11200)
       })
@@ -544,7 +515,7 @@ export class ClientSVGEditor extends Base {
                 if (event.target.tagName !== 'g') {
                   this.clearInteractiveLayer()
                 }
-                this.nodeBallon!.hide()
+                this.nodeBallon.hide()
               }
             )
 
@@ -552,16 +523,16 @@ export class ClientSVGEditor extends Base {
               console.log('click', event.target.id)
               if (event.target.tagName !== 'g') {
                 this.selectItem(event.target.id)
-                /*                 event.target.style.fill = this.options!.mapTheme!.colorSelectItem
+                /*                 event.target.style.fill = this.options.mapTheme.colorSelectItem
                 event.target.style.stroke =
-                  this.options!.mapTheme!.colorBorderSelectItem
+                  this.options.mapTheme.colorBorderSelectItem
                 event.target.style.strokeWidth =
-                  this.options!.mapTheme!.widthBorderSelectItem
+                  this.options.mapTheme.widthBorderSelectItem
                 event.target.style.opacity =
-                  this.options!.mapTheme!.opacitySelectItem */
+                  this.options.mapTheme.opacitySelectItem */
               }
               this.onClick(
-                this.options!.funcClick,
+                this.options.funcClick,
                 this.dataItems.find((item) => item.idmap === event.target.id)
               )
             })
@@ -569,19 +540,19 @@ export class ClientSVGEditor extends Base {
             item.addEventListener('click', (event: any) => {
               //  console.log('click', event.target.id)
               /*               if (event.target.tagName !== 'g') {
-                event.target.style.fill = this.options!.mapTheme!.colorSelectItem
+                event.target.style.fill = this.options.mapTheme.colorSelectItem
                 event.target.style.stroke =
-                  this.options!.mapTheme!.colorBorderSelectItem
+                  this.options.mapTheme.colorBorderSelectItem
                 event.target.style.strokeWidth =
-                  this.options!.mapTheme!.widthBorderSelectItem
+                  this.options.mapTheme.widthBorderSelectItem
                 event.target.style.opacity =
-                  this.options!.mapTheme!.opacitySelectItem
+                  this.options.mapTheme.opacitySelectItem
               } */
               if (event.target.tagName !== 'g') {
                 this.clearInteractiveLayer()
               }
               this.onClickMobile(
-                this.options!.funcClick,
+                this.options.funcClick,
                 this.dataItems.find((item) => item.idmap === event.target.id)
               )
             })
@@ -599,7 +570,7 @@ export class ClientSVGEditor extends Base {
                 if (event.target.tagName !== 'g') {
                   this.clearInteractiveLayer()
                 }
-                this.nodeBallon!.hide()
+                this.nodeBallon.hide()
               }
             )
           }
@@ -608,7 +579,7 @@ export class ClientSVGEditor extends Base {
             //  console.log('click id', item.id)
 
             this.onClick(
-              this.options!.funcClick,
+              this.options.funcClick,
               this.dataItems.find((itemd) => itemd.idmap === item.id)
             )
           })
@@ -642,13 +613,13 @@ export class ClientSVGEditor extends Base {
     let pz = new PinchZoom(el, optionsZoom)
     pz.enable() */
 
-    el!.onpointerdown = this.pointerdownHandler.bind(this)
-    el!.onpointermove = this.pointermoveHandler.bind(this)
+    el.onpointerdown = this.pointerdownHandler.bind(this)
+    el.onpointermove = this.pointermoveHandler.bind(this)
     console.log(this.isMobile)
     //     el!.onpointerup = pointerupHandler;
-    el!.onpointercancel = this.pointerupHandler.bind(this)
-    el!.onpointerout = this.pointerupHandler.bind(this)
-    el!.onpointerleave = this.pointerupHandler.bind(this)
+    el.onpointercancel = this.pointerupHandler.bind(this)
+    el.onpointerout = this.pointerupHandler.bind(this)
+    el.onpointerleave = this.pointerupHandler.bind(this)
   }
 
   pointerdownHandler(ev: any) {
@@ -657,7 +628,7 @@ export class ClientSVGEditor extends Base {
     console.log('pointerDown', ev)
     console.log('mob  == ', ClientSVGEditor.evCache)
 
-    ClientSVGEditor.evCache!.push(ev)
+    ClientSVGEditor.evCache.push(ev)
   }
 
   pointermoveHandler(ev: any) {
@@ -674,17 +645,16 @@ export class ClientSVGEditor extends Base {
     //const diffArrMove = [];
 
     // Find this event in the cache and update its record with this event
-    const index = ClientSVGEditor.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    ClientSVGEditor.evCache![index] = ev
+    ClientSVGEditor.evCache[index] = ev
 
     // If two pointers are down, check for pinch gestures
-    if (ClientSVGEditor.evCache!.length === 2) {
+    if (ClientSVGEditor.evCache.length === 2) {
       // Calculate the distance between the two pointers
       const curDiff = Math.abs(
-        ClientSVGEditor.evCache![0].clientX -
-          ClientSVGEditor.evCache![1].clientX
+        ClientSVGEditor.evCache[0].clientX - ClientSVGEditor.evCache[1].clientX
       )
 
       if (ClientSVGEditor.prevDiff > 0) {
@@ -712,8 +682,8 @@ export class ClientSVGEditor extends Base {
       }
       // Cache the distance for the next move event
       ClientSVGEditor.prevDiff = curDiff
-      this.node!.firstChild.style.transform = `scale(${this.currentZoom})` //  scale(1.5)
-      this.node!.firstChild.style.transformOrigin = 'center'
+      this.node.firstChild.style.transform = `scale(${this.currentZoom})` //  scale(1.5)
+      this.node.firstChild.style.transformOrigin = 'center'
     } else {
       console.log('Pan moving')
       const curDiffX = Math.abs(ev.clientX)
@@ -728,16 +698,16 @@ export class ClientSVGEditor extends Base {
     // background and border
     //this.removeEvent(ev)
 
-    const index = ClientSVGEditor.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    ClientSVGEditor.evCache!.splice(index, 1)
+    ClientSVGEditor.evCache.splice(index, 1)
 
     //ev.target.style.background = "white";
     //ev.target.style.border = "1px solid black";
 
     // If the number of pointers down is less than two then reset diff tracker
-    if (ClientSVGEditor.evCache!.length < 2) {
+    if (ClientSVGEditor.evCache.length < 2) {
       //this.prevDiff = -1
       //  this.currentZoom = Math.floor(this.prevDiff / 10) / 10
       console.log('this.currentZoom = ', this.currentZoom)
@@ -745,22 +715,22 @@ export class ClientSVGEditor extends Base {
   }
   removeEvent(ev: any) {
     // Remove this event from the target's cache
-    const index = ClientSVGEditor.evCache!.findIndex(
+    const index = ClientSVGEditor.evCache.findIndex(
       (cachedEv: any) => cachedEv.pointerId === ev.pointerId
     )
-    ClientSVGEditor.evCache!.splice(index, 1)
+    ClientSVGEditor.evCache.splice(index, 1)
   }
 
   initMobileBalloon = () => {
     const interactiveLayer = this.node.querySelector(
-      this.options!.interactiveLayer
+      this.options.interactiveLayer
     )
     interactiveLayer.addEventListener('click', (e: any) => {
       console.log('click', e.target.id)
       e.stopPropagation()
       /* if (e.target.tagName !== 'g') {
       this.onClickMobile(
-        this.options!.funcClick,
+        this.options.funcClick,
         this.dataItems.find((item) => item.idmap === e.target.id)
       )
     } */
@@ -788,35 +758,38 @@ export class ClientSVGEditor extends Base {
       document.body.addEventListener('click', (e) => {
         if (e.target !== baloonMobile) {
           // console.log('click', e.target)
-          baloonMobile!.style.display = 'none'
+          baloonMobile.style.display = 'none'
         }
       })
     }
   }
 
   onClickMobile(func: any, params: any) {
-    console.log(`onClickMobile params =`, params)
+    //console.log(`onClickMobile params =`, params)
     const balloonMobileRoot = document.getElementById('BalloonMobile')
-    balloonMobileRoot!.style.display = 'block'
+    if (balloonMobileRoot !== null) {
+      balloonMobileRoot.style.display = 'block'
+    }
+
     const balloonItem = document.getElementById('balloonItemMobile')
-    console.log(`onClickMobile params =`, balloonItem)
-    balloonItem!.innerHTML = `
-    <div style="display:flex;flex-direction: column;">
-    <div style="padding:4px;    text-align: center; font-size:1.2em;font-weight:600;">
-    ${params.title}
-    </div>
-    <div style="padding:4px;display:flex;justify-content: space-between;align-items: center;">
-<div>
-    ${params.description}
-    </div>
-    <a href="${params.slug}" target="_self" style="padding:4px;">
-      <button  style="height: 40px;" >Посмотреть</button>
-    </a>
-    </div>
-
-    </div>
-    `
-
+    //console.log(`onClickMobile params =`, balloonItem)
+    if (balloonItem !== null) {
+      balloonItem.innerHTML = `
+      <div style="display:flex;flex-direction: column;">
+      <div style="padding:4px;    text-align: center; font-size:1.2em;font-weight:600;">
+      ${params.title}
+      </div>
+      <div style="padding:4px;display:flex;justify-content: space-between;align-items: center;">
+      <div>
+      ${params.description}
+      </div>
+      <a href="${params.slug}" target="_self" style="padding:4px;">
+        <button  style="height: 40px;" >Посмотреть</button>
+      </a>
+      </div>
+      </div>
+      `
+    }
     //func(params)
   }
   onHover(ev: any) {
@@ -826,49 +799,49 @@ export class ClientSVGEditor extends Base {
     const getDataItem = this.dataItems.find((item) => item.idmap === ev.id)
     //  console.log('getDataItem', getDataItem)
 
-    ev.style.fill = this.options!.mapTheme!.colorHoverItem
-    if (this.options!.mapTheme!.isBorderHoverItem) {
-      ev.style.stroke = this.options!.mapTheme!.colorBorderHoverItem
-      ev.style.strokeWidth = this.options!.mapTheme!.widthBorderHoverItem
+    ev.style.fill = this.options.mapTheme.colorHoverItem
+    if (this.options.mapTheme.isBorderHoverItem) {
+      ev.style.stroke = this.options.mapTheme.colorBorderHoverItem
+      ev.style.strokeWidth = this.options.mapTheme.widthBorderHoverItem
     }
 
-    ev.style.opacity = this.options!.mapTheme!.opacityHoverItem
+    ev.style.opacity = this.options.mapTheme.opacityHoverItem
     if (!this.isMobile) {
-      if (this.options!.isCustomBalloon) {
+      if (this.options.isCustomBalloon) {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
-            this.nodeBallon!.customRender(
+            this.nodeBallon.customRender(
               {
                 title: getDataItem?.title,
                 description: getDataItem?.description,
               },
-              this.options!.dataStructureCustomBalloon
+              this.options.dataStructureCustomBalloon
             )
           } else {
-            this.nodeBallon!.customRender(
+            this.nodeBallon.customRender(
               {
                 title: getDataItem?.title,
                 description: '',
               },
-              this.options!.dataStructureCustomBalloon
+              this.options.dataStructureCustomBalloon
             )
           }
         }
       } else {
         if (getDataItem !== undefined) {
           if (getDataItem?.description !== undefined) {
-            this.nodeBallon!.render({
+            this.nodeBallon.render({
               title: getDataItem?.title,
               description: getDataItem?.description,
             })
           } else {
-            this.nodeBallon!.render({
+            this.nodeBallon.render({
               title: getDataItem?.title,
               description: '',
             })
           }
         } else {
-          this.nodeBallon!.render({
+          this.nodeBallon.render({
             title: 'Info not found',
             description: 'Info not found',
           })
@@ -886,15 +859,15 @@ export class ClientSVGEditor extends Base {
 
     if (getDataItem !== undefined) {
       if (getDataItem?.description !== undefined) {
-        this.nodeBallon!.render({
+        this.nodeBallon.render({
           title: getDataItem?.title,
           description: getDataItem?.description,
         })
       } else {
-        this.nodeBallon!.render({ title: getDataItem?.title, description: '' })
+        this.nodeBallon.render({ title: getDataItem?.title, description: '' })
       }
     } else {
-      this.nodeBallon!.render({
+      this.nodeBallon.render({
         title: 'Info not found',
         description: 'Info not found',
       })
@@ -902,10 +875,14 @@ export class ClientSVGEditor extends Base {
   }
 
   clearInteractiveLayer() {
+    console.log(
+      'this.options.interactiveLayer = ',
+      this.options.interactiveLayer
+    )
     const interactiveLayer = [
-      ...this.node.querySelector(this.options!.interactiveLayer).children,
+      ...this.node.querySelector(this.options.interactiveLayer).children,
     ]
-    //  console.log('clearInteractiveLayer = ', interactiveLayer)
+    console.log('clearInteractiveLayer = ', interactiveLayer)
     interactiveLayer.forEach(
       (element: {
         tagName: string
@@ -916,13 +893,13 @@ export class ClientSVGEditor extends Base {
           strokeWidth: number | undefined
         }
       }) => {
-        element.style.fill = this.options!.mapTheme!.colorItem
-        if (this.options!.mapTheme!.isBorderItem) {
-          element.style.stroke = this.options!.mapTheme!.colorBorderItem
-          element.style.strokeWidth = this.options!.mapTheme!.widthBorderItem
+        element.style.fill = this.options.mapTheme.colorItem
+        if (this.options.mapTheme.isBorderItem) {
+          element.style.stroke = this.options.mapTheme.colorBorderItem
+          element.style.strokeWidth = this.options.mapTheme.widthBorderItem
         }
         if (element.tagName !== 'g') {
-          element.style.opacity = this.options!.mapTheme!.opacityItem
+          element.style.opacity = this.options.mapTheme.opacityItem
         }
       }
     )
@@ -945,7 +922,7 @@ export class ClientSVGEditor extends Base {
 // create function load text file from url
 
 const loadSVGFile = async (url: string) => {
-  //  console.log('loadTextFromFile url = ', url)
+  console.log('loadTextFromFile url = ', url)
   const data = fetch(url)
     .then((response) => response.text())
     .then((text) => {
@@ -961,7 +938,7 @@ const loadSVGFile = async (url: string) => {
 
 export class Balloon extends Base {
   themeBalloonOptions: BalloonTheme | null
-  balloonDom: HTMLElement | null
+  balloonDom: HTMLElement | any
   constructor(options: BalloonOptions | null, domBalloon: HTMLElement | null) {
     super()
     if (options !== null) {
@@ -981,10 +958,10 @@ export class Balloon extends Base {
   }
 
   hide() {
-    this.balloonDom!.style.display = 'none'
+    this.balloonDom.style.display = 'none'
   }
   show() {
-    this.balloonDom!.style.display = 'block'
+    this.balloonDom.style.display = 'block'
   }
 
   render(dataRender: any) {
@@ -1009,15 +986,15 @@ export class Balloon extends Base {
       </div>
       </div>
     `
-    this.balloonDom!.style.display = 'block'
+    this.balloonDom.style.display = 'block'
     return true
   }
   customRender(dataRender: any, structureCustomRender: any) {
     /*     console.log('custom Render dataRender = ', dataRender)
     console.log('custom Render options = ', this.themeBalloonOptions)
     console.log('custom Render structureCustomRender = ', structureCustomRender) */
-    const titleDom = this.balloonDom!.querySelector(structureCustomRender.title)
-    const descriptionDom = this.balloonDom!.querySelector(
+    const titleDom = this.balloonDom.querySelector(structureCustomRender.title)
+    const descriptionDom = this.balloonDom.querySelector(
       structureCustomRender.description
     )
     titleDom.innerHTML = dataRender.title
@@ -1107,7 +1084,7 @@ const handleMousemove = (
     : baloon.balloonDom.querySelector('.balloon').offsetWidth
   //  console.log(`cursor : baloon =`, getWidthElement, ` \n`)
   if (!baloon.themeBalloonOptions?.isPositionFixed) {
-    baloon.balloonDom!.style.transform = `translate(${
+    baloon.balloonDom.style.transform = `translate(${
       position.x - getWidthElement / 2 - baloon.themeBalloonOptions.left
     }px, ${position.y - 40 - baloon.themeBalloonOptions.top}px)`
   } else {

@@ -16,10 +16,9 @@ import {
   dataArraySelectShops2,
 } from './dataItems'
 
-export function testmylib() {
+export function testmylib(): boolean {
   console.log('testmylib')
   const nodeMap = document.getElementById('map')
-  //const nodeMap = document.getElementById('map44')
   const nodeMap2 = document.getElementById('map2')
   const nodeMap3 = document.getElementById('map3')
   const nodeMap4 = document.getElementById('map4')
@@ -213,9 +212,9 @@ export function testmylib() {
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-0.svg'
-          map4.options!.title = 'Этаж 0'
-          map4.options!.isHoverEnable = true // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-0.svg'
+          map4.options.title = 'Этаж 0'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor0
 
           setTimeout(() => {
@@ -230,9 +229,9 @@ export function testmylib() {
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-1.svg'
-          map4.options!.title = 'Этаж 1'
-          map4.options!.isHoverEnable = true // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-1.svg'
+          map4.options.title = 'Этаж 1'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor1
 
           setTimeout(() => {
@@ -245,9 +244,9 @@ export function testmylib() {
           btnSelect?.classList.add('hidden')
           clearActive()
           elementBtn.classList.add('active')
-          map4.options!.urlmap = './public/multy/grand-floor-2.svg'
-          map4.options!.title = 'Этаж 2'
-          map4.options!.isHoverEnable = true // Remove hover effect
+          map4.options.urlmap = './public/multy/grand-floor-2.svg'
+          map4.options.title = 'Этаж 2'
+          map4.options.isHoverEnable = true // Remove hover effect
           map4.dataItems = dataShops4Floor2
 
           setTimeout(() => {
@@ -319,9 +318,9 @@ export function testmylib() {
 
       map4.clearInteractiveLayer()
       console.log('btnSelect1 = ', e.target)
-      map4.options!.mapTheme!.colorSelectItem = '#ff0000'
-      map4.options!.mapTheme!.opacitySelectItem = 1
-      map4.options!.mapTheme!.widthBorderSelectItem = 2
+      map4.options.mapTheme.colorSelectItem = '#ff0000'
+      map4.options.mapTheme.opacitySelectItem = 1
+      map4.options.mapTheme.widthBorderSelectItem = 2
       map4.selectItem('Shape-2-01')
     })
     btnSelect2?.addEventListener('click', (e) => {
@@ -331,9 +330,9 @@ export function testmylib() {
 
       map4.clearInteractiveLayer()
       console.log('btnSelect1 = ', e.target)
-      map4.options!.mapTheme!.colorSelectItem = '#ff0000'
-      map4.options!.mapTheme!.opacitySelectItem = 1
-      map4.options!.mapTheme!.widthBorderSelectItem = 2
+      map4.options.mapTheme.colorSelectItem = '#ff0000'
+      map4.options.mapTheme.opacitySelectItem = 1
+      map4.options.mapTheme.widthBorderSelectItem = 2
       map4.selectItem('Shape-2-36')
     })
     btnGroupSelect1?.addEventListener('click', (e) => {
@@ -344,9 +343,9 @@ export function testmylib() {
 
       map4.clearInteractiveLayer()
       console.log('btnGroupSelect1 = ', e.target)
-      map4.options!.mapTheme!.colorSelectItem = '#334f0c'
-      map4.options!.mapTheme!.opacitySelectItem = 0.7
-      map4.options!.mapTheme!.widthBorderSelectItem = 1.1
+      map4.options.mapTheme.colorSelectItem = '#334f0c'
+      map4.options.mapTheme.opacitySelectItem = 0.7
+      map4.options.mapTheme.widthBorderSelectItem = 1.1
       map4.multySelectItem(dataArraySelectShops1)
     })
     btnGroupSelect2?.addEventListener('click', (e) => {
@@ -357,9 +356,9 @@ export function testmylib() {
 
       map4.clearInteractiveLayer()
       console.log('btnGroupSelect2 = ', e.target)
-      map4.options!.mapTheme!.colorSelectItem = '#ff400c'
-      map4.options!.mapTheme!.widthBorderSelectItem = 1.1
-      map4.options!.mapTheme!.opacitySelectItem = 0.7
+      map4.options.mapTheme.colorSelectItem = '#ff400c'
+      map4.options.mapTheme.widthBorderSelectItem = 1.1
+      map4.options.mapTheme.opacitySelectItem = 0.7
       map4.multySelectItem(dataArraySelectShops2)
     })
   }
@@ -420,12 +419,12 @@ export function testmylib() {
   )
 
   const startMap5 = map5.start()
-  console.log('startMap5 = ', startMap5)
-  const loadSVG = (url) => {
+  //console.log('startMap5 = ', startMap5)
+  /*   const loadSVG = (url) => {
     console.log('loadSVG', url)
     console.log('startMap4 =', startMap4)
-  }
-  return loadSVG
+  } */
+  return true
 }
 
 function gotoURLClick(dataelement: any) {
